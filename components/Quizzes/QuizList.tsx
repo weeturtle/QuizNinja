@@ -1,22 +1,7 @@
 import { FC } from 'react';
+import { Quiz } from '../../types/Quiz';
 
-interface Answer {
-  answer: string;
-  correct: boolean;
-}
 
-interface Question {
-  question: string,
-  answers: Answer[]
-}
-
-interface Quiz {
-  _id: string,
-  name: string,
-  subject: string,
-  questions: Question[]
-}
-  
 interface QuizListProps {
   quizzes: Quiz[],
   searchTerm?: string,

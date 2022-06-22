@@ -8,12 +8,17 @@ const getQuizzes: NextApiHandler = async (req, res) => {
   // This can be used to access the collections on the database
   const { db } = await connectToDatabase();
   
+  // Extract queries from the request
+  const queries = req.query;
+
   // Gets the quizzes collection from the database
-  const quizzesCollection = db.collection('quizzes')
-    // Finds all the quizzes in the collection and returns them as an array
-    .find()
+  const quizzesCollection = await db.collection('Quizzes')
+    // Finds all the quizzes in the collection that match the queries
+    // If no Queries are provided, it will return all the quizzes
+    .find(queries || {})
+    // Returns them as an array
     .toArray();
-  
+
   // Sends the quizzes array back to the client as a JSON object
   // Sets the status code to 200 meaning successful
   res.status(200).json(quizzesCollection);
