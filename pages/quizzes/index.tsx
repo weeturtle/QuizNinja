@@ -25,7 +25,7 @@ const Quizzes: NextPage = () => {
           {quizzes.map((quiz, i) => (
             <li key={i}>
               {/* The quiz name is rendered as a link to the quiz page. */}
-              <a href={`/api/quiz/${quiz._id}`}>{quiz.name}</a>
+              <a href={`/quiz/${quiz._id}`}>{quiz.name}</a>
             </li>
           ))}
         </ul>
