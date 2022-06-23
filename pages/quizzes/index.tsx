@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import LoadWrapper from '../../components/General/LoadWrapper';
+import PageTitle from '../../components/General/PageTitle';
 import useQuizzes from '../../lib/frontend/fetchQuizzes';
 
 // This is a basic next page function
@@ -17,7 +18,7 @@ const Quizzes: NextPage = () => {
 
   return (
     <>
-      <h1>Quizzes</h1>
+      <PageTitle>Quizzes</PageTitle>
       <LoadWrapper loadingState={loadingState}>
         {/* The quiz list is rendered if the loading state is successful. */}
         <ul>

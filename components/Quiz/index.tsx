@@ -5,6 +5,7 @@ import QuestionState from '../../types/questionState';
 import { Answer, Quiz } from '../../types/Quiz';
 import AnswerButton from './answerButton';
 import AnswersContainer from './AnswersContainer';
+import NextButton from './NextButton';
 import QuestionBox from './QuestionBox';
 import QuizContainer from './QuizContainer';
 
@@ -64,7 +65,6 @@ const Quiz: FC<QuizProps> = ({ quiz }) => {
             {/* Render the current question text */}
             <QuestionBox>{quiz.questions[currentQuestion].question}</QuestionBox>
             <AnswersContainer>
-
               {
                 // Render all of the answers as buttons
                 quiz.questions[currentQuestion].answers.map((answer, i) => (
@@ -86,11 +86,11 @@ const Quiz: FC<QuizProps> = ({ quiz }) => {
               // The button to pass to the next question should be rendered
               // Calls the handleNext function
               questionState !== QuestionState.UNANSWERED && (
-                <button
+                <NextButton
                   onClick={handleNext}
                 >
                   Next
-                </button>
+                </NextButton>
               )
             }
           </QuizContainer>

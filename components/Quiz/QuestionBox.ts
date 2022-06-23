@@ -2,10 +2,10 @@ import styled from 'styled-components';
 import Colours from '../../styles/colours';
 
 export default styled.div`
-  max-width: 20rem;
+  max-width: 40rem;
   min-width: 5rem;
   
-  padding-left: 0.5rem;
+  padding: 0.5rem 0.5rem;
 
   color: ${Colours.ACCENTED_TEXT};
   font-size: 2rem;
