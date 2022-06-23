@@ -4,6 +4,8 @@ import GameState from '../../types/gameState';
 import QuestionState from '../../types/questionState';
 import { Answer, Quiz } from '../../types/Quiz';
 import AnswerButton from './answerButton';
+import AnswersContainer from './AnswersContainer';
+import QuestionBox from './QuestionBox';
 import QuizContainer from './QuizContainer';
 
 // Defines the props for the Quiz game component
@@ -60,22 +62,25 @@ const Quiz: FC<QuizProps> = ({ quiz }) => {
         gameState === GameState.INGAME && (
           <QuizContainer>
             {/* Render the current question text */}
-            <p>{quiz.questions[currentQuestion].question}</p>
-            {
-              // Render all of the answers as buttons
-              quiz.questions[currentQuestion].answers.map((answer, i) => (
-                // Passes through whether the answer is correct
-                // Will only display whether answer is correct after it has been answered
-                <AnswerButton
-                  key={i}
-                  onClick={() => checkAnswer(answer)}
-                  answerState={answer.isCorrect}
-                  displayAnswerState={questionState !== QuestionState.UNANSWERED}
-                >
-                  {answer.answer}
-                </AnswerButton>
-              ))
-            }
+            <QuestionBox>{quiz.questions[currentQuestion].question}</QuestionBox>
+            <AnswersContainer>
+
+              {
+                // Render all of the answers as buttons
+                quiz.questions[currentQuestion].answers.map((answer, i) => (
+                  // Passes through whether the answer is correct
+                  // Will only display whether answer is correct after it has been answered
+                  <AnswerButton
+                    key={i}
+                    onClick={() => checkAnswer(answer)}
+                    answerState={answer.isCorrect}
+                    displayAnswerState={questionState !== QuestionState.UNANSWERED}
+                  >
+                    {answer.answer}
+                  </AnswerButton>
+                ))
+              }
+            </AnswersContainer>
             {
               // After the question has been answered
               // The button to pass to the next question should be rendered
