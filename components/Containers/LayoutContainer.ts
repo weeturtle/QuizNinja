@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Colours from '../../styles/colours';
 
 // Styles the whole page container
 // Makes the page container the maximum width and height of the screen
@@ -12,4 +13,6 @@ export default styled.div`
   flex-direction: row;
   align-items: stretch;
   flex-wrap: nowrap;
+
+  background-color: ${Colours.DARK_BACKGROUND};
 `;
