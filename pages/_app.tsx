@@ -1,6 +1,5 @@
 import type { AppProps } from 'next/app';
 import Layout from '../components/Containers/layout';
-import PageContainer from '../components/Containers/PageContainer';
 import '../styles/global.scss';
 
 // Wrapper around each page to handle global styles and general layout.
@@ -8,9 +7,7 @@ import '../styles/global.scss';
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Layout>
-      <PageContainer>
-        <Component {...pageProps} />
-      </PageContainer>
+      <Component {...pageProps} />
     </Layout>
   );
 }

@@ -1,4 +1,25 @@
 import { FC, useState } from 'react';
+import styled from 'styled-components';
+import Colours from '../../styles/colours';
+
+// Styles the searchbox container and the input field within it
+const SearchBoxContainer = styled.div`
+  width: 30vw;
+  height: 8vh;
+
+  border: 1px solid ${Colours.PRIMARY};
+  
+  input[type='text'] {
+    font-size: 1.5rem;
+    color: ${Colours.TEXT};
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+  }
+
+`;
 
 // The searchbox component can take parameters being: 
 // - value: The current search term.
@@ -25,7 +46,7 @@ const Searchbox: FC<SearchboxProps> = ({ ariaLabel, placeholder, onChange: setEx
   };
 
   return (
-    <div className="searchbox">
+    <SearchBoxContainer>
       <input
         type="text"
         value={externalSearchTerm || internalSearchTerm}
@@ -33,7 +54,7 @@ const Searchbox: FC<SearchboxProps> = ({ ariaLabel, placeholder, onChange: setEx
         placeholder={placeholder}
         aria-label={ariaLabel || 'search-box'}
       />
-    </div>
+    </SearchBoxContainer>
   );
 }; 
 

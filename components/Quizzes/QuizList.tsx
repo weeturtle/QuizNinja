@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { QuizId } from '../../types/Quiz';
 import QuizLink from './QuizLink';
+import QuizLinkContainer from './QuizLinksContainer';
 
 
 // Defines the props of the component
@@ -15,7 +16,7 @@ interface QuizListProps {
 // Can be scrolled through if the list is too long
 const QuizList: FC<QuizListProps> = ({ quizzes, searchTerm }) => {
   return (
-    <div>
+    <QuizLinkContainer>
       {
         (
           // If the search term is not provided, display all quizzes
@@ -31,7 +32,7 @@ const QuizList: FC<QuizListProps> = ({ quizzes, searchTerm }) => {
             // The QuizLink is a react component that is used to display a quiz
             <QuizLink name={quiz.name} _id={quiz._id} key={i} />
           ))}
-    </div>
+    </QuizLinkContainer>
   );
 };
 
