@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import QuizGame from '../../components/Quiz/index';
 import LoadWrapper from '../../components/General/LoadWrapper';
 import useQuiz from '../../lib/frontend/fetchQuiz';
 
@@ -32,9 +33,7 @@ const Quiz: NextPage = () => {
   return (
     <>
       <LoadWrapper loadingState={loadingState}>
-        {quiz && (
-          <p>{quiz.name}</p>
-        )}
+        {quiz && <QuizGame quiz={quiz}/>}
       </LoadWrapper>
     </>
   );
