@@ -6,4 +6,5 @@ export default styled.div`
   width: 100%;
   height: 7.5rem;
   background-color: ${Colours.PRIMARY};
+  border-radius: 0;
 `;

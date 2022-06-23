@@ -4,6 +4,7 @@ import GameState from '../../types/gameState';
 import QuestionState from '../../types/questionState';
 import { Answer, Quiz } from '../../types/Quiz';
 import AnswerButton from './answerButton';
+import QuizContainer from './QuizContainer';
 
 // Defines the props for the Quiz game component
 // Takes a quiz as a parameter
@@ -57,7 +58,7 @@ const Quiz: FC<QuizProps> = ({ quiz }) => {
     <>
       { // If the game state is ingame
         gameState === GameState.INGAME && (
-          <>
+          <QuizContainer>
             {/* Render the current question text */}
             <p>{quiz.questions[currentQuestion].question}</p>
             {
@@ -87,7 +88,7 @@ const Quiz: FC<QuizProps> = ({ quiz }) => {
                 </button>
               )
             }
-          </>
+          </QuizContainer>
         )
       }
       { // Displays a game over screen after all of the questions

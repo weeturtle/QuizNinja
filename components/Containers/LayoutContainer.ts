@@ -14,5 +14,6 @@ export default styled.div`
   align-items: stretch;
   flex-wrap: nowrap;
 
+  border-radius: 0;
   background-color: ${Colours.DARK_BACKGROUND};
 `;
