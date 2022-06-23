@@ -1,5 +1,8 @@
 import { FC } from 'react';
 import Sidebar from '../Sidebar';
+import LayoutContainer from './LayoutContainer';
+import MainContainer from './MainContainer';
+import PageContainer from './PageContainer';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -9,10 +12,14 @@ interface LayoutProps {
 // It contains the sidebar and the main content.
 const Layout: FC<LayoutProps> = ({ children }) => {
   return (
-    <>
+    <LayoutContainer>
       <Sidebar />
-      <main>{children}</main>
-    </>
+      <MainContainer>
+        <PageContainer>
+          {children}
+        </PageContainer>
+      </MainContainer>
+    </LayoutContainer>
   );
 };
 
