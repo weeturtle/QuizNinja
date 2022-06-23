@@ -1,5 +1,7 @@
 import { connectToDatabase } from './mongodb';
 
+// Contains a function to set up the quiz collection
+// Only runs if the collection does not already exist
 export const CreateCollection = async () => {
   const { db } = await connectToDatabase();
   await db.createCollection('Quizzes', {
