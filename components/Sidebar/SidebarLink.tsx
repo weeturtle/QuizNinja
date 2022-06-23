@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
+import StyledSidebarLink from './StyledSidebarLink';
 
 // Defines the props for the link
 // The text is what will displayed on the link
@@ -26,7 +27,7 @@ const SidebarLink: FC<SidebarLinkProps> = ({ to, text }) => {
   // Returns a styled link with the text and the url
   return (
     <Link href={to}>
-      <a href={to}>{text}</a>
+      <StyledSidebarLink isActive={isActive} href={to}>{text}</StyledSidebarLink>
     </Link>
   );
 };
