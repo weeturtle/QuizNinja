@@ -6,7 +6,7 @@ import Colours from '../../styles/colours';
 export default styled.h1`
   position: absolute;
   top: 1rem;
-  left: 14rem;
+  left: 16rem;
 
   color: ${Colours.ACCENTED_TEXT};
   font-size: 1.75rem;

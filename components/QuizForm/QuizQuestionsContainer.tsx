@@ -1,28 +1,39 @@
 import { Dispatch, FC, SetStateAction } from 'react';
-import { QuizId } from '../../types/Quiz';
+import { Question as QuestionType } from '../../types/Quiz';
+import styled from 'styled-components';
+import Question from './Question';
+
+const StyledQuizQuestionsContainer = styled.div`
+  position: relative;
+  height: 70vh;
+  width: 80%;
+`;
 
 interface QuizQuestionsContainerProps {
-  quiz: QuizId;
-  setQuiz: Dispatch<SetStateAction<QuizId | null>>;
+  questions: QuestionType[];
+  setQuestions: Dispatch<SetStateAction<QuestionType[]>>;
 }
 
-const QuizQuestionsContainer: FC<QuizQuestionsContainerProps> = ({ quiz, setQuiz }) => {
+const QuizQuestionsContainer: FC<QuizQuestionsContainerProps> = ({ questions, setQuestions }) => {
+  const setQuestion = (question: QuestionType, questionNumber: number) => {
+    setQuestions(questions => {
+      questions[questionNumber] = question;
+      return questions;
+    });
+  };
+
+  const deleteQuestion = (questionNumber: number) => {
+    setQuestions(questions => questions.filter((_, index) => index !== questionNumber));
+  };
+
   return (
-    <div>
+    <StyledQuizQuestionsContainer>
       {
-        quiz.questions.map((question, index) => (
-          <>
-            <p key={index}>{question.question}</p>
-            {
-              question.answers.map((answer, index) => (
-                <p key={index}>{answer.answer}</p>
-              ))
-            }
-            )
-          </>
+        questions.map((question, index) => (
+          <Question setQuestion={setQuestion} deleteQuestion={deleteQuestion} question={question} questionNumber={index} key={index}  />
         ))
       }
-    </div>
+    </StyledQuizQuestionsContainer>
   );
 };
 

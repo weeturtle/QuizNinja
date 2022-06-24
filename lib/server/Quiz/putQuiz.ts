@@ -14,13 +14,18 @@ const putQuiz: NextApiHandler = async (req, res) => {
   try {
     // Validate the quiz before saving it to the database
     // This will throw an error if the quiz is invalid
+    console.log(quiz);
     validateQuiz(quiz);
 
     // Update the quiz on the database
     // The quiz is found by its id and the new quiz is passed in
-    const updateResult = await db.collection('Quizzes').updateOne({
-      _id: new ObjectId(quiz._id)
-    }, quiz);
+    const updateResult = await db.collection('Quizzes')
+      .updateOne(
+        { _id: new ObjectId(quiz._id) }, { $set: {
+          name: quiz.name,
+          subject: quiz.subject,
+          questions: quiz.questions
+        }});
 
     // If no quiz is found and updated, return a 404
     if (updateResult.modifiedCount === 0) {

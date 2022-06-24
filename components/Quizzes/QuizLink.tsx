@@ -15,9 +15,12 @@ interface QuizLinkProps {
 
 // Simple React component to render a quiz link
 const QuizLink: FC<QuizLinkProps> = ({ name, _id }) => {
-  // Generates a URL for the quiz
-  // Base URL is /quizzes/:id
-  const URL = `/quiz/${_id}`;
+  // Generates a URL to play the quiz
+  // Base URL is /quiz/:id
+  const PLAY_URL = `/quiz/${_id}`;
+  // Generates a URL to edit the quiz
+  // Base URL is /edit/:id/
+  const EDIT_URL = `/edit/${_id}`;
 
   // Next uses a Link component to generate a link
   // The a tag is generated with the name of the quiz and the URL from this
@@ -28,15 +31,15 @@ const QuizLink: FC<QuizLinkProps> = ({ name, _id }) => {
       {/* Container for the links related to a quiz */}
       <QuizLinks>
         {/* Link to play the quiz */}
-        <Link href={URL}>
+        <Link href={PLAY_URL}>
           <a>Play</a>
         </Link>
         {/* Link to edit the quiz */}
-        <QuizLinkButton
-          onClick={() => console.log('Edit')}
+        <Link
+          href={EDIT_URL}
         >
-          Edit
-        </QuizLinkButton>
+          <a>Edit</a>
+        </Link>
         {/* Link to delete the quiz */}
         <QuizLinkButton
           onClick={() => console.log('Delete')}
