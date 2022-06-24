@@ -2,12 +2,19 @@ import { Dispatch, FC, SetStateAction } from 'react';
 import { Question as QuestionType } from '../../types/Quiz';
 import styled from 'styled-components';
 import Question from './Question';
+import NewQuestion from './NewQuestion';
 
 // Styles the container for the questions
 const StyledQuizQuestionsContainer = styled.div`
   position: relative;
   height: 70vh;
   width: 80%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
 `;
 
 // Props for the questions container
@@ -30,6 +37,12 @@ const QuizQuestionsContainer: FC<QuizQuestionsContainerProps> = ({ questions, se
     });
   };
 
+  // Adds a new question to the questions data
+  const addQuestion = (question: QuestionType) => {
+    // Adds the question to the end of the questions array
+    setQuestions(questions => [...questions, question]);
+  };
+
   // Deletes the question at the index
   // Filters through the questions data and removes the question at the index questionNumber
   const deleteQuestion = (questionNumber: number) => {
@@ -44,6 +57,7 @@ const QuizQuestionsContainer: FC<QuizQuestionsContainerProps> = ({ questions, se
           <Question setQuestion={setQuestion} deleteQuestion={deleteQuestion} question={question} questionNumber={index} key={index}  />
         ))
       }
+      <NewQuestion addQuestion={addQuestion} />
     </StyledQuizQuestionsContainer>
   );
 };

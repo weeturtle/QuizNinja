@@ -5,7 +5,7 @@ import Colours from '../../../styles/colours';
 // Grid is used to position the answers
 export default styled.input`
   width: 100%;
-  height: 5vh;
+  height: 100%;
 
   grid-column: 1 / 1;
   grid-row: 1 / 1;

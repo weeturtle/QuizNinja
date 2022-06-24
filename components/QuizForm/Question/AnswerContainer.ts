@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 // Styles the container for the answer text input and checkbox
 export default styled.div`
-  width: 15rem;
+  width: 12rem;
   height: 5rem;
 
   display: flex;

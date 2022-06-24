@@ -5,6 +5,7 @@ import DeleteQuestionButton from './DeleteQuestionButton';
 import QuestionBox from './QuestionBox';
 import AnswersContainer from './AnswersContainer';
 import QuestionContainer from './QuestionContainer';
+import QuestionGrid from './QuestionGrid';
 
 // Component props for each question
 // question: QuestionType - The question data for this question
@@ -37,15 +38,17 @@ export const Question: FC<EditQuestionProps> = ({ question, questionNumber, setQ
   // Returns a button for each answer
   return (
     <QuestionContainer>
-      <QuestionBox value={editedQuestion} onChange={(e) => setQuestionText(e.target.value)}/>
-      <AnswersContainer>
-        {
-          editedAnswers.map((answer, index) => (
-            <Answer key={index} answer={answer} setAnswers={setAnswers} answerNumber={index}/>
-          ))
-        }
-      </AnswersContainer>
-      <DeleteQuestionButton onClick={() => deleteQuestion(questionNumber)}>Delete Question</DeleteQuestionButton>
+      <QuestionGrid>
+        <QuestionBox value={editedQuestion} onChange={(e) => setQuestionText(e.target.value)}/>
+        <AnswersContainer>
+          {
+            editedAnswers.map((answer, index) => (
+              <Answer key={index} answer={answer} setAnswers={setAnswers} answerNumber={index}/>
+            ))
+          }
+        </AnswersContainer>
+        <DeleteQuestionButton onClick={() => deleteQuestion(questionNumber)}>Delete Question</DeleteQuestionButton>
+      </QuestionGrid>
     </QuestionContainer>
   );
 };
