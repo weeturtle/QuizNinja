@@ -1,4 +1,3 @@
-import { ObjectId } from 'mongodb';
 import { FC, useState } from 'react';
 import { Quiz, QuizId } from '../../types/Quiz';
 import QuizFormContainer from './QuizFormContainer';

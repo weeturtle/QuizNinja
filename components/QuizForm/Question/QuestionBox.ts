@@ -10,6 +10,8 @@ export default styled.input`
   grid-column: 1 / 1;
   grid-row: 1 / 1;
 
+  background-color: transparent;
+
   color: ${Colours.TEXT};
   padding: 0.5rem;
   font-size: 20px;

@@ -8,4 +8,6 @@ export default styled.div`
   display: grid;
   grid-template-columns: 9fr 1fr;
   grid-template-rows: 50% 50%;
+
+  gap: 0.5rem;
 `;

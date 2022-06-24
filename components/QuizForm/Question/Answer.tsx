@@ -35,6 +35,7 @@ const Answer: FC<AnswerProps> = ({ answer, setAnswers, answerNumber }) => {
   return (
     <AnswerContainer>
       <input
+        type="text"
         value={editedAnswer} 
         onChange={(e) => setAnswer(e.target.value)}
       />

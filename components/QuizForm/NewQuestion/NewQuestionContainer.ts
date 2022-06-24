@@ -7,5 +7,5 @@ export default styled.div`
   height: 15vh;
 
   border: 1px solid ${Colours.PRIMARY};
-
+  background-color: transparent;
 `;
