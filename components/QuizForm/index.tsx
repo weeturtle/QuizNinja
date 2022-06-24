@@ -1,36 +1,52 @@
+import { ObjectId } from 'mongodb';
 import { FC, useState } from 'react';
-import { QuizId } from '../../types/Quiz';
+import { Quiz, QuizId } from '../../types/Quiz';
 import QuizFormContainer from './QuizFormContainer';
 import QuizInformationContainer from './QuizInformationContainer';
 import QuizInformationInput from './QuizInformationInput';
 import QuizQuestionsContainer from './QuizQuestionsContainer';
 import SubmitQuizButton from './SubmitQuizButton';
 
+// Component props for the quiz form
+// quiz: Quiz - The quiz data
+// updateQuiz: (quiz: QuizId) => void - The function to update the quiz data on the server
+// createQuiz: (quiz: Quiz) => void - The function to create a new quiz on the server
 interface QuizFormProps {
-  quiz: QuizId;
-  updateQuiz: (quiz: QuizId) => void;
+  quiz: QuizId | Quiz;
+  submitQuiz: (quiz: QuizId) => void;
+
 }
 
-const QuizForm: FC<QuizFormProps> = ({ quiz, updateQuiz }) => {
+const QuizForm: FC<QuizFormProps> = ({ quiz, submitQuiz }) => {
   // Seperates the quiz into its components
   // Allows each component to be edited individually more easily
   // Each of the quiz's attributes are set to a state
   // This is used to update the quiz data when the user submits the quiz
-  const [name, setName] = useState(quiz.name ?? '');
+  const [name, setName] = useState(quiz.name);
   
-  const [subject, setSubject] = useState(quiz.subject ?? '');
+  const [subject, setSubject] = useState(quiz.subject);
   
-  const [questions, setQuestions] = useState(quiz.questions ?? []);
+  const [questions, setQuestions] = useState(quiz.questions);
 
 
   // Function to update the quiz data on the server
-  const submitQuiz = () => {
-    updateQuiz({
-      _id: quiz._id,
-      name,
-      subject,
-      questions
-    });
+  const handleSubmitQuiz = () => {
+    // If the quiz is being updated, update the quiz on the server
+    '_id' in quiz ? 
+      submitQuiz({
+        _id: quiz._id,
+        name,
+        subject,
+        questions
+      } as QuizId)
+      :
+    // If the quiz is being created, create the quiz on the server
+      submitQuiz({
+        _id: new ObjectId().toString(),
+        name,
+        subject,
+        questions
+      });
   };
 
   // Returns the quiz form
@@ -49,7 +65,7 @@ const QuizForm: FC<QuizFormProps> = ({ quiz, updateQuiz }) => {
         />
       </QuizInformationContainer>
       <QuizQuestionsContainer questions={questions} setQuestions={setQuestions} />
-      <SubmitQuizButton onClick={submitQuiz}>Submit</SubmitQuizButton>
+      <SubmitQuizButton onClick={handleSubmitQuiz}>Submit</SubmitQuizButton>
     </QuizFormContainer>
   );
 };
