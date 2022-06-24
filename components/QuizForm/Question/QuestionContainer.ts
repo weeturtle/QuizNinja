@@ -6,7 +6,7 @@ export default styled.div`
   height: 5vh;
 
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr; 
+  grid-template-columns: 9fr 1fr; 
   grid-template-rows: 1fr 1fr;
 
   border: 1px solid ${Colours.PRIMARY};

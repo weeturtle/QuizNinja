@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 import Colours from '../../../styles/colours';
 
+// Styles the box containing the question and answers
+// Grid is used to position the answers
 export default styled.input`
   width: 100%;
   height: 5vh;
 
-  grid-column: 1 / 4;
+  grid-column: 1 / 1;
   grid-row: 1 / 1;
 
   color: ${Colours.TEXT};

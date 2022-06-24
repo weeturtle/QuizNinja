@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Colours from '../../styles/colours';
 
+// Styles the box containing the question
 export default styled.div`
   max-width: 40rem;
   min-width: 5rem;

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Colours from '../../styles/colours';
 
+// Styles the button for the user to go on to the next question
 export default styled.button`
   width: 10rem;
   height: 2.5rem;

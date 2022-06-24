@@ -14,7 +14,8 @@ interface QuizFormProps {
 const QuizForm: FC<QuizFormProps> = ({ quiz, updateQuiz }) => {
   // Seperates the quiz into its components
   // Allows each component to be edited individually more easily
-
+  // Each of the quiz's attributes are set to a state
+  // This is used to update the quiz data when the user submits the quiz
   const [name, setName] = useState(quiz.name ?? '');
   
   const [subject, setSubject] = useState(quiz.subject ?? '');
@@ -22,6 +23,7 @@ const QuizForm: FC<QuizFormProps> = ({ quiz, updateQuiz }) => {
   const [questions, setQuestions] = useState(quiz.questions ?? []);
 
 
+  // Function to update the quiz data on the server
   const submitQuiz = () => {
     updateQuiz({
       _id: quiz._id,
@@ -31,6 +33,9 @@ const QuizForm: FC<QuizFormProps> = ({ quiz, updateQuiz }) => {
     });
   };
 
+  // Returns the quiz form
+  // Returns the quiz information at the top including the name and subject
+  // Returns the quiz questions at the bottom
   return (
     <QuizFormContainer>
       <QuizInformationContainer>

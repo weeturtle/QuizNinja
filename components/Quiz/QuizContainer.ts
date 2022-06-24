@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-// import Colours from '../../styles/colours';
 
+// Styles the container for the quiz
 export default styled.div`
   height: 50vh;
   width: 60vw;

@@ -12,7 +12,7 @@ const EditQuiz: NextPage = () => {
   const router = useRouter();
   
   // Creates an instance of the quiz hook
-  const [quiz, setQuiz, updateQuiz, fetchQuiz, loadingState] = useEditQuiz();
+  const [quiz, updateQuiz, fetchQuiz, loadingState] = useEditQuiz();
 
   // If the router object is not ready then wait for it to load
   useEffect(() => {
@@ -37,7 +37,7 @@ const EditQuiz: NextPage = () => {
         {quiz && (
           <>
             <PageTitle></PageTitle>
-            <QuizForm quiz={quiz} setQuiz={setQuiz} updateQuiz={updateQuiz} />
+            <QuizForm quiz={quiz} updateQuiz={updateQuiz} />
           </>
         )}
       </LoadWrapper>

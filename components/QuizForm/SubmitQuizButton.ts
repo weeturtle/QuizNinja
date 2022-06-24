@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import Colours from '../../styles/colours';
 
+// Styles the button used to submit the quiz
+// Updating it on the server
 export default styled.div`
   width: 5rem;
   height: 2.5rem;
