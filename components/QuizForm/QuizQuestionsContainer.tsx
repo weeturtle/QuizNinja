@@ -53,7 +53,7 @@ const QuizQuestionsContainer: FC<QuizQuestionsContainerProps> = ({ questions, se
   return (
     <StyledQuizQuestionsContainer>
       {
-        questions.map((question, index) => (
+        questions && questions.map((question, index) => (
           <Question setQuestion={setQuestion} deleteQuestion={deleteQuestion} question={question} questionNumber={index} key={index}  />
         ))
       }

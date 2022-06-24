@@ -13,7 +13,7 @@ import SubmitQuizButton from './SubmitQuizButton';
 // createQuiz: (quiz: Quiz) => void - The function to create a new quiz on the server
 interface QuizFormProps {
   quiz: QuizId | Quiz;
-  submitQuiz: (quiz: QuizId) => void;
+  submitQuiz: (quiz: unknown) => void;
 
 }
 
@@ -42,7 +42,6 @@ const QuizForm: FC<QuizFormProps> = ({ quiz, submitQuiz }) => {
       :
     // If the quiz is being created, create the quiz on the server
       submitQuiz({
-        _id: new ObjectId().toString(),
         name,
         subject,
         questions
