@@ -38,6 +38,7 @@ const Answer: FC<AnswerProps> = ({ answer, setAnswers, answerNumber }) => {
         type="text"
         value={editedAnswer} 
         onChange={(e) => setAnswer(e.target.value)}
+        placeholder={`Answer ${answerNumber + 1}`}
       />
       <input
         type="checkbox"

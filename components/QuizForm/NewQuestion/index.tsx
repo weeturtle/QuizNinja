@@ -50,15 +50,25 @@ const NewQuestion: FC<NewQuestionProps> = ({ addQuestion }) => {
   return (
     <QuestionContainer>
       <QuestionGrid>
-        <NewQuestionBox type="text" value={question} onChange={(e) => setQuestion(e.target.value)} />
+        <NewQuestionBox
+          type="text"
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          placeholder="Question"
+        />
         <AnswersContainer>
           {
             answers.map((answer, index) => (
-              <Answer key={index} answerNumber={index} answer={answer} setAnswers={setAnswers} />
+              <Answer
+                key={index}
+                answerNumber={index}
+                answer={answer}
+                setAnswers={setAnswers}
+              />
             ))
           }
         </AnswersContainer>
-        <NewQuestionAdd onClick={handleQuestionSubmit}>Add Question</NewQuestionAdd>
+        <NewQuestionAdd onClick={handleQuestionSubmit}>Add</NewQuestionAdd>
       </QuestionGrid>
     </QuestionContainer>
   );

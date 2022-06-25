@@ -57,10 +57,12 @@ const QuizForm: FC<QuizFormProps> = ({ quiz, createQuiz, updateQuiz }) => {
         <QuizInformationInput
           value={name}
           onChange={(e) => setName(e.target.value)}
+          placeholder='Name'
         />
         <QuizInformationInput
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
+          placeholder='Subject'
         />
       </QuizInformationContainer>
       <QuizQuestionsContainer questions={questions} setQuestions={setQuestions} />

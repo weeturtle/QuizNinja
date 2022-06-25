@@ -39,7 +39,11 @@ export const Question: FC<EditQuestionProps> = ({ question, questionNumber, setQ
   return (
     <QuestionContainer>
       <QuestionGrid>
-        <QuestionBox value={editedQuestion} onChange={(e) => setQuestionText(e.target.value)}/>
+        <QuestionBox
+          value={editedQuestion}
+          onChange={(e) => setQuestionText(e.target.value)}
+          placeholder="Question"
+        />
         <AnswersContainer>
           {
             editedAnswers.map((answer, index) => (
@@ -47,7 +51,7 @@ export const Question: FC<EditQuestionProps> = ({ question, questionNumber, setQ
             ))
           }
         </AnswersContainer>
-        <DeleteQuestionButton onClick={() => deleteQuestion(questionNumber)}>Delete Question</DeleteQuestionButton>
+        <DeleteQuestionButton onClick={() => deleteQuestion(questionNumber)}>Delete</DeleteQuestionButton>
       </QuestionGrid>
     </QuestionContainer>
   );
