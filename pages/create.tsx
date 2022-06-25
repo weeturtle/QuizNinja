@@ -13,7 +13,7 @@ const Create: NextPage = () => {
         name: '',
         subject: '',
         questions: []
-      }} submitQuiz={createQuiz} />
+      }} createQuiz={createQuiz} />
     </>
   );
 };

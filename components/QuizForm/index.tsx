@@ -12,11 +12,12 @@ import SubmitQuizButton from './SubmitQuizButton';
 // createQuiz: (quiz: Quiz) => void - The function to create a new quiz on the server
 interface QuizFormProps {
   quiz: QuizId | Quiz;
-  submitQuiz: (quiz: unknown) => void;
+  createQuiz?: (quiz: Quiz) => void;
+  updateQuiz?: (quiz: QuizId) => void;
 
 }
 
-const QuizForm: FC<QuizFormProps> = ({ quiz, submitQuiz }) => {
+const QuizForm: FC<QuizFormProps> = ({ quiz, createQuiz, updateQuiz }) => {
   // Seperates the quiz into its components
   // Allows each component to be edited individually more easily
   // Each of the quiz's attributes are set to a state
@@ -32,7 +33,7 @@ const QuizForm: FC<QuizFormProps> = ({ quiz, submitQuiz }) => {
   const handleSubmitQuiz = () => {
     // If the quiz is being updated, update the quiz on the server
     '_id' in quiz ? 
-      submitQuiz({
+      updateQuiz && updateQuiz({
         _id: quiz._id,
         name,
         subject,
@@ -40,11 +41,11 @@ const QuizForm: FC<QuizFormProps> = ({ quiz, submitQuiz }) => {
       } as QuizId)
       :
     // If the quiz is being created, create the quiz on the server
-      submitQuiz({
+      createQuiz && createQuiz({
         name,
         subject,
         questions
-      });
+      } as Quiz);
   };
 
   // Returns the quiz form

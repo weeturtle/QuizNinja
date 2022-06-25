@@ -37,7 +37,7 @@ const EditQuiz: NextPage = () => {
         {quiz && (
           <>
             <PageTitle></PageTitle>
-            <QuizForm quiz={quiz} submitQuiz={updateQuiz} />
+            <QuizForm quiz={quiz} updateQuiz={updateQuiz} />
           </>
         )}
       </LoadWrapper>
