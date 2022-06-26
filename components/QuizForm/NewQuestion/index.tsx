@@ -18,8 +18,8 @@ const NewQuestion: FC<NewQuestionProps> = ({ addQuestion }) => {
   // Creates empty state variables for the question text
   const [question, setQuestion] = useState('');
 
-  // Creates an array of empty answer templates
-  // const [answers, setAnswers] = useState<AnswerType[]>(Array(4).fill({ answer: '', isCorrect: false }));
+  // Creates empty state variables for the answers
+  // Each answer is stored in an individual state variable
   const [answer1, setAnswer1] = useState<AnswerType>({ answer: '', isCorrect: false });
   const [answer2, setAnswer2] = useState<AnswerType>({ answer: '', isCorrect: false });
   const [answer3, setAnswer3] = useState<AnswerType>({ answer: '', isCorrect: false });

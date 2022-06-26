@@ -4,6 +4,11 @@ import CancelButton from './CancelButton';
 import DeleteButton from './DeleteButton';
 import DeleteQuizPopupContainer from './DeleteQuizPopupContainer';
 
+// Takes in a function to call when the user closes the popup
+// Takes the quiz id of the quiz to delete for api request
+// Takes name of the quiz to delete for display
+// Returns a popup with a delete quiz button
+
 interface DeleteQuizPopupProps {
   isOpen: boolean;
   onClose: () => void;

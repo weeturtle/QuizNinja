@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import Colours from '../../../styles/colours';
 
+// Styles the popup contents
+// Uses a grid to position the title, text and buttons
 export default styled.div`
   width: 100%;
   height: 100%;

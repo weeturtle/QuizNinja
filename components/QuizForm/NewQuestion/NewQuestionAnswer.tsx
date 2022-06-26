@@ -11,8 +11,8 @@ interface AnswerProps {
 // Component for each answer of the question
 // This component is used in the Question component
 const NewQuestionAnswer: FC<AnswerProps> = ({ answer, setAnswer }) => {
-  // Returns a text input for the answer text 
-  // Returns a checkbox for if the answer is correct
+  // Handle the answer text being changed
+  // Set the answer text to the value of the input
   const handleAnswerTextChange = (e: ChangeEvent<HTMLInputElement>) => {
     setAnswer(answer => { 
       return {
@@ -22,7 +22,10 @@ const NewQuestionAnswer: FC<AnswerProps> = ({ answer, setAnswer }) => {
     });
   };
 
+  // Functino called when the checkbox is changed
   const handleAnswerCorrectChange = (e: ChangeEvent<HTMLInputElement>) => {
+    // Sets the answer to be correct if the checkbox is checked
+    // Sets the answer to be incorrect if the checkbox is unchecked
     setAnswer(answer => {
       return {
         ...answer,

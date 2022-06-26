@@ -17,6 +17,7 @@ interface QuizLinkProps {
 // Simple React component to render a quiz link
 const QuizLink: FC<QuizLinkProps> = ({ name, _id }) => {
   // The state of the popup used to confirm delete
+  // Popup is hidden by default
   const [openDelete, setOpenDelete] = useState(false);
   // Generates a URL to play the quiz
   // Base URL is /quiz/:id

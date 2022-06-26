@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import Colours from '../../styles/colours';
 
+// Style the box of the popup
+// Centers it in the actual center of the screen
 export default styled.div`
   height: 25rem;
   width: 30rem;
