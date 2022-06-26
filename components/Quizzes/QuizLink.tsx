@@ -1,9 +1,10 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import Link from 'next/link';
 import QuizLinkContainer from './QuizLinkContainer';
 import QuizName from './QuizName';
 import QuizLinks from './QuizLinks';
 import QuizLinkButton from './QuizLinkButton';
+import DeleteQuizPopup from '../Popup/DeleteQuiz';
 
 // Defines the props of the link component
 interface QuizLinkProps {
@@ -15,6 +16,8 @@ interface QuizLinkProps {
 
 // Simple React component to render a quiz link
 const QuizLink: FC<QuizLinkProps> = ({ name, _id }) => {
+  // The state of the popup used to confirm delete
+  const [openDelete, setOpenDelete] = useState(false);
   // Generates a URL to play the quiz
   // Base URL is /quiz/:id
   const PLAY_URL = `/quiz/${_id}`;
@@ -26,28 +29,31 @@ const QuizLink: FC<QuizLinkProps> = ({ name, _id }) => {
   // The a tag is generated with the name of the quiz and the URL from this
   // This allows the link to be styled with CSS
   return (
-    <QuizLinkContainer>
-      <QuizName>{name}</QuizName>
-      {/* Container for the links related to a quiz */}
-      <QuizLinks>
-        {/* Link to play the quiz */}
-        <Link href={PLAY_URL}>
-          <a>Play</a>
-        </Link>
-        {/* Link to edit the quiz */}
-        <Link
-          href={EDIT_URL}
-        >
-          <a>Edit</a>
-        </Link>
-        {/* Link to delete the quiz */}
-        <QuizLinkButton
-          onClick={() => console.log('Delete')}
-        >
-          Delete
-        </QuizLinkButton>
-      </QuizLinks>
-    </QuizLinkContainer>
+    <>
+      <DeleteQuizPopup isOpen={openDelete} onClose={() => setOpenDelete(false)} quizName={name} quizId={_id} />
+      <QuizLinkContainer>
+        <QuizName>{name}</QuizName>
+        {/* Container for the links related to a quiz */}
+        <QuizLinks>
+          {/* Link to play the quiz */}
+          <Link href={PLAY_URL}>
+            <a>Play</a>
+          </Link>
+          {/* Link to edit the quiz */}
+          <Link
+            href={EDIT_URL}
+          >
+            <a>Edit</a>
+          </Link>
+          {/* Link to delete the quiz */}
+          <QuizLinkButton
+            onClick={() => setOpenDelete(true)}
+          >
+            Delete
+          </QuizLinkButton>
+        </QuizLinks>
+      </QuizLinkContainer>
+    </>
   );
 };
 
