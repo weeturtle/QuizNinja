@@ -23,16 +23,25 @@ interface EditQuestionProps {
 export const Question: FC<EditQuestionProps> = ({ question, questionNumber, setQuestion, deleteQuestion }) => {
   // Gets the initial question data and sets it to the state
   const [editedQuestion, setQuestionText] = useState(question.question);
-  const [editedAnswers, setAnswers] = useState(question.answers);
+
+  // Each answer is split into a single state variable
+  // If the answer is initially empty it is set to an empty answer
+  const [answer1, setAnswer1] = useState(question.answers[0] ?? { answer: '', isCorrect: false });
+  const [answer2, setAnswer2] = useState(question.answers[1] ?? { answer: '', isCorrect: false });
+  const [answer3, setAnswer3] = useState(question.answers[2] ?? { answer: '', isCorrect: false });
+  const [answer4, setAnswer4] = useState(question.answers[3] ?? { answer: '', isCorrect: false });
 
   // Everytime the user makes an edit to the question, the question data is updated in a parent component
   useEffect(() => {
+    // Only answers that have been edited and are filled in are updated
+    const filledAnswers = [answer1, answer2, answer3, answer4].filter(answer => answer.answer.length > 0);
+
     // Sets the question data to the current state
     setQuestion({
       question: editedQuestion,
-      answers: editedAnswers
+      answers: filledAnswers
     }, questionNumber);
-  }, [editedQuestion, editedAnswers]);
+  }, [editedQuestion, answer1, answer2, answer3, answer4]);
 
   // Returns a text input for the question text
   // Returns a button for each answer
@@ -45,11 +54,10 @@ export const Question: FC<EditQuestionProps> = ({ question, questionNumber, setQ
           placeholder="Question"
         />
         <AnswersContainer>
-          {
-            editedAnswers.map((answer, index) => (
-              <Answer key={index} answer={answer} setAnswers={setAnswers} answerNumber={index}/>
-            ))
-          }
+          <Answer answer={answer1} setAnswer={setAnswer1} answerNumber={1} />
+          <Answer answer={answer2} setAnswer={setAnswer2} answerNumber={2} />
+          <Answer answer={answer3} setAnswer={setAnswer3} answerNumber={3} />
+          <Answer answer={answer4} setAnswer={setAnswer4} answerNumber={4} />
         </AnswersContainer>
         <DeleteQuestionButton onClick={() => deleteQuestion(questionNumber)}>Delete</DeleteQuestionButton>
       </QuestionGrid>
