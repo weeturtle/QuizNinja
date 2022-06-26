@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { Answer as AnswerType, Question as QuestionType } from '../../../types/Quiz';
-import Answer from '../Question/Answer';
+import NewQuestionAnswer from './NewQuestionAnswer';
 import AnswersContainer from '../Question/AnswersContainer';
 import QuestionContainer from '../Question/QuestionContainer';
 import QuestionGrid from '../Question/QuestionGrid';
@@ -19,10 +19,15 @@ const NewQuestion: FC<NewQuestionProps> = ({ addQuestion }) => {
   const [question, setQuestion] = useState('');
 
   // Creates an array of empty answer templates
-  const [answers, setAnswers] = useState<AnswerType[]>(Array(4).fill({ answer: '', isCorrect: false }));
+  // const [answers, setAnswers] = useState<AnswerType[]>(Array(4).fill({ answer: '', isCorrect: false }));
+  const [answer1, setAnswer1] = useState<AnswerType>({ answer: '', isCorrect: false });
+  const [answer2, setAnswer2] = useState<AnswerType>({ answer: '', isCorrect: false });
+  const [answer3, setAnswer3] = useState<AnswerType>({ answer: '', isCorrect: false });
+  const [answer4, setAnswer4] = useState<AnswerType>({ answer: '', isCorrect: false });
 
   // Handle the add question button being clicked
   const handleQuestionSubmit = () => {
+    const answers = [answer1, answer2, answer3, answer4];
     // If the answer text is empty, don't add the answer to the question
     const filledAnswers = answers.filter(answer => answer.answer.length > 0);
 
@@ -41,7 +46,10 @@ const NewQuestion: FC<NewQuestionProps> = ({ addQuestion }) => {
     // Reset the question text
     setQuestion('');
     // Reset the answers
-    setAnswers(Array(4).fill({ answer: '', isCorrect: false }));
+    setAnswer1({ answer: '', isCorrect: false });
+    setAnswer2({ answer: '', isCorrect: false });
+    setAnswer3({ answer: '', isCorrect: false });
+    setAnswer4({ answer: '', isCorrect: false });
   };
 
   // Returns a question box
@@ -57,16 +65,22 @@ const NewQuestion: FC<NewQuestionProps> = ({ addQuestion }) => {
           placeholder="Question"
         />
         <AnswersContainer>
-          {
-            answers.map((answer, index) => (
-              <Answer
-                key={index}
-                answerNumber={index}
-                answer={answer}
-                setAnswers={setAnswers}
-              />
-            ))
-          }
+          <NewQuestionAnswer
+            answer={answer1}
+            setAnswer={setAnswer1}
+          />
+          <NewQuestionAnswer
+            answer={answer2}
+            setAnswer={setAnswer2}
+          />
+          <NewQuestionAnswer
+            answer={answer3}
+            setAnswer={setAnswer3}
+          />
+          <NewQuestionAnswer
+            answer={answer4}
+            setAnswer={setAnswer4}
+          />
         </AnswersContainer>
         <NewQuestionAdd onClick={handleQuestionSubmit}>Add</NewQuestionAdd>
       </QuestionGrid>
