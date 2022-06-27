@@ -1,10 +1,10 @@
 import { FC, useEffect, useState } from 'react';
-import calculateScore from '../../lib/frontend/calculateScore';
 import GameState from '../../types/gameState';
 import QuestionState from '../../types/questionState';
 import { Answer, Quiz } from '../../types/Quiz';
 import AnswerButton from './answerButton';
 import AnswersContainer from './AnswersContainer';
+import Gameover from './GameOver';
 import NextButton from './NextButton';
 import QuestionBox from './QuestionBox';
 import QuizContainer from './QuizContainer';
@@ -101,13 +101,8 @@ const Quiz: FC<QuizProps> = ({ quiz }) => {
         )
       }
       { // Displays a game over screen after all of the questions
-        // Have been asked
-        // Calculates the score for the quiz displaying it as a percentage
         gameState === GameState.GAMEOVER && (
-          <>
-            <p>Game Over</p>
-            <p>Your score: {calculateScore(score, quiz.questions.length).percentage}%</p>
-          </>
+          <Gameover score={score} totalQuestions={quiz.questions.length} />
         )
       }
     </>
