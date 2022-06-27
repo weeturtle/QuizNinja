@@ -9,11 +9,11 @@ export const sampleQuizzes = [
         answers: [
           {
             answer: 'Answer 1',
-            correct: true,
+            isCorrect: true,
           },
           {
             answer: 'Answer 2',
-            correct: false,
+            isCorrect: false,
           }
         ]
       }
@@ -29,11 +29,11 @@ export const sampleQuizzes = [
         answers: [
           {
             answer: 'Answer 1',
-            correct: true,
+            isCorrect: true,
           },
           {
             answer: 'Answer 2',
-            correct: false,
+            isCorrect: false,
           }
         ]
       }
@@ -41,3 +41,36 @@ export const sampleQuizzes = [
   }
 ];
 
+export const sampleQuiz = {
+  _id: '5e9f8f8f8f8f8f8f8f8f8f8',
+  name: 'Quiz 1',
+  subject: 'Subject 1',
+  questions: [
+    {
+      question: 'Question 1',
+      answers: [
+        {
+          answer: 'Answer 1',
+          isCorrect: true,
+        },
+        {
+          answer: 'Answer 2',
+          isCorrect: false,
+        }
+      ],
+    },
+    {
+      question: 'Question 2',
+      answers: [
+        {
+          answer: 'Answer 1',
+          isCorrect: true,
+        },
+        {
+          answer: 'Answer 2',
+          isCorrect: false,
+        }
+      ],
+    }
+  ] 
+};

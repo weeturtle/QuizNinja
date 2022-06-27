@@ -47,7 +47,6 @@ const Quiz: FC<QuizProps> = ({ quiz }) => {
     if (questionState === QuestionState.CORRECT) {
       setScore(score => score + 1);
     } 
-    console.log(score);
   }, [questionState]);
 
   // Function that is called when an answer button is clicked

@@ -29,7 +29,5 @@ describe('Quizzes', () => {
 
     expect(screen.getByText('Quiz 1')).toBeInTheDocument();
     expect(screen.queryByText('Quiz 2')).not.toBeInTheDocument();
-
-
   });
 });
