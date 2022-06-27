@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import calculateScore from '../../lib/frontend/calculateScore';
 import GameState from '../../types/gameState';
 import QuestionState from '../../types/questionState';
@@ -42,6 +42,14 @@ const Quiz: FC<QuizProps> = ({ quiz }) => {
     }
   };
 
+  useEffect(() => {
+    // Update the score depeding on the current question state
+    if (questionState === QuestionState.CORRECT) {
+      setScore(score => score + 1);
+    } 
+    console.log(score);
+  }, [questionState]);
+
   // Function that is called when an answer button is clicked
   const checkAnswer = (answer: Answer) => {
     // Checks whether one of the answers has already been clicked
@@ -49,11 +57,7 @@ const Quiz: FC<QuizProps> = ({ quiz }) => {
     questionState === QuestionState.UNANSWERED && 
     // Updates the question state depending on whether the answer is correct
     setQuestionState(() => {
-      return answer ? (
-        // Increments score if answer is correct
-        setScore(score => score + 1),
-        QuestionState.CORRECT
-      ) : QuestionState.INCORRECT;
+      return answer.isCorrect ? QuestionState.CORRECT : QuestionState.INCORRECT;
     });
   };
 
