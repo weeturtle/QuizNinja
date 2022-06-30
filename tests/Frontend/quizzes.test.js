@@ -1,17 +1,11 @@
 /* eslint-disable no-undef */
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
-import Quizzes from '../../pages/quizzes';
 import QuizList from '../../components/Quizzes/QuizList';
 import Searchbox from '../../components/General/Searchbox';
 import { sampleQuizzes } from '../sampleData';
 
 describe('Quizzes', () => {
-  it('renders quiz page without crashing', () => {
-    render(<Quizzes />);
-    expect(screen.getByText('Quizzes')).toBeInTheDocument();
-  });
-
   it('renders quiz page with quiz list', () => {
     render(<QuizList quizzes={sampleQuizzes}/>);
     expect(screen.getByText('Quiz 1')).toBeInTheDocument();
