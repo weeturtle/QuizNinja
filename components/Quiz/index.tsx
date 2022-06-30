@@ -4,7 +4,7 @@ import QuestionState from '../../types/questionState';
 import { Answer, Quiz } from '../../types/Quiz';
 import AnswerButton from './answerButton';
 import AnswersContainer from './AnswersContainer';
-import Gameover from './GameOver';
+import Gameover from './Gameover';
 import NextButton from './NextButton';
 import QuestionBox from './QuestionBox';
 import QuizContainer from './QuizContainer';
