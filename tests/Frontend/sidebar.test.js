@@ -48,14 +48,6 @@ describe('Sidebar', () => {
     expect(screen.getByText('Create')).toBeInTheDocument();
   });
 
-  it('sidebar links redirect to selected page', () => {
-    render(<SidebarLink to='/quizzes' text='Quizzes' />);
-    expect(
-      screen.getByText('Quizzes').closest('a')
-    )
-      .toHaveAttribute('href', '/quizzes');
-  });
-
   it('link appears a different colour when page is active', () => {
     const useRouter = jest.spyOn(require('next/router'), 'useRouter');
 
