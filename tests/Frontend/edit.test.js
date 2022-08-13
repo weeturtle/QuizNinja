@@ -9,14 +9,14 @@ describe('Edit quiz', () => {
       <QuizForm quiz={sampleQuiz} />
     );
 
-    expect(screen.getByPlaceholderText('Name').value).toEqual('Quiz 1');
+    expect(screen.getByPlaceholderText('Name').value).toEqual('Differentiation');
   });
 
   it('renders input box containing the initial subject' , () => {
     render(
       <QuizForm quiz={sampleQuiz} />
     );
-    expect(screen.getByPlaceholderText('Subject').value).toEqual('Subject 1');
+    expect(screen.getByPlaceholderText('Subject').value).toEqual('Maths');
   });
 
   it('renders input box containing the initial question' , () => {
@@ -26,8 +26,8 @@ describe('Edit quiz', () => {
 
     const questionBoxes = screen.getAllByPlaceholderText('Question');
 
-    expect(questionBoxes[0].value).toEqual('Question 1');
-    expect(questionBoxes[1].value).toEqual('Question 2');
+    expect(questionBoxes[0].value).toEqual('What is the derivative of x^2?');
+    expect(questionBoxes[1].value).toEqual('What is the derivative of x^3?');
   });
 
   it('renders input boxes containing the initial answer' , () => {
@@ -36,8 +36,8 @@ describe('Edit quiz', () => {
     );
 
 
-    expect(screen.getAllByPlaceholderText('Answer 1')[0].value).toEqual('Answer 1');
-    expect(screen.getAllByPlaceholderText('Answer 2')[0].value).toEqual('Answer 2');
+    expect(screen.getAllByPlaceholderText('Answer 1')[0].value).toEqual('2x');
+    expect(screen.getAllByPlaceholderText('Answer 2')[0].value).toEqual('2');
   });
 
   it('renders additional empty answer boxes to make 4 total', () => {

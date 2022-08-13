@@ -1,18 +1,18 @@
 export const sampleQuizzes = [
   {
     _id: '5e9f8f8f8f8f8f8f8f8f8f8',
-    name: 'Quiz 1',
-    subject: 'Subject 1',
+    name: 'Addition',
+    subject: 'Maths',
     questions: [
       {
-        question: 'Question 1',
+        question: 'What is 2 + 2?',
         answers: [
           {
-            answer: 'Answer 1',
+            answer: '4',
             isCorrect: true,
           },
           {
-            answer: 'Answer 2',
+            answer: '3',
             isCorrect: false,
           }
         ]
@@ -21,18 +21,18 @@ export const sampleQuizzes = [
   },
   {
     _id: '5e9f8f8f8f8f8f8f8f8f8f8',
-    name: 'Quiz 2',
-    subject: 'Subject 2',
+    name: 'Laws of Motion',
+    subject: 'Physics',
     questions: [
       {
-        question: 'Question 1',
+        question: 'Who created F=ma',
         answers: [
           {
-            answer: 'Answer 1',
+            answer: 'Isaac Newton',
             isCorrect: true,
           },
           {
-            answer: 'Answer 2',
+            answer: 'Albert Einstein',
             isCorrect: false,
           }
         ]
@@ -43,31 +43,31 @@ export const sampleQuizzes = [
 
 export const sampleQuiz = {
   _id: '5e9f8f8f8f8f8f8f8f8f8f8',
-  name: 'Quiz 1',
-  subject: 'Subject 1',
+  name: 'Differentiation',
+  subject: 'Maths',
   questions: [
     {
-      question: 'Question 1',
+      question: 'What is the derivative of x^2?',
       answers: [
         {
-          answer: 'Answer 1',
+          answer: '2x',
           isCorrect: true,
         },
         {
-          answer: 'Answer 2',
+          answer: '2',
           isCorrect: false,
         }
       ],
     },
     {
-      question: 'Question 2',
+      question: 'What is the derivative of x^3?',
       answers: [
         {
-          answer: 'Answer 1',
+          answer: '3x^2',
           isCorrect: true,
         },
         {
-          answer: 'Answer 2',
+          answer: '3x',
           isCorrect: false,
         }
       ],
