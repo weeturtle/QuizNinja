@@ -18,7 +18,7 @@ interface QuizFormProps {
 }
 
 const QuizForm: FC<QuizFormProps> = ({ quiz, createQuiz, updateQuiz }) => {
-  // Seperates the quiz into its components
+  // Separates the quiz into its components
   // Allows each component to be edited individually more easily
   // Each of the quiz's attributes are set to a state
   // This is used to update the quiz data when the user submits the quiz

@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import GameState from '../../types/gameState';
 import QuestionState from '../../types/questionState';
 import { Answer, Quiz } from '../../types/Quiz';
-import AnswerButton from './answerButton';
+import AnswerButton from './AnswerButton';
 import AnswersContainer from './AnswersContainer';
 import Gameover from './Gameover';
 import NextButton from './NextButton';
