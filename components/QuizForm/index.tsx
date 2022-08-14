@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { Quiz, QuizId } from '../../types/Quiz';
+import { Quiz, QuizId, QuizType, QuizIdType } from '../../types/Quiz';
 import QuizFormContainer from './QuizFormContainer';
 import QuizInformationContainer from './QuizInformationContainer';
 import QuizInformationInput from './QuizInformationInput';
@@ -11,9 +11,9 @@ import SubmitQuizButton from './SubmitQuizButton';
 // updateQuiz: (quiz: QuizId) => void - The function to update the quiz data on the server
 // createQuiz: (quiz: Quiz) => void - The function to create a new quiz on the server
 interface QuizFormProps {
-  quiz: QuizId | Quiz;
-  createQuiz?: (quiz: Quiz) => void;
-  updateQuiz?: (quiz: QuizId) => void;
+  quiz: QuizIdType | QuizType;
+  createQuiz?: (quiz: QuizType) => void;
+  updateQuiz?: (quiz: QuizIdType) => void;
 
 }
 
@@ -33,19 +33,19 @@ const QuizForm: FC<QuizFormProps> = ({ quiz, createQuiz, updateQuiz }) => {
   const handleSubmitQuiz = () => {
     // If the quiz is being updated, update the quiz on the server
     '_id' in quiz ? 
-      updateQuiz && updateQuiz({
+      updateQuiz && updateQuiz(QuizId.parse({
         _id: quiz._id,
         name,
         subject,
         questions
-      } as QuizId)
+      }))
       :
     // If the quiz is being created, create the quiz on the server
-      createQuiz && createQuiz({
+      createQuiz && createQuiz(Quiz.parse({
         name,
         subject,
         questions
-      } as Quiz);
+      }));
   };
 
   // Returns the quiz form

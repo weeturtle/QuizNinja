@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import LoadingState from '../../types/loadingState';
-import { QuizId } from '../../types/Quiz';
+import { QuizIdType } from '../../types/Quiz';
 
 // Custom reusable React hook
 // Loads and allows a the page to refetch the quiz
 // Returns a tuple of the quiz and a function to refetch the quiz
-export const useQuiz = (): [QuizId | null, (_id: string) => void, LoadingState] => {
+export const useQuiz = (): [QuizIdType | null, (_id: string) => void, LoadingState] => {
   // The useState hook is used to store the quiz
   // The quiz is initially null and is populated by the fetchQuiz function
   // useState renders the quiz list as it is updated
-  const [quiz, setQuiz] = useState<QuizId | null>(null);
+  const [quiz, setQuiz] = useState<QuizIdType | null>(null);
 
   const [loadingState, setLoadingState] = useState<LoadingState>(LoadingState.PENDING);
 

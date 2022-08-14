@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import GameState from '../../types/gameState';
 import QuestionState from '../../types/questionState';
-import { Answer, Quiz } from '../../types/Quiz';
+import { AnswerType, QuizType } from '../../types/Quiz';
 import AnswerButton from './AnswerButton';
 import AnswersContainer from './AnswersContainer';
 import Gameover from './Gameover';
@@ -12,10 +12,10 @@ import QuizContainer from './QuizContainer';
 // Defines the props for the Quiz game component
 // Takes a quiz as a parameter
 interface QuizProps {
-  quiz: Quiz;
+  quiz: QuizType;
 }
 
-const Quiz: FC<QuizProps> = ({ quiz }) => {
+const QuizType: FC<QuizProps> = ({ quiz }) => {
   // Creates a state variable for the current question number
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
@@ -50,7 +50,7 @@ const Quiz: FC<QuizProps> = ({ quiz }) => {
   }, [questionState]);
 
   // Function that is called when an answer button is clicked
-  const checkAnswer = (answer: Answer) => {
+  const checkAnswer = (answer: AnswerType) => {
     // Checks whether one of the answers has already been clicked
     // If not they could continue clicking the answer and gaining score
     questionState === QuestionState.UNANSWERED && 
@@ -108,4 +108,4 @@ const Quiz: FC<QuizProps> = ({ quiz }) => {
   );
 };
 
-export default Quiz;
+export default QuizType;

@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { Answer as AnswerType, Question as QuestionType } from '../../../types/Quiz';
+import { AnswerType, QuestionType } from '../../../types/Quiz';
 import NewQuestionAnswer from './NewQuestionAnswer';
 import AnswersContainer from '../Question/AnswersContainer';
 import QuestionContainer from '../Question/QuestionContainer';

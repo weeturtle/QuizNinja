@@ -1,7 +1,6 @@
 import { NextApiHandler } from 'next';
 import { connectToDatabase } from '../mongodb';
 import validateQuiz from '../../frontend/validateQuiz';
-import { Quiz } from '../../../types/Quiz';
 import { ObjectId } from 'mongodb';
 
 const postQuiz: NextApiHandler = async (req, res) => {
@@ -14,7 +13,7 @@ const postQuiz: NextApiHandler = async (req, res) => {
   try {
     // Validate the quiz before saving it to the database
     // This will throw an error if the quiz is invalid
-    validateQuiz(quiz) as Quiz;
+    validateQuiz(quiz);
 
     // Add the quiz to the database
     db.collection('Quizzes').insertOne({

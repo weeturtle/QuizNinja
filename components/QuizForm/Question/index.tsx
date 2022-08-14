@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { Question as QuestionType } from '../../../types/Quiz';
+import { QuestionType } from '../../../types/Quiz';
 import Answer from './Answer';
 import DeleteQuestionButton from './DeleteQuestionButton';
 import QuestionBox from './QuestionBox';

@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import LoadingState from '../../types/loadingState';
-import { QuizId } from '../../types/Quiz';
+import { QuizIdType } from '../../types/Quiz';
 import validateQuiz from './validateQuiz';
 
 // Custom reusable React hook
 // Loads and allows a the page to refetch the quiz
 // Returns a tuple of the quiz and a function to refetch the quiz
-export const useEditQuiz = (): [QuizId | null, (quiz: QuizId) => void, (_id: string) => void, LoadingState] => {
+export const useEditQuiz = (): [QuizIdType | null, (quiz: QuizIdType) => void, (_id: string) => void, LoadingState] => {
   // The useState hook is used to store the quiz
   // The quiz is initially null and is populated by the fetchQuiz function
   // useState renders the quiz list as it is updated
-  const [quiz, setQuiz] = useState<QuizId | null>(null);
+  const [quiz, setQuiz] = useState<QuizIdType | null>(null);
 
   // The useState hook is used to store the loading state
   // The loading state is initially loading and is populated by the fetchQuiz function
@@ -42,12 +42,12 @@ export const useEditQuiz = (): [QuizId | null, (quiz: QuizId) => void, (_id: str
 
   // Function to update the quiz
   // Takes the updated quiz as a parameter
-  const updateQuiz = async (quiz: QuizId) => {
+  const updateQuiz = async (quiz: QuizIdType) => {
     // Set the loading state to pending
     setLoadingState(LoadingState.PENDING);
 
     // Validates quiz
-    const validQuiz = validateQuiz(quiz) as QuizId;
+    const validQuiz = validateQuiz(quiz);
 
     // Updates the quiz on the server
     console.log(validQuiz);

@@ -1,5 +1,5 @@
 import { Dispatch, FC, SetStateAction } from 'react';
-import { Question as QuestionType } from '../../types/Quiz';
+import { QuestionType } from '../../types/Quiz';
 import styled from 'styled-components';
 import Question from './Question';
 import NewQuestion from './NewQuestion';

@@ -1,16 +1,16 @@
 import { useState } from 'react';
-import { QuizId } from '../../types/Quiz';
+import { QuizIdType } from '../../types/Quiz';
 
 // Currently not used.
 
 const useDelete = (): [
   boolean,
-  (quiz: QuizId) => void,
+  (quiz: QuizIdType) => void,
   () => void,
   () => void,
 ] => {
   const [showPopup, setShowPopup] = useState(false);
-  const [quiz, setQuiz] = useState<QuizId | null>();
+  const [quiz, setQuiz] = useState<QuizIdType | null>();
 
   const handleDelete = () => {
     if (!quiz) return;
@@ -25,7 +25,7 @@ const useDelete = (): [
     setShowPopup(false);
   };
 
-  const handleShowPopup = (quiz: QuizId) => {
+  const handleShowPopup = (quiz: QuizIdType) => {
     setShowPopup(true);
     setQuiz(quiz);
   };

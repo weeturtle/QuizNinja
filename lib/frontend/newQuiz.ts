@@ -1,8 +1,8 @@
-import { Quiz } from '../../types/Quiz';
+import { QuizType } from '../../types/Quiz';
 import validateQuiz from './validateQuiz';
 
 // Function that takes a quiz as parameter and sends it to the server
-const createQuiz = async (quiz: Quiz) => {
+const createQuiz = async (quiz: QuizType) => {
   // Checks if the quiz is valid
   validateQuiz(quiz);
 

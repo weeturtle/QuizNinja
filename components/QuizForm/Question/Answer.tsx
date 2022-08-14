@@ -1,11 +1,11 @@
 import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
-import { Answer } from '../../../types/Quiz';
+import { AnswerType } from '../../../types/Quiz';
 import AnswerContainer from './AnswerContainer';
 
 // Component props for each answer of the question
 interface AnswerProps {
-  answer: Answer;
-  setAnswer: Dispatch<SetStateAction<Answer>>;
+  answer: AnswerType;
+  setAnswer: Dispatch<SetStateAction<AnswerType>>;
   answerNumber: number;
 }
 
