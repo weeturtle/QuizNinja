@@ -15,7 +15,7 @@ const useDelete = (): [
   const handleDelete = () => {
     if (!quiz) return;
 
-    fetch(`/api/quiz/${quiz._id}`, {
+    fetch(`/api/quiz/${quiz.id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
