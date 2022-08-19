@@ -22,6 +22,7 @@ export const useQuizzes = (): [QuizIdType[], () => void, LoadingState] => {
     // Fetches the quiz list from the server
     const response = await fetch('api/quizzes');
 
+  
     if (response.status !== 200) {
       // If the server returns an error, set the loading state to failed
       setLoadingState(LoadingState.FAILED);
@@ -29,7 +30,8 @@ export const useQuizzes = (): [QuizIdType[], () => void, LoadingState] => {
     }
     // Parses the response as JSON
     const fetchedQuizzes = await response.json();
-
+    console.table(fetchedQuizzes);
+    
     // Sets the loading state to fulfilled
     setLoadingState(LoadingState.FULFILLED);
 

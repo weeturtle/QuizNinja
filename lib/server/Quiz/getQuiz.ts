@@ -12,16 +12,16 @@ const getQuiz: NextApiHandler = async (req, res) => {
   const queries = req.query;
 
   // If no id is provided, return an error
-  if (!queries._id) {
+  if (!queries.id) {
     return res.status(400).json({ message: 'Missing id' });
   }
 
-  console.log(queries._id);
+  console.log(queries.id);
 
   // Gets the quizzes collection from the database
   const quizzesCollection = await db.collection('Quizzes')
     // Finds all the quizzes in the collection that match the quiz id
-    .find({ _id: new ObjectId(queries._id as string) })
+    .find({ id: new ObjectId(queries.id as string) })
     // Returns them as an array
     .toArray();
 

@@ -1,14 +1,22 @@
 import { NextApiHandler } from 'next';
-import postQuiz from '../../../lib/server/Quiz/postQuiz';
-import putQuiz from '../../../lib/server/Quiz/putQuiz';
+import { addQuiz, updateQuiz } from '../../../prisma/quizzes';
 
 // This is the handler for the quiz requests that use the request body
 const Quiz: NextApiHandler = async (req, res) => {
   switch (req.method) {
-  case 'POST':
-    return postQuiz(req, res);
-  case 'PUT':
-    return putQuiz(req, res);
+  case 'POST': {
+    const user = await addQuiz(req.body);
+    return res.status(200).json(user);
+  }
+  case 'PUT': {
+    const quiz = await updateQuiz(req.body);
+
+    if (quiz) {
+      return res.status(200).json(quiz);
+    }
+    return res.status(404).json({ message: 'Quiz not found' });
+
+  }
   default:
     return res.status(405).json({ message: 'Method Not Allowed' });
   }

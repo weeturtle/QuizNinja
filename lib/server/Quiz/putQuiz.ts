@@ -21,7 +21,7 @@ const putQuiz: NextApiHandler = async (req, res) => {
     // The quiz is found by its id and the new quiz is passed in
     const updateResult = await db.collection('Quizzes')
       .updateOne(
-        { _id: new ObjectId(quiz._id) }, { $set: {
+        { id: new ObjectId(quiz.id) }, { $set: {
           name: quiz.name,
           subject: quiz.subject,
           questions: quiz.questions

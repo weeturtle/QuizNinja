@@ -18,14 +18,14 @@ const Quiz: NextPage = () => {
     if (!router.isReady) return;
 
     // Extracts the quiz id from the url
-    const { _id } = router.query;
+    const { id } = router.query;
   
     // If the quiz id is not provided, the user is redirected to the quizzes page.
-    if (!('_id' in router.query)) router.push('/quizzes');
+    if (!('id' in router.query)) router.push('/quizzes');
     
     
     // Fetching and setting the quiz
-    updateQuiz(_id as string);
+    updateQuiz(id as string);
 
   }, [router.isReady]);
 

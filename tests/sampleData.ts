@@ -1,6 +1,6 @@
 export const sampleQuizzes = [
   {
-    _id: '5e9f8f8f8f8f8f8f8f8f8f8',
+    id: '5e9f8f8f8f8f8f8f8f8f8f8',
     name: 'Addition',
     subject: 'Maths',
     questions: [
@@ -20,7 +20,7 @@ export const sampleQuizzes = [
     ]
   },
   {
-    _id: '5e9f8f8f8f8f8f8f8f8f8f8',
+    id: '5e9f8f8f8f8f8f8f8f8f8f8',
     name: 'Laws of Motion',
     subject: 'Physics',
     questions: [
@@ -42,7 +42,7 @@ export const sampleQuizzes = [
 ];
 
 export const sampleQuiz = {
-  _id: '5e9f8f8f8f8f8f8f8f8f8f8',
+  id: '5e9f8f8f8f8f8f8f8f8f8f8',
   name: 'Differentiation',
   subject: 'Maths',
   questions: [
