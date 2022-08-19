@@ -60,6 +60,8 @@ model Quiz {
 
   questions Question[]
 
+  private   Boolean     @default(false)
+
   subject   Subject?    @relation(fields: [subjectId], references: [id])
   subjectId String?     @db.ObjectId
 

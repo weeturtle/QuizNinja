@@ -4,6 +4,7 @@ import { QuestionType, CompleteSubject, RelatedSubjectModel, RelatedQuestionMode
 export const QuizModel = z.object({
   id: z.string(),
   name: z.string(),
+  private: z.boolean(),
   subjectId: z.string().nullish(),
   creatorId: z.string(),
   createdAt: z.date(),
