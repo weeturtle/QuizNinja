@@ -74,7 +74,7 @@ model Quiz {
 
 model Subject {
   id        String      @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
+  name      String      @unique
 
   quizzes   Quiz[]
 
