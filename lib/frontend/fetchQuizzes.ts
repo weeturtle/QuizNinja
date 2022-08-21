@@ -49,7 +49,6 @@ export const useQuizzes = (): [QuizIdType[], () => void, (subjectId: string) => 
     
     // Parses the response as JSON
     const fetchedQuizzes = await response.json();
-    console.table(fetchedQuizzes);
     
     // Sets the loading state to fulfilled
     setLoadingState(LoadingState.FULFILLED);
