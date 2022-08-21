@@ -22,7 +22,7 @@ export type QuestionType = z.infer<typeof Question>;
 // Must contain a name and an array of questions
 // May contain a subject
 export const QuizId = z.object({
-  _id: z.string().length(24),
+  id: z.string().length(24),
   name: z.string(),
   subject: z.string().optional(),
   questions: z.array(Question).min(1),
@@ -32,7 +32,7 @@ export type QuizIdType = z.infer<typeof QuizId>;
 
 
 // Defines the type of a quiz collection
-// Extends the Quiz type with an _id property
-export const Quiz = QuizId.omit({'_id': true});
+// Extends the Quiz type with an id property
+export const Quiz = QuizId.omit({'id': true});
 
 export type QuizType = z.infer<typeof Quiz>;

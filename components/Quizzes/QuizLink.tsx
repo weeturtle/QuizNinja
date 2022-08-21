@@ -11,27 +11,27 @@ interface QuizLinkProps {
   // The name of the quiz it links to
   name: string,
   // The id of the quiz it links to which is used to get the url
-  _id: string,
+  id: string,
 }
 
 // Simple React component to render a quiz link
-const QuizLink: FC<QuizLinkProps> = ({ name, _id }) => {
+const QuizLink: FC<QuizLinkProps> = ({ name, id }) => {
   // The state of the popup used to confirm delete
   // Popup is hidden by default
   const [openDelete, setOpenDelete] = useState(false);
   // Generates a URL to play the quiz
   // Base URL is /quiz/:id
-  const PLAY_URL = `/quiz/${_id}`;
+  const PLAY_URL = `/quiz/${id}`;
   // Generates a URL to edit the quiz
   // Base URL is /edit/:id/
-  const EDIT_URL = `/edit/${_id}`;
+  const EDIT_URL = `/edit/${id}`;
 
   // Next uses a Link component to generate a link
   // The a tag is generated with the name of the quiz and the URL from this
   // This allows the link to be styled with CSS
   return (
     <>
-      <DeleteQuizPopup isOpen={openDelete} onClose={() => setOpenDelete(false)} quizName={name} quizId={_id} />
+      <DeleteQuizPopup isOpen={openDelete} onClose={() => setOpenDelete(false)} quizName={name} quizId={id} />
       <QuizLinkContainer>
         <QuizName>{name}</QuizName>
         {/* Container for the links related to a quiz */}

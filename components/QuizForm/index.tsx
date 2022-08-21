@@ -32,9 +32,9 @@ const QuizForm: FC<QuizFormProps> = ({ quiz, createQuiz, updateQuiz }) => {
   // Function to update the quiz data on the server
   const handleSubmitQuiz = () => {
     // If the quiz is being updated, update the quiz on the server
-    '_id' in quiz ? 
+    'id' in quiz ? 
       updateQuiz && updateQuiz(QuizId.parse({
-        _id: quiz._id,
+        id: quiz.id,
         name,
         subject,
         questions

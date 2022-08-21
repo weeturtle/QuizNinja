@@ -10,7 +10,7 @@ const deleteQuiz: NextApiHandler = async (req, res) => {
   // Extract queries from the request
   const queries = req.query;
 
-  if (!queries._id) {
+  if (!queries.id) {
     return res.status(400).json({
       message: 'Missing id'
     });
@@ -19,7 +19,7 @@ const deleteQuiz: NextApiHandler = async (req, res) => {
   // Gets the quizzes collection from the database
   const deletedQuiz = await db.collection('Quizzes')
     // Deletes the quiz with the matching id
-    .deleteOne({ _id: new ObjectId(queries._id as string) });
+    .deleteOne({ id: new ObjectId(queries.id as string) });
 
   // If no quiz is found and deleted, return a 404
   if (deletedQuiz.deletedCount === 0) {

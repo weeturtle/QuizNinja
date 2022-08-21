@@ -18,7 +18,7 @@ const postQuiz: NextApiHandler = async (req, res) => {
     // Add the quiz to the database
     db.collection('Quizzes').insertOne({
       // Creates a unique id for the quiz
-      _id: ObjectId,
+      id: ObjectId,
       // Deconstructs the quiz objects
       ...quiz
     });

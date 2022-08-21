@@ -44,12 +44,12 @@ const validateQuiz = (quiz: (QuizType | QuizIdType | any)): QuizType | QuizIdTyp
 
 
   
-  // if (quiz._id) {
+  // if (quiz.id) {
   //   return quiz as QuizId;
   // }
   // return quiz as Quiz;
   
-  if (quiz._id) {
+  if (quiz.id) {
     return QuizId.parse(quiz);
   }
   return Quiz.parse(quiz);
