@@ -1,5 +1,7 @@
+import { Quiz } from '@prisma/client';
 import { NextApiHandler } from 'next';
-import { addQuiz, getAllQuizzes } from '../../../prisma/quizzes';
+import { addQuiz, getAllQuizzes, getQuizzesBySubjectId } from '../../../prisma/quizzes';
+import { SubjectModel } from '../../../prisma/zod';
 
 // Function that runs when /api/quizzes is called
 // Takes a request and a response parameter
@@ -9,21 +11,39 @@ const Quizzes: NextApiHandler = async (req, res) => {
   // Depending on the method, call the appropriate function
   switch (req.method) {
   case 'GET': {
-    // Calls the function to fetch the quizzes from mongoDB
-    const quizzes = await getAllQuizzes();
+    // Creates an empty array to store the quizzes
+    let quizzes: Quiz[];
+
+    // Extracts the subject id from the query string
+    const { subjectId: rawSubjectId } = req.query;
+
+    // If the subject id is not empty, get the quizzes by subject id
+    if (rawSubjectId) {
+      // Check the subject id is a string and convert it to that
+      const subjectId = SubjectModel.shape.id.parse(rawSubjectId);
+
+      // Get the quizzes by subject id
+      quizzes = await getQuizzesBySubjectId(subjectId);
+    } else {
+      // Get all of the quizzes
+      quizzes = await getAllQuizzes();
+    }
+
+    // Send the quizzes back to the client
     return res.status(200).json(quizzes);
   }
+  
   case 'POST': {
     // Calls the function to add a quiz to mongoDB
     const quiz = await addQuiz({
-      name: 'Binary',
-      subjectId: '630285827c672c804a6e5d3a',
+      name: 'Addition',
+      subjectId: '6302ab0a7c672c804a6e5d51',
       questions: [
         {
-          question: 'What is the binary equivalent of 0?',
+          question: 'What is 1 + 1?',
           answers: [
             {
-              answer: '0',
+              answer: '2',
               isCorrect: true
             },
             {

@@ -8,7 +8,7 @@ interface SubjectLinkProps {
 
 const SubjectLink: FC<SubjectLinkProps> = ({ name, id }) => {
   return (
-    <Link href={`/quizzes/${id}`}>
+    <Link href={`/quizzes?subjectId=${id}`}>
       <a>{name}</a>
     </Link>
   );

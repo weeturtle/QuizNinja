@@ -28,6 +28,7 @@ export const QuizModel = z.object({
   creatorId: z.string(),
   createdAt: z.date(),
   updatedAt: z.date(),
+  questions: z.array(CompleteQuestion),
 });
 
 export const NewQuizModel = z.object({
