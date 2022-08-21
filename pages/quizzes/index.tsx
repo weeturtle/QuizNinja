@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import LoadWrapper from '../../components/General/LoadWrapper';
 import PageTitle from '../../components/General/PageTitle';
@@ -18,8 +19,14 @@ const Quizzes: NextPage = () => {
   // The search term is used to filter the quizzes.
   const [searchTerm, setSearchTerm] = useState('');
 
+  // Creates a router hook to get the query string from the url.
+  const router = useRouter();
+
   // Everytime the page is rendered, the quizzes are refreshed.
   useEffect(() => {
+    const { query } = router;
+    console.table(query);
+
     updateQuizzes();
   }, []);
 

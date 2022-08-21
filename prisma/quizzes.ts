@@ -1,6 +1,5 @@
-import { Quiz } from '../types/Quiz';
+import { NewQuizModel } from './zod';
 import prisma from './prisma';
-import { CompleteQuiz } from './zod';
 
 export const getAllQuizzes = async () => {
   const quizzes = await prisma.quiz.findMany();
@@ -8,18 +7,15 @@ export const getAllQuizzes = async () => {
   return quizzes;
 };
 
-export const addQuiz = async (quiz: CompleteQuiz) => {
-  Quiz.parse(quiz);
+export const addQuiz = async (quiz: NewQuizModel) => {
+  const response = NewQuizModel.parse(
+    quiz
+  );
 
-  const { name, subjectId, questions, creatorId } = quiz;
-
+  console.log(response);
+  
   const newQuiz = await prisma.quiz.create({
-    data: {
-      name,
-      subjectId,
-      questions,
-      creatorId
-    }
+    data: quiz
   });
 
   return newQuiz;
@@ -45,22 +41,22 @@ export const deleteQuiz = async (id: string) => {
   return quiz;
 };
 
-export const updateQuiz = async (quiz: CompleteQuiz) => {
-  Quiz.parse(quiz);
+// export const updateQuiz = async (quiz: CompleteQuiz) => {
+//   RelatedQuizModel.parse(quiz);
 
-  const { name, subjectId, questions, creatorId } = quiz;
+//   const { name, subjectId, questions, creatorId } = quiz;
 
-  const updatedQuiz = await prisma.quiz.update({
-    where: {
-      id: quiz.id,
-    },
-    data: {
-      name,
-      subjectId,
-      questions,
-      creatorId
-    }
-  });
+//   const updatedQuiz = await prisma.quiz.update({
+//     where: {
+//       id: quiz.id,
+//     },
+//     data: {
+//       name,
+//       subjectId,
+//       questions,
+//       creatorId
+//     }
+//   });
 
-  return updatedQuiz;
-};
+//   return updatedQuiz;
+// };
