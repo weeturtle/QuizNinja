@@ -6,7 +6,7 @@ import validateQuiz from './validateQuiz';
 // Custom reusable React hook
 // Loads and allows a the page to refetch the quiz
 // Returns a tuple of the quiz and a function to refetch the quiz
-export const useEditQuiz = (): [QuizIdType | null, (quiz: QuizIdType) => void, (_id: string) => void, LoadingState] => {
+export const useEditQuiz = (): [QuizIdType | null, (quiz: QuizIdType) => void, (id: string) => void, LoadingState] => {
   // The useState hook is used to store the quiz
   // The quiz is initially null and is populated by the fetchQuiz function
   // useState renders the quiz list as it is updated
@@ -17,13 +17,13 @@ export const useEditQuiz = (): [QuizIdType | null, (quiz: QuizIdType) => void, (
   const [loadingState, setLoadingState] = useState<LoadingState>(LoadingState.PENDING);
 
   // Function to refetch the quiz
-  const fetchQuiz = async (_id: string) => {
+  const fetchQuiz = async (id: string) => {
 
     // Set the loading state to pending
     setLoadingState(LoadingState.PENDING);
 
     // Fetches the quiz from the server
-    const response = await fetch(`/api/quiz/${_id}`);
+    const response = await fetch(`/api/quiz/${id}`);
 
     if (response.status !== 200) {
       // If the server returns an error, set the loading state to failed

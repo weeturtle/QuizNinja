@@ -30,7 +30,7 @@ const QuizList: FC<QuizListProps> = ({ quizzes, searchTerm }) => {
           .map((quiz, i) => (
             // The key is the index of the quiz used to differentiate it for rendering
             // The QuizLink is a react component that is used to display a quiz
-            <QuizLink name={quiz.name} _id={quiz._id} key={i} />
+            <QuizLink name={quiz.name} id={quiz.id} key={i} />
           ))}
     </QuizLinkContainer>
   );
