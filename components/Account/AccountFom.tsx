@@ -39,6 +39,7 @@ interface AccountInputProps {
   firstname: string;
   lastname: string;
   email: string;
+  submitText: string;
   handleSubmit: ({
     firstname,
     lastname,
@@ -52,6 +53,7 @@ const AccountForm: FC<AccountInputProps> = ({
   lastname: initialLastname,
   email: initialEmail,
   handleSubmit,
+  submitText,
 }) => {
   const [firstname, setFirstname] = useState(initialFirstname);
   const [lastname, setLastname] = useState(initialLastname);
@@ -96,7 +98,7 @@ const AccountForm: FC<AccountInputProps> = ({
           lastname,
           email,
           password,
-        })}>Create Account</PrimaryButton>
+        })}>{submitText}</PrimaryButton>
       </div>
     </StyledContainer>
   );

@@ -1,11 +1,21 @@
 import { NextPage } from 'next';
+import Account from '../../components/Account/AccountsPage';
 
-const Account: NextPage = () => {
+const AccountPage: NextPage = () => {
+
   return (
-    <div>
-      <h1>Account</h1>
-    </div>
+    <Account user={
+      {
+        id: '1',
+        firstname: 'John',
+        lastname: 'Doe',
+        email: 'johndoe@example.com',
+        password: 'pass',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+    } />
   );
 };
 
-export default Account;
+export default AccountPage;

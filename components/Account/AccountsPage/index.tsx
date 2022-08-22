@@ -1,9 +1,13 @@
+import { User } from '@prisma/client';
 import { FC } from 'react';
 import styled from 'styled-components';
 import AccountForm, { AccountType } from '../AccountFom';
-import StyledTitle from '../StyledTitle';
 
-const StyledContainer = styled.div`
+interface AccountProps {
+  user: User
+}
+
+const AccountContainer = styled.div`
   width: 30rem;
   height: 50%;
 
@@ -30,28 +34,27 @@ const StyledContainer = styled.div`
   }
 `;
 
-const Signup: FC = () => {
+
+const Account: FC<AccountProps> = ({ user }) => {
   const handleSubmit = async ({
     firstname,
     lastname,
     email,
-    password,
+    password 
   }: AccountType) => {
     console.log(firstname, lastname, email, password);
   };
-
   return (
-    <StyledContainer>
-      <StyledTitle>Create Account</StyledTitle>
-      <AccountForm 
-        firstname=''
-        lastname=''
-        email=''
+    <AccountContainer>
+      <AccountForm
+        firstname={user.firstname}
+        lastname={user.lastname}
+        email={user.email}
         handleSubmit={handleSubmit}
-        submitText='Create Account'
-      />
-    </StyledContainer>
+        submitText='Update Account'
+      />      
+    </AccountContainer>
   );
 };
 
-export default Signup;
+export default Account;
