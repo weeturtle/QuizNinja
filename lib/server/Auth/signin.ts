@@ -1,9 +1,8 @@
 import { NextApiHandler } from 'next';
 import { getUserByEmail } from '../../../prisma/user';
 import { UserModel } from '../../../prisma/zod';
-import hash from './hash';
-import jwt from 'jsonwebtoken';
-import { setCookies } from 'cookies-next';
+import { verify } from 'argon2';
+import setCookies from './setCookies';
 
 const Signin: NextApiHandler = async (req, res) => {
   const {
@@ -20,30 +19,14 @@ const Signin: NextApiHandler = async (req, res) => {
     return res.status(404).json({ message: 'User not found' });
   }
 
-  const hashedPassword = await hash(password);
 
-  if (user.password !== hashedPassword) {
+  console.table(user);
+
+  if (!(await verify(user.password, password))) {
     return res.status(422).json({ message: 'Wrong email or password' });
   }
 
-  const secretToken = process.env.JWT_SECRET;
-
-  if (!secretToken) {
-    return res.status(500).json({ message: 'JWT_SECRET is not defined' });
-  }
-
-  const token = jwt.sign({
-    userId: user.id,
-  }, secretToken, {
-    expiresIn: '1d',
-  });
-
-  setCookies('token', token, {
-    req,
-    res,
-    maxAge: 60 * 60 * 24,
-    path: '/'
-  });
+  setCookies(user, req, res);
 
   return res.status(200).json(user);
 

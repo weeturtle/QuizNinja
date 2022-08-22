@@ -1,9 +1,8 @@
 import { User } from '@prisma/client';
-import { UserModel, NewUserModel } from './zod';
+import { NewUserModel } from './zod';
+import prisma from './prisma';
 
 export const addUser = async (user: NewUserModel): Promise<User> => {
-  UserModel.parse(user);
-
   const { firstname, lastname, email, password } = user;
 
   const response = await prisma.user.create({

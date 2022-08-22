@@ -38,6 +38,21 @@ const Login: FC = () => {
 
   const handleSubmit = async () => {
     console.log(email, password);
+
+    const response = await fetch('/api/account/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      })
+    });
+
+    const data = await response.json();
+
+    console.table(data);
   };
 
   return (

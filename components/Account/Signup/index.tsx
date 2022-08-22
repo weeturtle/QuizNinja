@@ -47,7 +47,7 @@ const Signup: FC = () => {
         lastname,
         email,
         password,
-      }),
+      })
     });
 
     const data = await response.json();
