@@ -2,8 +2,16 @@ import { FC, useState } from 'react';
 import { PrimaryButton, SecondaryButton } from './AccountButtons';
 import AccountInput from './AccountInput';
 import styled from 'styled-components';
+import Link from 'next/link';
 
-const StyledForm = styled.form`
+export interface AccountType {
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+}
+
+const StyledContainer = styled.div`
   width: 400px;
 
   .names {
@@ -31,7 +39,12 @@ interface AccountInputProps {
   firstname: string;
   lastname: string;
   email: string;
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleSubmit: ({
+    firstname,
+    lastname,
+    email,
+    password,
+  }: AccountType) => void;
 }
   
 const AccountForm: FC<AccountInputProps> = ({
@@ -46,7 +59,7 @@ const AccountForm: FC<AccountInputProps> = ({
   const [password, setPassword] = useState('');
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
+    <StyledContainer>
       <div className='names'>
         <AccountInput
           placeholder='Firstname'
@@ -75,10 +88,17 @@ const AccountForm: FC<AccountInputProps> = ({
         name='password'
       />
       <div className='buttons'>
-        <SecondaryButton type='button'>Cancel</SecondaryButton>
-        <PrimaryButton type='submit' value='Submit' />
+        <Link href='/accounts/login'>
+          <SecondaryButton>Cancel</SecondaryButton>
+        </Link>
+        <PrimaryButton onClick={() => handleSubmit({
+          firstname,
+          lastname,
+          email,
+          password,
+        })}>Create Account</PrimaryButton>
       </div>
-    </StyledForm>
+    </StyledContainer>
   );
 };
 

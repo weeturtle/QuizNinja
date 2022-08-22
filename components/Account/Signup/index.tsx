@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import AccountForm from '../AccountFom';
+import AccountForm, { AccountType } from '../AccountFom';
 import StyledTitle from '../StyledTitle';
 
 const StyledContainer = styled.div`
@@ -12,7 +12,7 @@ const StyledContainer = styled.div`
   justify-content: space-between;
 
 
-  form {
+  div {
     display: flex;
     
     flex-direction: column;
@@ -31,8 +31,13 @@ const StyledContainer = styled.div`
 `;
 
 const Signup: FC = () => {
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async ({
+    firstname,
+    lastname,
+    email,
+    password,
+  }: AccountType) => {
+    console.log(firstname, lastname, email, password);
   };
 
   return (

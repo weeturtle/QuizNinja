@@ -3,6 +3,7 @@ import AccountInput from '../AccountInput';
 import styled from 'styled-components';
 import StyledTitle from '../StyledTitle';
 import { PrimaryButton, SecondaryButton } from '../AccountButtons';
+import Link from 'next/link';
 
 const StyledContainer = styled.div`
   width: 25rem;
@@ -13,7 +14,7 @@ const StyledContainer = styled.div`
   justify-content: space-between;
 
 
-  form {
+  &>div {
     display: flex;
     
     flex-direction: column;
@@ -31,21 +32,18 @@ const StyledContainer = styled.div`
   }
 `;
 
-
-
 const Login: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     console.log(email, password);
   };
 
   return (
     <StyledContainer>
       <StyledTitle>Login</StyledTitle>
-      <form onSubmit={handleSubmit}>
+      <div>
         <AccountInput
           placeholder='Email'
           type='email'
@@ -62,10 +60,12 @@ const Login: FC = () => {
         />
 
         <div className='button-container'>
-          <SecondaryButton>Create Account</SecondaryButton>
-          <PrimaryButton type='submit' value='Log in'/>
+          <Link href='/accounts/signup'>
+            <SecondaryButton>Create Account</SecondaryButton>
+          </Link>
+          <PrimaryButton onClick={handleSubmit}>Log In</PrimaryButton>
         </div>
-      </form>
+      </div>
     </StyledContainer>
   );
 };
