@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import StyledTitle from '../StyledTitle';
 import { PrimaryButton, SecondaryButton } from '../AccountButtons';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const StyledContainer = styled.div`
   width: 25rem;
@@ -36,6 +37,8 @@ const Login: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const router = useRouter();
+
   const handleSubmit = async () => {
     console.log(email, password);
 
@@ -50,9 +53,9 @@ const Login: FC = () => {
       })
     });
 
-    const data = await response.json();
-
-    console.table(data);
+    if (response.status === 200) {
+      router.push('/');
+    }
   };
 
   return (

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { FC } from 'react';
 import styled from 'styled-components';
 import AccountForm, { AccountType } from '../AccountFom';
@@ -31,6 +32,8 @@ const StyledContainer = styled.div`
 `;
 
 const Signup: FC = () => {
+  const router = useRouter();
+
   const handleSubmit = async ({
     firstname,
     lastname,
@@ -50,9 +53,9 @@ const Signup: FC = () => {
       })
     });
 
-    const data = await response.json();
-
-    console.table(data);
+    if (response.status === 200) {
+      router.push('/');
+    }
   };
 
   return (
