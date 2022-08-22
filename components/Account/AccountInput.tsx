@@ -6,6 +6,7 @@ interface AccountInputProps {
   text: string;
   setText: Dispatch<SetStateAction<string>>;
   placeholder: string;
+  name: string;
   type?: string;
 }
 
@@ -30,7 +31,7 @@ const StyledContainer = styled.div`
   }
 
   input:focus ~ .floating-label,
-  input:not(:focus):valid ~ .floating-label {
+  .floating-label[data-contains='true'] {
     transform: translateY(-20px);
   }
   
@@ -51,11 +52,11 @@ const StyledContainer = styled.div`
 `;
 
 
-const AccountInput: FC<AccountInputProps> = ({ text, setText, placeholder, type='text' }) => {
+const AccountInput: FC<AccountInputProps> = ({ text, setText, placeholder, name, type='text' }) => {
   return (
     <StyledContainer>
-      <input type={type} value={text} onChange={(e) => setText(e.target.value)} />
-      <label className='floating-label'>{placeholder}</label>
+      <input type={type} value={text} onChange={(e) => setText(e.target.value)} name={name} />
+      <label className='floating-label' data-contains={text.length > 0}>{placeholder}</label>
     </StyledContainer>
   );
 };

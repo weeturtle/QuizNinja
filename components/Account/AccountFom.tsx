@@ -48,14 +48,35 @@ const AccountForm: FC<AccountInputProps> = ({
   return (
     <StyledForm onSubmit={handleSubmit}>
       <div className='names'>
-        <AccountInput placeholder='Firstname' text={firstname} setText={setFirstname} />
-        <AccountInput placeholder='Lastname' text={lastname} setText={setLastname} />
+        <AccountInput
+          placeholder='Firstname'
+          text={firstname}
+          setText={setFirstname}
+          name='firstname'
+        />
+        <AccountInput
+          placeholder='Lastname'
+          text={lastname}
+          setText={setLastname}
+          name='lastname'
+        />
       </div>
-      <AccountInput placeholder='Email' text={email} setText={setEmail} />
-      <AccountInput placeholder='Password' text={password} setText={setPassword} type='password' />
+      <AccountInput
+        placeholder='Email'
+        text={email}
+        setText={setEmail}
+        name='email'
+      />
+      <AccountInput
+        placeholder='Password'
+        text={password}
+        setText={setPassword}
+        type='password'
+        name='password'
+      />
       <div className='buttons'>
         <SecondaryButton type='button'>Cancel</SecondaryButton>
-        <PrimaryButton type='submit'>Create Account</PrimaryButton>
+        <PrimaryButton type='submit' value='Submit' />
       </div>
     </StyledForm>
   );

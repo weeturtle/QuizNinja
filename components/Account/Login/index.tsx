@@ -46,11 +46,24 @@ const Login: FC = () => {
     <StyledContainer>
       <StyledTitle>Login</StyledTitle>
       <form onSubmit={handleSubmit}>
-        <AccountInput placeholder='Email' type='email' text={email} setText={setEmail} />
-        <AccountInput placeholder='Password' type='password' text={password} setText={setPassword} />
+        <AccountInput
+          placeholder='Email'
+          type='email'
+          text={email}
+          name='email'
+          setText={setEmail}
+        />
+        <AccountInput
+          placeholder='Password'
+          type='password'
+          text={password}
+          setText={setPassword}
+          name='password'
+        />
+
         <div className='button-container'>
-          <PrimaryButton>Create Account</PrimaryButton>
-          <SecondaryButton type='submit'>Login</SecondaryButton>
+          <SecondaryButton>Create Account</SecondaryButton>
+          <PrimaryButton type='submit' value='Log in'/>
         </div>
       </form>
     </StyledContainer>
