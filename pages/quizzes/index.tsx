@@ -52,6 +52,8 @@ const Quizzes: NextPage = () => {
 
 export default Quizzes;
 
+// Get the user from the server
+// If the user is not logged in, redirect them to the login page
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   return getUser(context);
 };

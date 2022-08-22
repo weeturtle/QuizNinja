@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Colours from '../../styles/colours';
 
+// Styles the main button on the account forms and sign in page
 export const PrimaryButton = styled.button`
   width: 8rem;
 
@@ -16,6 +17,7 @@ export const PrimaryButton = styled.button`
   padding-block: 0.75rem;
 `;
 
+// Styles the secondary button on the account forms and sign in page
 export const SecondaryButton = styled.a`
   width: 8rem;
 

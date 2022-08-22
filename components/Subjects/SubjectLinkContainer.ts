@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Colours from '../../styles/colours';
 
+// Styles the container that holds the subject links
 export const SubjectLinkContainer = styled.div`
   height: 75vh;
   width: 50vw;

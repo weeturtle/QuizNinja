@@ -6,6 +6,7 @@ import { PrimaryButton, SecondaryButton } from '../AccountButtons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+// Styles the login form and contained components
 const StyledContainer = styled.div`
   width: 25rem;
   height: 40%;
@@ -33,15 +34,20 @@ const StyledContainer = styled.div`
   }
 `;
 
+// The login form is used to get the user's current information
 const Login: FC = () => {
+  // The email and passwords are stored as states
+  // The states are updated when the user changes the input
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // The router is used to redirect the user to the dashboard page
   const router = useRouter();
 
+  // This function will be called when the user submits the form
   const handleSubmit = async () => {
-    console.log(email, password);
-
+    // The request is sent to the server to log the user in
+    // The body of the request is the email and password
     const response = await fetch('/api/account/login', {
       method: 'POST',
       headers: {
@@ -53,6 +59,7 @@ const Login: FC = () => {
       })
     });
 
+    // If the login was successful, the user is redirected to the dashboard page
     if (response.status === 200) {
       router.push('/');
     }

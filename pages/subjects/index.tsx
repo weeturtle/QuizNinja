@@ -30,6 +30,8 @@ const SubjectPage: NextPage = () => {
 
 export default SubjectPage;
 
+// Get the user from the server
+// If the user is not logged in, redirect them to the login page
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   return getUser(context);
 };

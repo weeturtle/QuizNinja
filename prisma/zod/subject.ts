@@ -1,6 +1,7 @@
 import * as z from 'zod';
 import { CompleteQuiz, RelatedQuizModel } from './index';
 
+// Defines the type of a subject returned from the database
 export const SubjectModel = z.object({
   id: z.string(),
   name: z.string(),
@@ -8,6 +9,7 @@ export const SubjectModel = z.object({
   updatedAt: z.date(),
 });
 
+// Defines the advanced type fetched using a connected query
 export interface CompleteSubject extends z.infer<typeof SubjectModel> {
   quizzes: CompleteQuiz[]
 }

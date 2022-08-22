@@ -19,7 +19,7 @@ export const CompleteQuestion = z.object({
 
 export type QuestionType = z.infer<typeof CompleteQuestion>;
 
-
+// Defines the module that is returns when a quiz is fetched from the database
 export const QuizModel = z.object({
   id: z.string(),
   name: z.string(),
@@ -31,6 +31,8 @@ export const QuizModel = z.object({
   questions: z.array(CompleteQuestion),
 });
 
+// Defines the type of a new quiz
+// Automates validation of the quiz
 export const NewQuizModel = z.object({
   name: z.string(),
   private: z.boolean(),
@@ -39,10 +41,11 @@ export const NewQuizModel = z.object({
   questions: z.array(CompleteQuestion),
 });
 
-
+// Exports the types of the models
 export type QuizModel = z.infer<typeof QuizModel>;
 export type NewQuizModel = z.infer<typeof NewQuizModel>;
 
+// When a quiz is fetched from the database, it is converted to this type 
 export interface CompleteQuiz extends z.infer<typeof QuizModel> {
   questions: QuestionType[]
   subject?: CompleteSubject | null

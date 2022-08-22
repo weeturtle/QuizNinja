@@ -4,6 +4,7 @@ import AccountInput from './AccountInput';
 import styled from 'styled-components';
 import Link from 'next/link';
 
+// The type of the account used within the form
 export interface AccountType {
   firstname: string;
   lastname: string;
@@ -11,6 +12,8 @@ export interface AccountType {
   password: string;
 }
 
+// The styled container for the account form
+// Styles inner components to reduce the amount of code
 const StyledContainer = styled.div`
   width: 400px;
 
@@ -35,6 +38,8 @@ const StyledContainer = styled.div`
   }
 `;
 
+// The parameters for the account form
+// Used to deconstruct the form values and create or edit an account
 interface AccountInputProps {
   firstname: string;
   lastname: string;
@@ -48,6 +53,8 @@ interface AccountInputProps {
   }: AccountType) => void;
 }
   
+// The account form component that is rendered on the signup page
+// This is used to create a new account and edit an existing account
 const AccountForm: FC<AccountInputProps> = ({
   firstname: initialFirstname,
   lastname: initialLastname,
@@ -55,11 +62,15 @@ const AccountForm: FC<AccountInputProps> = ({
   handleSubmit,
   submitText,
 }) => {
+  // Creates a useState variable for the form values
+  // The initial values are the values passed in as props
+  // The values are updated when the form is edited
   const [firstname, setFirstname] = useState(initialFirstname);
   const [lastname, setLastname] = useState(initialLastname);
   const [email, setEmail] = useState(initialEmail);
   const [password, setPassword] = useState('');
 
+  // Returns the styled inputs for the account form
   return (
     <StyledContainer>
       <div className='names'>

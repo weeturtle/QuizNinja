@@ -2,6 +2,7 @@ import { Dispatch, FC, SetStateAction } from 'react';
 import styled from 'styled-components';
 import Colours from '../../styles/colours';
 
+// Parameters for any input box used in the account page
 interface AccountInputProps {
   text: string;
   setText: Dispatch<SetStateAction<string>>;
@@ -10,6 +11,7 @@ interface AccountInputProps {
   type?: string;
 }
 
+// Styled input box used in the account, signup and signin pages
 const StyledContainer = styled.div`
 	position: relative;
   width: 400px;
@@ -51,7 +53,8 @@ const StyledContainer = styled.div`
   }
 `;
 
-
+// The account input component that is rendered on all account pages
+// Takes the parameters for the input box and renders it
 const AccountInput: FC<AccountInputProps> = ({ text, setText, placeholder, name, type='text' }) => {
   return (
     <StyledContainer>

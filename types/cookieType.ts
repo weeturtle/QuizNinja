@@ -1,12 +1,6 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-
+// Defines the type of the cookie used to store the user's session
 interface CookieType {
   userId: string
-}
-
-export interface ApiProps {
-  res: NextApiResponse;
-  req: NextApiRequest;
 }
 
 export default CookieType;
