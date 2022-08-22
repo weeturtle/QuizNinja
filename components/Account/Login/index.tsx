@@ -1,7 +1,8 @@
 import { FC, useState } from 'react';
 import AccountInput from '../AccountInput';
 import styled from 'styled-components';
-import Colours from '../../../styles/colours';
+import StyledTitle from '../StyledTitle';
+import { PrimaryButton, SecondaryButton } from '../AccountButtons';
 
 const StyledContainer = styled.div`
   width: 25rem;
@@ -30,41 +31,26 @@ const StyledContainer = styled.div`
   }
 `;
 
-const StyledTitle = styled.h1`
-  font-size: 32px;
-  color: ${Colours.PRIMARY};
-`;
 
-const SubmitButton = styled.button`
-  width: 8rem;
-
-  color: ${Colours.PRIMARY};
-  border: 1px solid ${Colours.PRIMARY};
-  background-color: transparent;
-
-  font-size: 16px;
-
-  padding-block: 0.75rem;
-`;
-
-const SigninButton = styled(SubmitButton)`
-  color: ${Colours.ACCENTED_TEXT};
-  border: 1px solid ${Colours.ACCENTED_TEXT};
-`;
 
 const Login: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(email, password);
+  };
+
   return (
     <StyledContainer>
       <StyledTitle>Login</StyledTitle>
-      <form>
+      <form onSubmit={handleSubmit}>
         <AccountInput placeholder='Email' type='email' text={email} setText={setEmail} />
         <AccountInput placeholder='Password' type='password' text={password} setText={setPassword} />
         <div className='button-container'>
-          <SigninButton>Sign Up</SigninButton>
-          <SubmitButton type='submit'>Login</SubmitButton>
+          <PrimaryButton>Create Account</PrimaryButton>
+          <SecondaryButton type='submit'>Login</SecondaryButton>
         </div>
       </form>
     </StyledContainer>

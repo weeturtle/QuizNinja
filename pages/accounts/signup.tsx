@@ -1,10 +1,10 @@
 import { NextPage } from 'next';
+import Signup from '../../components/Account/Signup';
+
 
 const SigninPage: NextPage = () => {
   return (
-    <div>
-      <h1>Signin</h1>
-    </div>
+    <Signup />
   );
 };
 

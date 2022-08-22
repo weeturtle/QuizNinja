@@ -11,10 +11,12 @@ interface AccountInputProps {
 
 const StyledContainer = styled.div`
 	position: relative;
+  width: 400px;
+  height: 45px;
 
   input {
-    width: 400px;
-    height: 45px;
+    width: 100%;
+    height: 100%;
 
     padding-left: 12px;
 
@@ -27,7 +29,8 @@ const StyledContainer = styled.div`
     color: ${Colours.PRIMARY};
   }
 
-  input:focus ~ .floating-label {
+  input:focus ~ .floating-label,
+  input:not(:focus):valid ~ .floating-label {
     transform: translateY(-20px);
   }
   
