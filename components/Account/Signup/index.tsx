@@ -37,7 +37,22 @@ const Signup: FC = () => {
     email,
     password,
   }: AccountType) => {
-    console.log(firstname, lastname, email, password);
+    const response = await fetch('/api/account/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        firstname,
+        lastname,
+        email,
+        password,
+      }),
+    });
+
+    const data = await response.json();
+
+    console.table(data);
   };
 
   return (

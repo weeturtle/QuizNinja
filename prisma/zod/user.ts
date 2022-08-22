@@ -11,6 +11,14 @@ export const UserModel = z.object({
   updatedAt: z.date(),
 });
 
+export const NewUserModel = UserModel.omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export type NewUserModel = z.infer<typeof NewUserModel>;
+
 export interface CompleteUser extends z.infer<typeof UserModel> {
   quizzes: CompleteQuiz[]
 }
