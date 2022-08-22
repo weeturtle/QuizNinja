@@ -7,8 +7,8 @@ export const UserModel = z.object({
   lastname: z.string(),
   email: z.string(),
   password: z.string(),
-  createdAt: z.date().transform(date => String(date)),
-  updatedAt: z.date().transform(date => String(date)),
+  createdAt: z.date(),
+  updatedAt: z.date(),
 });
 
 export const NewUserModel = UserModel.omit({
@@ -16,6 +16,14 @@ export const NewUserModel = UserModel.omit({
   createdAt: true,
   updatedAt: true,
 });
+
+export const PartialUserModel = UserModel.omit({
+  password: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export type PartialUserModel = z.infer<typeof PartialUserModel>;
 
 export type NewUserModel = z.infer<typeof NewUserModel>;
 

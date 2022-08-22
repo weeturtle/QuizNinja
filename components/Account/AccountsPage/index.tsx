@@ -1,10 +1,10 @@
-import { User } from '@prisma/client';
 import { FC } from 'react';
 import styled from 'styled-components';
+import { PartialUserModel } from '../../../prisma/zod';
 import AccountForm, { AccountType } from '../AccountFom';
 
 interface AccountProps {
-  user: User
+  user: PartialUserModel
 }
 
 const AccountContainer = styled.div`

@@ -1,11 +1,10 @@
 import { removeCookies } from 'cookies-next';
-import { NextPage } from 'next';
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import Account from '../../components/Account/AccountsPage';
 import getUser from '../../lib/frontend/getUser';
-import { ApiProps } from '../../types/cookieType';
 
-const AccountPage: NextPage = () => {
+const AccountPage = ({ user }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter();
 
   const signout = () => {
@@ -15,17 +14,9 @@ const AccountPage: NextPage = () => {
 
   return (
     <>
-      <Account user={
-        {
-          id: '1',
-          firstname: 'John',
-          lastname: 'Doe',
-          email: 'johndoe@example.com',
-          password: 'pass',
-          createdAt: new Date(),
-          updatedAt: new Date()
-        }
-      } />
+      {
+        user && <Account user={user} />
+      }
       <button onClick={signout}>Sign out</button>
     </>
   );
@@ -33,20 +24,6 @@ const AccountPage: NextPage = () => {
 
 export default AccountPage;
 
-export async function getServerSideProps({ req, res }: ApiProps) {
-  const user = await getUser(req, res);
-  if (!user) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: '/accounts/login',
-      },
-      props: {},
-    };
-  }
-  return {
-    props: {
-      user,
-    },
-  };
-}
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+  return getUser(context);
+};
