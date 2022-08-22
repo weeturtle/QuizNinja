@@ -1,10 +1,11 @@
-import { NextPage } from 'next';
+import { GetServerSidePropsContext, NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import LoadWrapper from '../../components/General/LoadWrapper';
 import useSubjects from '../../lib/frontend/fetchSubjects';
 import SubjectList from '../../components/Subjects/SubjectsList';
 import Searchbox from '../../components/General/Searchbox';
 import SubjectsPageContainer from '../../components/Subjects/SubjectsPageContainer';
+import getUser from '../../lib/frontend/getUser';
 
 const SubjectPage: NextPage = () => {
   const [subjects, updateSubjects, loadingState] = useSubjects();
@@ -28,3 +29,7 @@ const SubjectPage: NextPage = () => {
 };
 
 export default SubjectPage;
+
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+  return getUser(context);
+};

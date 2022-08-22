@@ -1,9 +1,10 @@
-import { NextPage } from 'next';
+import { GetServerSidePropsContext, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import QuizGame from '../../components/Quiz/index';
 import LoadWrapper from '../../components/General/LoadWrapper';
 import useQuiz from '../../lib/frontend/fetchQuiz';
+import getUser from '../../lib/frontend/getUser';
 
 const Quiz: NextPage = () => {
   
@@ -40,3 +41,7 @@ const Quiz: NextPage = () => {
 };
 
 export default Quiz;
+
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+  return getUser(context);
+};
