@@ -20,6 +20,7 @@ const QuizId: NextApiHandler = async (req, res) => {
   case 'DELETE': {
     const { id: rawId } = req.query;
     const id = QuizModel.shape.id.parse(rawId);
+    console.log(id);
 
     const quiz = await deleteQuiz(id);
     if (quiz) {

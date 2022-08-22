@@ -30,7 +30,6 @@ export const useSubjects = (): [Subject[], () => void, LoadingState] => {
     }
     // Parses the response as JSON
     const fetchedSubjects = await response.json();
-    console.table(fetchedSubjects);
     
     // Sets the loading state to fulfilled
     setLoadingState(LoadingState.FULFILLED);

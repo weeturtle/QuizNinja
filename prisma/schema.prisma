@@ -38,10 +38,12 @@ model User {
   firstname String  
   lastname  String  
   email     String      @unique
-  password  String  
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  password  String      
+  createdAt DateTime    @default(now()) @map("created_at")
+  updatedAt DateTime    @updatedAt @map("updated_at")
   quizzes   Quiz[]
+
+  @@map("users")
 }
 
 type Answer {
@@ -63,13 +65,15 @@ model Quiz {
   private   Boolean     @default(false)
 
   subject   Subject?    @relation(fields: [subjectId], references: [id])
-  subjectId String?     @db.ObjectId
+  subjectId String?     @db.ObjectId @map("subject_id")
 
-  creatorId String      @db.ObjectId
+  creatorId String      @db.ObjectId @map("creator_id")
   creator   User        @relation(fields: [creatorId], references: [id])
 
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  createdAt DateTime    @default(now()) @map("created_at")
+  updatedAt DateTime    @updatedAt @map("updated_at")
+
+  @@map("quizzes")
 }
 
 model Subject {
@@ -78,6 +82,8 @@ model Subject {
 
   quizzes   Quiz[]
 
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  createdAt DateTime    @default(now()) @map("created_at")
+  updatedAt DateTime    @updatedAt @map("updated_at")
+
+  @@map("subjects")
 }
