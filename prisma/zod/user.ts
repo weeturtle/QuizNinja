@@ -7,8 +7,8 @@ export const UserModel = z.object({
   lastname: z.string(),
   email: z.string(),
   password: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  createdAt: z.date().transform(date => String(date)),
+  updatedAt: z.date().transform(date => String(date)),
 });
 
 export const NewUserModel = UserModel.omit({
