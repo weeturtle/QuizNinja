@@ -33,7 +33,7 @@ const QuizForm: FC<QuizFormProps> = ({ quiz, createQuiz, updateQuiz }) => {
 
 
   // Function to update the quiz data on the server
-  const handleSubmitQuiz = () => {
+  const handleSubmitQuiz = () => {   
     // If the quiz is being updated, update the quiz on the server
     'id' in quiz ? 
       updateQuiz && updateQuiz(QuizModel.parse({
@@ -42,7 +42,9 @@ const QuizForm: FC<QuizFormProps> = ({ quiz, createQuiz, updateQuiz }) => {
         subjectId,
         questions,
         private: isPrivate,
-        creatorId: quiz.creatorId
+        creatorId: quiz.creatorId,
+        createdAt: new Date(quiz.createdAt),
+        updatedAt: new Date(quiz.updatedAt)
       }))
       :
     // If the quiz is being created, create the quiz on the server

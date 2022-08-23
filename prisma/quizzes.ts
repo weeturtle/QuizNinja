@@ -107,7 +107,11 @@ export const deleteQuiz = async (id: string, userId: string) => {
 export const updateQuiz = async (rawQuiz: Quiz, userId: string) => {
   // Convert the quiz to a Zod model
   // Validates the quiz against the Zod model
-  const quiz = QuizModel.parse(rawQuiz);
+  const quiz = QuizModel.parse({
+    ...rawQuiz,
+    updatedAt: new Date(rawQuiz.updatedAt),
+    createdAt: new Date(rawQuiz.createdAt),
+  });
 
   // Check if user has right to edit the quiz
   const hasRight = await userCanEdit(quiz.id, userId);
