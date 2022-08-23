@@ -1,8 +1,7 @@
-import jwt from 'jsonwebtoken';
 import { GetServerSidePropsContext } from 'next';
 import { getUserById } from '../../prisma/user';
 import { PartialUserModel } from '../../prisma/zod';
-import CookieType from '../../types/cookieType';
+import decodeToken from './decodeToken';
 import getToken from './getToken';
 
 // Defines the type of the response from the getUser function
@@ -38,9 +37,8 @@ const getUser = async (context: GetServerSidePropsContext): Promise<GetUserRespo
     };
   }
 
-  // Decodes the token and extracts the user id
-  const secretToken = process.env.JWT_SECRET || 'secret';
-  const data = jwt.verify(token, secretToken) as CookieType;
+  // Decodes the token and gets the user id from it
+  const data = decodeToken(token);
 
   // Gets the user from the database
   const user = await getUserById(data.userId);
