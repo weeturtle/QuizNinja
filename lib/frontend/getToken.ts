@@ -14,7 +14,7 @@ const getToken = (req: req) => {
   if (!token) {
     return null;
   }
-  return token.split('=')[1];
+  return String(token.split('=')[1]) || '';
 };
 
 export default getToken;

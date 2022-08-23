@@ -1,4 +1,6 @@
 import { NextApiHandler } from 'next';
+import decodeToken from '../../../lib/frontend/decodeToken';
+import getToken from '../../../lib/frontend/getToken';
 import { deleteQuiz, getQuizById } from '../../../prisma/quizzes';
 import { QuizModel } from '../../../prisma/zod';
 
@@ -22,7 +24,13 @@ const QuizId: NextApiHandler = async (req, res) => {
     const id = QuizModel.shape.id.parse(rawId);
     console.log(id);
 
-    const quiz = await deleteQuiz(id);
+    const token = getToken(req);
+    if (!token) {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+    const { userId } = decodeToken(token);
+
+    const quiz = await deleteQuiz(id, userId);
     if (quiz) {
       return res.status(200).json(quiz);
     }

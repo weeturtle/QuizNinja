@@ -3,7 +3,7 @@ import { NextApiHandler } from 'next';
 import decodeToken from '../../../lib/frontend/decodeToken';
 import getToken from '../../../lib/frontend/getToken';
 import { addQuiz, getAllQuizzes, getQuizzesBySubjectId } from '../../../prisma/quizzes';
-import { SubjectModel } from '../../../prisma/zod';
+import { NewQuizModel, SubjectModel } from '../../../prisma/zod';
 
 // Function that runs when /api/quizzes is called
 // Takes a request and a response parameter
@@ -28,39 +28,54 @@ const Quizzes: NextApiHandler = async (req, res) => {
       const subjectId = SubjectModel.shape.id.parse(rawSubjectId);
 
       // Get the quizzes by subject id
-      quizzes = await getQuizzesBySubjectId(subjectId);
+      quizzes = await getQuizzesBySubjectId(userId, subjectId);
     } else {
       // Get all of the quizzes
-      quizzes = await getAllQuizzes();
+      quizzes = await getAllQuizzes(userId);
     }
 
+    // Sorts the quizzes in order of private quizzes first
+    // Then sorts the quizzes by the quiz name alphabetically
+    const sortedQuizzes = quizzes.sort((a, b) => {
+      if (a.private) {
+        return -1;
+      }
+      if (b.private) {
+        return 1;
+      }
+      return a.name < b.name ? -1 : 1;
+    });
+
+    console.table(sortedQuizzes);
+
     // Send the quizzes back to the client
-    return res.status(200).json(quizzes);
+    return res.status(200).json(sortedQuizzes);
   }
   
   case 'POST': {
+    // Gets the user's id from the token
+    const token = getToken(req);
+    if (!token) return res.status(401).json({ error: 'Unauthorized' });
+
+    // Fetches the user's id from the token
+    const { userId } = decodeToken(token);
+
     // Calls the function to add a quiz to mongoDB
-    const quiz = await addQuiz({
-      name: 'Addition',
-      subjectId: '6302ab0a7c672c804a6e5d51',
-      questions: [
-        {
-          question: 'What is 1 + 1?',
-          answers: [
-            {
-              answer: '2',
-              isCorrect: true
-            },
-            {
-              answer: '1',
-              isCorrect: false
-            }
-          ]
-        }
-      ],
-      creatorId: '63028dde7c672c804a6e5d42',
-      private: false
+    const { name, subjectId, private: isPrivate, questions } = req.body;
+
+    // Validates the quiz against the Zod model
+    const newQuiz = NewQuizModel.parse({
+      name,
+      subjectId,
+      private: isPrivate,
+      questions,
+      creatorId: userId
     });
+
+    // Adds the quiz to mongoDB
+    const quiz = await addQuiz(newQuiz);
+    
+    // Returns the new quiz to the client
     return res.status(200).json(quiz);
   }
 

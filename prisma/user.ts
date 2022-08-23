@@ -61,3 +61,15 @@ export const getUserByEmail = async (email: string): Promise<User | null> => {
   // Return the user or null
   return user;
 };
+
+export const deleteUser = async (id: string): Promise<User | null> => {
+  // Delete the user by id from mongoDB
+  const user = await prisma.user.delete({
+    where: {
+      id,
+    }
+  });
+
+  // Return the user or null
+  return user;
+};
