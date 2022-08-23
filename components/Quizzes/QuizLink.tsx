@@ -13,11 +13,11 @@ interface QuizLinkProps {
   // The id of the quiz it links to which is used to get the url
   id: string,
   // The privacy of the quiz it links to
-  privacy: boolean,
+  hasRights: boolean;
 }
 
 // Simple React component to render a quiz link
-const QuizLink: FC<QuizLinkProps> = ({ name, id, privacy }) => {
+const QuizLink: FC<QuizLinkProps> = ({ name, id, hasRights }) => {
   // The state of the popup used to confirm delete
   // Popup is hidden by default
   const [openDelete, setOpenDelete] = useState(false);
@@ -58,7 +58,7 @@ const QuizLink: FC<QuizLinkProps> = ({ name, id, privacy }) => {
           >
             Share
           </QuizLinkButton>
-          {privacy && (
+          {hasRights && (
             <>
               <Link
                 href={EDIT_URL}
