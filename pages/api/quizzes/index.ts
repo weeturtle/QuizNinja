@@ -34,10 +34,20 @@ const Quizzes: NextApiHandler = async (req, res) => {
       quizzes = await getAllQuizzes(userId);
     }
 
-    console.table(quizzes);
+    const sortedQuizzes = quizzes.sort((a, b) => {
+      if (a.private) {
+        return -1;
+      }
+      if (b.private) {
+        return 1;
+      }
+      return a.name < b.name ? -1 : 1;
+    });
+
+    console.table(sortedQuizzes);
 
     // Send the quizzes back to the client
-    return res.status(200).json(quizzes);
+    return res.status(200).json(sortedQuizzes);
   }
   
   case 'POST': {
