@@ -1,5 +1,5 @@
+import { Quiz } from '@prisma/client';
 import { FC } from 'react';
-import { QuizIdType } from '../../types/Quiz';
 import QuizLink from './QuizLink';
 import QuizLinkContainer from './QuizLinksContainer';
 
@@ -8,7 +8,7 @@ import QuizLinkContainer from './QuizLinksContainer';
 // The props are the array quizzes with ids to be displayed
 // The searchTerm is the search term used to filter the quizzes
 interface QuizListProps {
-  quizzes: QuizIdType[],
+  quizzes: Quiz[],
   searchTerm?: string,
 }
 
@@ -30,7 +30,7 @@ const QuizList: FC<QuizListProps> = ({ quizzes, searchTerm }) => {
           .map((quiz, i) => (
             // The key is the index of the quiz used to differentiate it for rendering
             // The QuizLink is a react component that is used to display a quiz
-            <QuizLink name={quiz.name} id={quiz.id} key={i} />
+            <QuizLink privacy={quiz.private} name={quiz.name} id={quiz.id} key={i} />
           ))}
     </QuizLinkContainer>
   );

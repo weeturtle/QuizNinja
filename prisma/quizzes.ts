@@ -36,7 +36,7 @@ export const getAllQuizzes = async (userId: string) => {
   // Combine the private and public quizzes
   // Private quizzes are always at the top of the array
   // Removes duplicates
-  const quizzes = [...privateQuizzes, ...publicQuizzes];
+  const quizzes = [...publicQuizzes, ...privateQuizzes];
   return quizzes;
 };
 
