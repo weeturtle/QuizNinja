@@ -28,11 +28,13 @@ const Quizzes: NextApiHandler = async (req, res) => {
       const subjectId = SubjectModel.shape.id.parse(rawSubjectId);
 
       // Get the quizzes by subject id
-      quizzes = await getQuizzesBySubjectId(subjectId);
+      quizzes = await getQuizzesBySubjectId(userId, subjectId);
     } else {
       // Get all of the quizzes
-      quizzes = await getAllQuizzes();
+      quizzes = await getAllQuizzes(userId);
     }
+
+    console.table(quizzes);
 
     // Send the quizzes back to the client
     return res.status(200).json(quizzes);
@@ -41,14 +43,14 @@ const Quizzes: NextApiHandler = async (req, res) => {
   case 'POST': {
     // Calls the function to add a quiz to mongoDB
     const quiz = await addQuiz({
-      name: 'Addition',
+      name: 'Subtraction',
       subjectId: '6302ab0a7c672c804a6e5d51',
       questions: [
         {
-          question: 'What is 1 + 1?',
+          question: 'What is 1 - 1?',
           answers: [
             {
-              answer: '2',
+              answer: '0',
               isCorrect: true
             },
             {
@@ -59,7 +61,7 @@ const Quizzes: NextApiHandler = async (req, res) => {
         }
       ],
       creatorId: '63028dde7c672c804a6e5d42',
-      private: false
+      private: true
     });
     return res.status(200).json(quiz);
   }

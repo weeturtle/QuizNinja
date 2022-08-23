@@ -2,22 +2,52 @@ import { NewQuizModel, QuizModel } from './zod';
 import prisma from './prisma';
 import { Quiz } from '@prisma/client';
 
+// Function called to find the user's own quizzes
+export const getUsersPrivateQuizzes = async (userId: string): Promise<Quiz[]> => {
+  // Finds the user's private quizzes
+  const quizzes = await prisma.quiz.findMany({
+    where: {
+      creatorId: userId,
+    },
+  });
+
+  console.table(quizzes);
+  return quizzes;
+};
+
+// Function called to find all public quizzes
+export const getPublicQuizzes = async (userId: string): Promise<Quiz[]> => {
+  // Finds all of the public quizzes
+  const quizzes = await prisma.quiz.findMany({
+    where: {
+      private: false,
+    },
+  });
+
+  return quizzes.filter((quiz) => quiz.creatorId !== userId);
+};
+
 // Function that runs when /api/quizzes is called without a query string
-export const getAllQuizzes = async () => {
+export const getAllQuizzes = async (userId: string) => {
   // Get all of the quizzes from mongoDB
-  const quizzes = await prisma.quiz.findMany();
+  const privateQuizzes = await getUsersPrivateQuizzes(userId);
+  const publicQuizzes = await getPublicQuizzes(userId);
+  
+  // Combine the private and public quizzes
+  // Private quizzes are always at the top of the array
+  // Removes duplicates
+  const quizzes = [...privateQuizzes, ...publicQuizzes];
   return quizzes;
 };
 
 // Function that runs when /api/quizzes is called with a query string
 // Takes a subject id as a parameter
-export const getQuizzesBySubjectId = async (subjectId: string) => {
-  // Get the quizzes by subject id from mongoDB
-  const quizzes = await prisma.quiz.findMany({
-    where: {
-      subjectId
-    }
-  });
+export const getQuizzesBySubjectId = async (userId: string, subjectId: string) => {
+  // Gets all quizzes accessible to the user
+  const allQuizzes = await getAllQuizzes(userId);
+
+  // Filters the quizzes by the subject id
+  const quizzes = allQuizzes.filter(quiz => quiz.subjectId === subjectId);
   return quizzes;
 };
 

@@ -18,10 +18,12 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   const { props } = await getUser(context);
 
   // If the user attribute is set, redirect them to the account page
-  return props.user && {
+  if (props.user) return {
     redirect: {
       destination: '/accounts/account',
       permanent: false
     }
   };
+
+  return { props };
 };
