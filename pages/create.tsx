@@ -1,6 +1,7 @@
-import { NextPage } from 'next';
+import { GetServerSidePropsContext, NextPage } from 'next';
 import PageTitle from '../components/General/PageTitle';
 import QuizForm from '../components/QuizForm';
+import getUser from '../lib/frontend/getUser';
 import createQuiz from '../lib/frontend/newQuiz';
 
 // Next page for creating a new quiz
@@ -19,3 +20,9 @@ const Create: NextPage = () => {
 };
 
 export default Create;
+
+// Get the user from the server
+// If the user is not logged in, redirect them to the login page
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+  return getUser(context);
+};

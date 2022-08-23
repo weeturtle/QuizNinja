@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { GetServerSidePropsContext, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import LoadWrapper from '../../components/General/LoadWrapper';
@@ -7,6 +7,7 @@ import Searchbox from '../../components/General/Searchbox';
 import QuizList from '../../components/Quizzes/QuizList';
 import QuizPageContainer from '../../components/Quizzes/QuizPageContainer';
 import useQuizzes from '../../lib/frontend/fetchQuizzes';
+import getUser from '../../lib/frontend/getUser';
 import { SubjectModel } from '../../prisma/zod';
 
 // This is a basic next page function
@@ -50,3 +51,9 @@ const Quizzes: NextPage = () => {
 };
 
 export default Quizzes;
+
+// Get the user from the server
+// If the user is not logged in, redirect them to the login page
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+  return getUser(context);
+};

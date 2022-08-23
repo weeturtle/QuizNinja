@@ -1,10 +1,11 @@
-import { NextPage } from 'next';
+import { GetServerSidePropsContext, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import LoadWrapper from '../../components/General/LoadWrapper';
 import PageTitle from '../../components/General/PageTitle';
 import QuizForm from '../../components/QuizForm';
 import useEditQuiz from '../../lib/frontend/editQuiz';
+import getUser from '../../lib/frontend/getUser';
 
 
 const EditQuiz: NextPage = () => {
@@ -46,3 +47,9 @@ const EditQuiz: NextPage = () => {
 };
 
 export default EditQuiz;
+
+// Get the user from the server
+// If the user is not logged in, redirect them to the login page
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+  return getUser(context);
+};

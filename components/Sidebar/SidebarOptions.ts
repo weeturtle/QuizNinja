@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+// Styles the links for the account and settings options
 const SidebarOptions = styled.div`
   width: 100%;  
 
