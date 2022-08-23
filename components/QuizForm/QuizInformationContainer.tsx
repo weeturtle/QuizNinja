@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 // Styles the container for the quiz name and subject
 export default styled.div`
-  width: 100%;
+  width: 80%;
   height: 20vh;
 
   display: flex;

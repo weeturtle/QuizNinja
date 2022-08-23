@@ -1,16 +1,16 @@
 import { useState } from 'react';
-import { QuizIdType } from '../../types/Quiz';
+import { QuizModel } from '../../prisma/zod';
 
 // Currently not used.
 
 const useDelete = (): [
   boolean,
-  (quiz: QuizIdType) => void,
+  (quiz: QuizModel) => void,
   () => void,
   () => void,
 ] => {
   const [showPopup, setShowPopup] = useState(false);
-  const [quiz, setQuiz] = useState<QuizIdType | null>();
+  const [quiz, setQuiz] = useState<QuizModel | null>();
 
   const handleDelete = () => {
     if (!quiz) return;
@@ -25,7 +25,7 @@ const useDelete = (): [
     setShowPopup(false);
   };
 
-  const handleShowPopup = (quiz: QuizIdType) => {
+  const handleShowPopup = (quiz: QuizModel) => {
     setShowPopup(true);
     setQuiz(quiz);
   };
