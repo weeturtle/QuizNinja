@@ -1,6 +1,7 @@
 import { NewQuizModel, QuizModel } from './zod';
 import prisma from './prisma';
 import { Quiz } from '@prisma/client';
+import userCanEdit from '../lib/server/Auth/userCanEdit';
 
 // Function called to find the user's own quizzes
 export const getUsersPrivateQuizzes = async (userId: string): Promise<Quiz[]> => {
@@ -85,9 +86,13 @@ export const getQuizById = async (id: string) => {
 };
 
 // Function that runs when /api/quiz/{id} is called with a DELETE method
-export const deleteQuiz = async (id: string) => {
-  // Delete the quiz by id from mongoDB
-  const quiz = await prisma.quiz.delete({
+export const deleteQuiz = async (id: string, userId: string) => {
+  // Check if the user is the creator of the quiz
+  const hasRight = await userCanEdit(id, userId);
+  
+  // If the user is the creator of the quiz
+  // Delete the quiz from mongoDB
+  const quiz = hasRight && await prisma.quiz.delete({
     where: {
       id,
     }
@@ -99,10 +104,16 @@ export const deleteQuiz = async (id: string) => {
 
 // Function that runs when /api/quiz/{id} is called with a PUT method
 // Takes a quiz as a parameter
-export const updateQuiz = async (rawQuiz: Quiz) => {
+export const updateQuiz = async (rawQuiz: Quiz, userId: string) => {
   // Convert the quiz to a Zod model
   // Validates the quiz against the Zod model
   const quiz = QuizModel.parse(rawQuiz);
+
+  // Check if user has right to edit the quiz
+  const hasRight = await userCanEdit(quiz.id, userId);
+
+  // If the user does not have edit rights to the quiz
+  if (!hasRight) return null;
 
   // Extracts the information from the quiz model
   // Not all of the information can be changed

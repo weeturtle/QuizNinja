@@ -3,7 +3,7 @@ import { NextApiHandler } from 'next';
 import decodeToken from '../../../lib/frontend/decodeToken';
 import getToken from '../../../lib/frontend/getToken';
 import { addQuiz, getAllQuizzes, getQuizzesBySubjectId } from '../../../prisma/quizzes';
-import { SubjectModel } from '../../../prisma/zod';
+import { NewQuizModel, SubjectModel } from '../../../prisma/zod';
 
 // Function that runs when /api/quizzes is called
 // Takes a request and a response parameter
@@ -34,6 +34,8 @@ const Quizzes: NextApiHandler = async (req, res) => {
       quizzes = await getAllQuizzes(userId);
     }
 
+    // Sorts the quizzes in order of private quizzes first
+    // Then sorts the quizzes by the quiz name alphabetically
     const sortedQuizzes = quizzes.sort((a, b) => {
       if (a.private) {
         return -1;
@@ -51,28 +53,29 @@ const Quizzes: NextApiHandler = async (req, res) => {
   }
   
   case 'POST': {
+    // Gets the user's id from the token
+    const token = getToken(req);
+    if (!token) return res.status(401).json({ error: 'Unauthorized' });
+
+    // Fetches the user's id from the token
+    const { userId } = decodeToken(token);
+
     // Calls the function to add a quiz to mongoDB
-    const quiz = await addQuiz({
-      name: 'Subtraction',
-      subjectId: '6302ab0a7c672c804a6e5d51',
-      questions: [
-        {
-          question: 'What is 1 - 1?',
-          answers: [
-            {
-              answer: '0',
-              isCorrect: true
-            },
-            {
-              answer: '1',
-              isCorrect: false
-            }
-          ]
-        }
-      ],
-      creatorId: '63028dde7c672c804a6e5d42',
-      private: true
+    const { name, subjectId, private: isPrivate, questions } = req.body;
+
+    // Validates the quiz against the Zod model
+    const newQuiz = NewQuizModel.parse({
+      name,
+      subjectId,
+      private: isPrivate,
+      questions,
+      creatorId: userId
     });
+
+    // Adds the quiz to mongoDB
+    const quiz = await addQuiz(newQuiz);
+    
+    // Returns the new quiz to the client
     return res.status(200).json(quiz);
   }
 
