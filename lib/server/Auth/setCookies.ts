@@ -1,4 +1,5 @@
 import { User } from '@prisma/client';
+import { setCookie } from 'cookies-next';
 import jwt from 'jsonwebtoken';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -20,8 +21,13 @@ const setCookies = (user: User, req: NextApiRequest, res: NextApiResponse) => {
     expiresIn: '1d',
   });
 
-  // Sets the cookies containing the token
-  res.setHeader('cookies', `token=${token}`);
+  // Sets the token as a cookie
+  setCookie('token', token, {
+    req,
+    res,
+    maxAge: 60 * 60 * 24,
+    path: '/'
+  });
 };
 
 export default setCookies;
