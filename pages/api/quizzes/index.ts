@@ -1,5 +1,7 @@
 import { Quiz } from '@prisma/client';
 import { NextApiHandler } from 'next';
+import decodeToken from '../../../lib/frontend/decodeToken';
+import getToken from '../../../lib/frontend/getToken';
 import { addQuiz, getAllQuizzes, getQuizzesBySubjectId } from '../../../prisma/quizzes';
 import { SubjectModel } from '../../../prisma/zod';
 
@@ -13,6 +15,9 @@ const Quizzes: NextApiHandler = async (req, res) => {
   case 'GET': {
     // Creates an empty array to store the quizzes
     let quizzes: Quiz[];
+
+    // Gets the user's id from the token
+    const { userId } = decodeToken(getToken(req) as string);
 
     // Extracts the subject id from the query string
     const { subjectId: rawSubjectId } = req.query;
