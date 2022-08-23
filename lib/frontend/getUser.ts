@@ -1,9 +1,9 @@
-import { getCookie } from 'cookies-next';
 import jwt from 'jsonwebtoken';
 import { GetServerSidePropsContext } from 'next';
 import { getUserById } from '../../prisma/user';
 import { PartialUserModel } from '../../prisma/zod';
 import CookieType from '../../types/cookieType';
+import getToken from './getToken';
 
 // Defines the type of the response from the getUser function
 // Either redirects the user to the login page or returns the user
@@ -22,10 +22,10 @@ interface GetUserResponse {
 // Returns the user and the redirect destination if the user is not logged in
 const getUser = async (context: GetServerSidePropsContext): Promise<GetUserResponse> => {
   // Extracts the response and request from the context
-  const { res, req } = context;
+  const { req } = context;
 
   // Extracts the cookie from the request
-  const token = getCookie('token', { req, res }) as string;
+  const token = getToken(req);
 
   // If the token is not present, redirect the user to the login page
   if (!token) {

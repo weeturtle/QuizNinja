@@ -1,8 +1,8 @@
-import { removeCookies } from 'cookies-next';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import Account from '../../components/Account/AccountsPage';
 import getUser from '../../lib/frontend/getUser';
+import { removeCookies } from 'cookies-next';
 
 // Next page component for the account page
 // This page is only accessible to logged in users
