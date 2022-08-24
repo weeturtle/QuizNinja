@@ -1,5 +1,5 @@
-import { SubjectsPartial } from '../../prisma/zod';
-import levenshteinDistance from '../Levenshtein';
+import { SubjectPartial, SubjectsPartial } from '../../prisma/zod';
+import { MapToOpject } from '../Levenshtein/mapToObject';
 
 export const getSubjectNameFromId = (id: string, subjects: SubjectsPartial) => {
   if (!id) return '';
@@ -18,13 +18,18 @@ export const getSubjectsIdFromName = (name: string, subjects: SubjectsPartial) =
 export const filterFunction = (searchTerm: string, subjects: SubjectsPartial) => {
   if (!searchTerm) return subjects;
 
-  const filteredSubjects = subjects.filter(subject =>
-    levenshteinDistance(subject.name.slice(0, searchTerm.length).toLowerCase(), searchTerm.toLowerCase()) < 2 ||
-    subject.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const mapped = MapToOpject<SubjectPartial>(subjects, (subject) => subject.name, searchTerm);
+
+  const filtered = mapped.filter(subject => 
+    subject.levDistance < 3 ||
+    subject.data.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  return filteredSubjects;
+  const sorted = filtered.sort((a, b) => a.levDistance - b.levDistance);
+
+  return sorted.map(subject => subject.data);
 };
+
 
 export default class SubjectSelectHandler {
   constructor(private subjects: SubjectsPartial) {}

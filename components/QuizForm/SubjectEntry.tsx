@@ -1,35 +1,57 @@
-import { Subject } from '@prisma/client';
 import { FC, useEffect, useState } from 'react';
-import levenshteinDistance from '../../lib/Levenshtein';
+import { SubjectsPartial } from '../../prisma/zod';
+import SubjectSelectHandler from '../../lib/frontend/subjectSelect';
 
 // Defines the props of the component
 // The props are the array subjects with ids to be displayed
 // The searchTerm is the search term used to filter the subjects
 interface SubjectListProps {
-  subjects: Subject[],
+  subjects: SubjectsPartial,
+  subjectId: string,
+  setSubjectId: (subjectId: string, subjectName: string) => void,
 }
 
-const SubjectEntryBox: FC<SubjectListProps> = ({ subjects }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+const SubjectEntryBox: FC<SubjectListProps> = ({ subjects, subjectId: initialSubjectId }) => {
+  const s = new SubjectSelectHandler(subjects);
+
+  const [searchTerm, setSearchTerm] = useState(s.getSubjectNameFromId(initialSubjectId));
+  const [subjectId, setSubjectId] = useState(initialSubjectId);
   const [renderSubjects, setRenderSubjects] = useState(subjects);
 
   useEffect(() => {
-    setRenderSubjects(subjects.filter(subject =>
-      levenshteinDistance(subject.name.toLowerCase(), searchTerm.toLowerCase()) < 3 ||
-      subject.name.toLowerCase().includes(searchTerm.toLowerCase())
-    ));
+    setRenderSubjects(s.filterFunction(searchTerm));
+    setSubjectId(s.getSubjectsIdFromName(searchTerm));
+  }, [searchTerm]);
+
+
+
+  useEffect(() => {
+    console.table(
+      {
+        subjectId,
+        searchTerm,
+      }
+    );
   }, [searchTerm]);
 
   return (
     <div>
       <input
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        value={searchTerm || s.getSubjectNameFromId(subjectId)}
+        onChange={(e) => {
+          setSearchTerm(e.target.value);
+          setSubjectId('');
+        }}
         placeholder='Subject...'
       />
       {
         renderSubjects.map((subject, i) => (
-          <p key={i}>{subject.name}</p>
+          <button
+            key={i}
+            onClick={() => setSearchTerm(subject.name)}
+          >
+            {subject.name}
+          </button>
         ))
       }
     </div>
