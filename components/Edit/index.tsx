@@ -12,19 +12,23 @@ interface EditProps {
   quiz: Quiz;
   subjects: SubjectsPartial;
   updateQuiz: (quiz: Quiz) => void;
+  handleSubject: (subjectId: string, name: string) => Promise<string>;
 }
 
-const Edit: FC<EditProps> = ({ quiz, subjects, updateQuiz }) => {
+const Edit: FC<EditProps> = ({ quiz, subjects, updateQuiz, handleSubject }) => {
   const [name, setName] = useState(quiz.name);
   const [isPrivate, setIsPrivate] = useState(quiz.private);
   const [subjectId, setSubjectId] = useState(quiz.subjectId || '');
+  const [subjectName, setSubjectName] = useState('');
   const [questions, setQuestions] = useState(quiz.questions);
 
-  const handleSubmitQuiz = () => {
+  const handleSubmitQuiz = async () => {
+    const subId = await handleSubject(subjectId, subjectName);
+
     updateQuiz({
       id: quiz.id,
       name,
-      subjectId,
+      subjectId: subId,
       questions,
       private: isPrivate,
       creatorId: quiz.creatorId,
@@ -45,6 +49,7 @@ const Edit: FC<EditProps> = ({ quiz, subjects, updateQuiz }) => {
           subjects={subjects}
           subjectId={subjectId}
           setSubjectId={setSubjectId}
+          setSubjectName={setSubjectName}
         />
         <input
           type='checkbox'

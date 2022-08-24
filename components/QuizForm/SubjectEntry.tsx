@@ -9,19 +9,20 @@ import { StyledSubjectContainer } from './StyledSubjectOptions';
 interface SubjectListProps {
   subjects: SubjectsPartial,
   subjectId: string,
-  setSubjectId: (subjectId: string, subjectName: string) => void,
+  setSubjectId: (subjectId: string) => void,
+  setSubjectName: (subjectName: string) => void,
 }
 
-const SubjectEntryBox: FC<SubjectListProps> = ({ subjects, subjectId: initialSubjectId }) => {
+const SubjectEntryBox: FC<SubjectListProps> = ({ subjects, subjectId: initialSubjectId, setSubjectId, setSubjectName }) => {
   const s = new SubjectSelectHandler(subjects);
 
   const [searchTerm, setSearchTerm] = useState(s.getSubjectNameFromId(initialSubjectId));
-  const [subjectId, setSubjectId] = useState(initialSubjectId);
   const [renderSubjects, setRenderSubjects] = useState(subjects);
 
   useEffect(() => {
     setRenderSubjects(s.filterFunction(searchTerm));
     setSubjectId(s.getSubjectsIdFromName(searchTerm));
+    setSubjectName(searchTerm);
   }, [searchTerm]);
 
 
@@ -29,7 +30,6 @@ const SubjectEntryBox: FC<SubjectListProps> = ({ subjects, subjectId: initialSub
   useEffect(() => {
     console.table(
       {
-        subjectId,
         searchTerm,
       }
     );
@@ -38,10 +38,9 @@ const SubjectEntryBox: FC<SubjectListProps> = ({ subjects, subjectId: initialSub
   return (
     <StyledSubjectContainer>
       <input
-        value={searchTerm || s.getSubjectNameFromId(subjectId)}
+        value={searchTerm}
         onChange={(e) => {
           setSearchTerm(e.target.value);
-          setSubjectId('');
         }}
         placeholder='Subject...'
       />
