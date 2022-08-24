@@ -12,10 +12,12 @@ interface QuizLinkProps {
   name: string,
   // The id of the quiz it links to which is used to get the url
   id: string,
+  // The privacy of the quiz it links to
+  hasRights: boolean;
 }
 
 // Simple React component to render a quiz link
-const QuizLink: FC<QuizLinkProps> = ({ name, id }) => {
+const QuizLink: FC<QuizLinkProps> = ({ name, id, hasRights }) => {
   // The state of the popup used to confirm delete
   // Popup is hidden by default
   const [openDelete, setOpenDelete] = useState(false);
@@ -29,6 +31,17 @@ const QuizLink: FC<QuizLinkProps> = ({ name, id }) => {
   // Next uses a Link component to generate a link
   // The a tag is generated with the name of the quiz and the URL from this
   // This allows the link to be styled with CSS
+
+  const handleShare = () => {
+    // Generates a URL to share the quiz
+    const SHARE_URL = 'localhost:3000/quiz/' + id;
+
+    // Coppies the URL to the clipboard
+    navigator.clipboard.writeText(SHARE_URL);
+    // Displays a message to the user
+    alert('URL copied to clipboard');
+  };
+
   return (
     <>
       <DeleteQuizPopup isOpen={openDelete} onClose={() => setOpenDelete(false)} quizName={name} quizId={id} />
@@ -40,18 +53,25 @@ const QuizLink: FC<QuizLinkProps> = ({ name, id }) => {
           <Link href={PLAY_URL}>
             <a>Play</a>
           </Link>
-          {/* Link to edit the quiz */}
-          <Link
-            href={EDIT_URL}
-          >
-            <a>Edit</a>
-          </Link>
-          {/* Link to delete the quiz */}
           <QuizLinkButton
-            onClick={() => setOpenDelete(true)}
+            onClick={handleShare}
           >
-            Delete
+            Share
           </QuizLinkButton>
+          {hasRights && (
+            <>
+              <Link
+                href={EDIT_URL}
+              >
+                <a>Edit</a>
+              </Link>
+              <QuizLinkButton
+                onClick={() => setOpenDelete(true)}
+              >
+              Delete
+              </QuizLinkButton>
+            </>
+          )}
         </QuizLinks>
       </QuizLinkContainer>
     </>

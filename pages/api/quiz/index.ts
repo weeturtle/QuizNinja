@@ -1,4 +1,6 @@
 import { NextApiHandler } from 'next';
+import decodeToken from '../../../lib/frontend/decodeToken';
+import getToken from '../../../lib/frontend/getToken';
 import { addQuiz, updateQuiz } from '../../../prisma/quizzes';
 
 // This is the handler for the quiz requests that use the request body
@@ -9,7 +11,14 @@ const Quiz: NextApiHandler = async (req, res) => {
     return res.status(200).json(user);
   }
   case 'PUT': {
-    const quiz = await updateQuiz(req.body);
+    const token = getToken(req);
+    if (!token) {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    const { userId } = decodeToken(token);
+
+    const quiz = await updateQuiz(req.body, userId);
 
     if (quiz) {
       return res.status(200).json(quiz);

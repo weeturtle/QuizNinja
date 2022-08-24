@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import LoadWrapper from '../../components/General/LoadWrapper';
@@ -7,11 +7,12 @@ import Searchbox from '../../components/General/Searchbox';
 import QuizList from '../../components/Quizzes/QuizList';
 import QuizPageContainer from '../../components/Quizzes/QuizPageContainer';
 import useQuizzes from '../../lib/frontend/fetchQuizzes';
+import getUser from '../../lib/frontend/getUser';
 import { SubjectModel } from '../../prisma/zod';
 
 // This is a basic next page function
 // It is the entry point for the quizzes page.
-const Quizzes: NextPage = () => {
+const Quizzes: NextPage = ({ user }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   // Utilises a custom hook to fetch quizzes from the server.
   // The hook returns a loading state and a list of quizzes and a function to refresh the quizzes.
   const [quizzes, updateQuizzes, updateQuizzesId, loadingState] = useQuizzes();
@@ -42,7 +43,7 @@ const Quizzes: NextPage = () => {
         <LoadWrapper loadingState={loadingState}>
           {/* The quiz list is rendered if the loading state is successful. */}
           {/* The quizzes are rendered as a list of links to the quiz page. */}
-          <QuizList quizzes={quizzes} searchTerm={searchTerm} />
+          <QuizList quizzes={quizzes} searchTerm={searchTerm} userId={user?.id || ''} />
         </LoadWrapper>
       </QuizPageContainer>
     </>
@@ -50,3 +51,9 @@ const Quizzes: NextPage = () => {
 };
 
 export default Quizzes;
+
+// Get the user from the server
+// If the user is not logged in, redirect them to the login page
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+  return getUser(context);
+};
