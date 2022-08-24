@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { SubjectsPartial } from '../../prisma/zod';
 import SubjectSelectHandler from '../../lib/frontend/subjectSelect';
+import { StyledSubjectContainer } from './StyledSubjectOptions';
 
 // Defines the props of the component
 // The props are the array subjects with ids to be displayed
@@ -35,7 +36,7 @@ const SubjectEntryBox: FC<SubjectListProps> = ({ subjects, subjectId: initialSub
   }, [searchTerm]);
 
   return (
-    <div>
+    <StyledSubjectContainer>
       <input
         value={searchTerm || s.getSubjectNameFromId(subjectId)}
         onChange={(e) => {
@@ -44,17 +45,19 @@ const SubjectEntryBox: FC<SubjectListProps> = ({ subjects, subjectId: initialSub
         }}
         placeholder='Subject...'
       />
-      {
-        renderSubjects.map((subject, i) => (
-          <button
-            key={i}
-            onClick={() => setSearchTerm(subject.name)}
-          >
-            {subject.name}
-          </button>
-        ))
-      }
-    </div>
+      <div className='subject-option-container'>
+        {
+          renderSubjects.map((subject, i) => (
+            <button
+              key={i}
+              onClick={() => setSearchTerm(subject.name)}
+            >
+              {subject.name}
+            </button>
+          ))
+        }
+      </div>
+    </StyledSubjectContainer>
   );
 };
 
