@@ -1,16 +1,16 @@
+import { Quiz } from '@prisma/client';
 import { useState } from 'react';
-import { QuizModel } from '../../prisma/zod';
 import LoadingState from '../../types/loadingState';
 import validateQuiz from './validateQuiz';
 
 // Custom reusable React hook
 // Loads and allows a the page to refetch the quiz
 // Returns a tuple of the quiz and a function to refetch the quiz
-export const useEditQuiz = (): [QuizModel | null, (quiz: QuizModel) => void, (id: string) => void, LoadingState] => {
+export const useEditQuiz = (): [Quiz | null, (quiz: Quiz) => void, (id: string) => void, LoadingState] => {
   // The useState hook is used to store the quiz
   // The quiz is initially null and is populated by the fetchQuiz function
   // useState renders the quiz list as it is updated
-  const [quiz, setQuiz] = useState<QuizModel | null>(null);
+  const [quiz, setQuiz] = useState<Quiz | null>(null);
 
   // The useState hook is used to store the loading state
   // The loading state is initially loading and is populated by the fetchQuiz function
@@ -42,7 +42,7 @@ export const useEditQuiz = (): [QuizModel | null, (quiz: QuizModel) => void, (id
 
   // Function to update the quiz
   // Takes the updated quiz as a parameter
-  const updateQuiz = async (quiz: QuizModel) => {
+  const updateQuiz = async (quiz: Quiz) => {
     // Set the loading state to pending
     setLoadingState(LoadingState.PENDING);
 
