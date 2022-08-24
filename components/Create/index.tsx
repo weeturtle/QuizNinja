@@ -1,7 +1,7 @@
-import { Quiz } from '@prisma/client';
+import { Question } from '@prisma/client';
 import { FC, useState } from 'react';
 import handleSubject from '../../lib/frontend/handleSubject';
-import { SubjectsPartial } from '../../prisma/zod';
+import { NewQuizModel, SubjectsPartial } from '../../prisma/zod';
 import QuizFormContainer from '../QuizForm/QuizFormContainer';
 import QuizInformationContainer from '../QuizForm/QuizInformationContainer';
 import QuizInformationInput from '../QuizForm/QuizInformationInput';
@@ -9,31 +9,28 @@ import QuizQuestionsContainer from '../QuizForm/QuizQuestionsContainer';
 import SubjectEntryBox from '../QuizForm/SubjectEntry';
 import SubmitQuizButton from '../QuizForm/SubmitQuizButton';
 
-interface EditProps {
-  quiz: Quiz;
+interface CreateProps {
   subjects: SubjectsPartial;
-  updateQuiz: (quiz: Quiz) => void;
+  createQuiz: (quiz: NewQuizModel) => void;
+  creatorId: string;
 }
 
-const Edit: FC<EditProps> = ({ quiz, subjects, updateQuiz }) => {
-  const [name, setName] = useState(quiz.name);
-  const [isPrivate, setIsPrivate] = useState(quiz.private);
-  const [subjectId, setSubjectId] = useState(quiz.subjectId || '');
+const Create: FC<CreateProps> = ({ subjects, createQuiz, creatorId }) => {
+  const [name, setName] = useState('');
+  const [isPrivate, setIsPrivate] = useState(false);
+  const [subjectId, setSubjectId] = useState('');
   const [subjectName, setSubjectName] = useState('');
-  const [questions, setQuestions] = useState(quiz.questions);
+  const [questions, setQuestions] = useState<Question[]>([]);
 
   const handleSubmitQuiz = async () => {
     const subId = await handleSubject(subjectId, subjectName);
 
-    updateQuiz({
-      id: quiz.id,
+    createQuiz({
       name,
       subjectId: subId,
       questions,
       private: isPrivate,
-      creatorId: quiz.creatorId,
-      createdAt: new Date(quiz.createdAt),
-      updatedAt: new Date(Date.now())
+      creatorId,
     });
   };
 
@@ -63,4 +60,4 @@ const Edit: FC<EditProps> = ({ quiz, subjects, updateQuiz }) => {
   );
 };
 
-export default Edit;
+export default Create;

@@ -25,6 +25,20 @@ export const StyledSubjectContainer = styled.div`
   .subject-option-container {
     width: 100%;
     max-height: 10rem;
+
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      width: 5px;
+      background-color: #323645;
+      border-radius: 12px;  
+    }
+    &::-webkit-scrollbar-track {
+    } 
+    &::-webkit-scrollbar-thumb {
+      border-radius: 12px;  
+      background-color: #A989CF;
+    }
+    
     
     position: absolute;
 

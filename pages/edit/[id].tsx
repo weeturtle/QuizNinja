@@ -18,22 +18,6 @@ const EditQuiz: NextPage<propType> = ({ subjects }: propType) => {
   // Creates an instance of the quiz hook
   const [quiz, updateQuiz, fetchQuiz, loadingState] = useEditQuiz();
 
-  const handleSubject = async (subjectId: string, name: string): Promise<string> => {
-    if (subjectId) return subjectId;
-    if (!name) return '';
-
-    const response = await fetch('/api/subjects', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ name })
-    });
-
-    const subject = await response.json();
-
-    return subject.id;
-  };
 
   // If the router object is not ready then wait for it to load
   useEffect(() => {
@@ -61,7 +45,6 @@ const EditQuiz: NextPage<propType> = ({ subjects }: propType) => {
               quiz={quiz}
               subjects={subjects}
               updateQuiz={updateQuiz}
-              handleSubject={handleSubject}
             />
           </>
         )}
