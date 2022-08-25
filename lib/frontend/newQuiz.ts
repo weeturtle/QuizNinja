@@ -22,7 +22,7 @@ const createQuiz = async (quiz: NewQuizModel) => {
     throw new Error('Failed to create quiz');
   }
 
-
+  // Returns the quiz object
   return await response.json();
 };
 

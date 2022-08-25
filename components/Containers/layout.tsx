@@ -4,6 +4,8 @@ import LayoutContainer from './LayoutContainer';
 import MainContainer from './MainContainer';
 import PageContainer from './PageContainer';
 
+// The layout is used to contain the sidebar and the main container
+// Parameters: children - the main content of the page
 interface LayoutProps {
   children: React.ReactNode;
 }

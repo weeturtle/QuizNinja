@@ -14,27 +14,32 @@ interface SubjectListProps {
 }
 
 const SubjectEntryBox: FC<SubjectListProps> = ({ subjects, subjectId: initialSubjectId, setSubjectId, setSubjectName }) => {
+  // Class used to store the array of subjects meaning it doesn't need to be passed as a prop
+  // Contains the functions to manipulate the array of subjects
   const s = new SubjectSelectHandler(subjects);
 
+  // The search term is used to filter the subjects
+  // It is set to the initial subject name
   const [searchTerm, setSearchTerm] = useState(s.getSubjectNameFromId(initialSubjectId));
+
+  // Array of subjects that match the search term
+  // These subjects are rendered as options in the select box
   const [renderSubjects, setRenderSubjects] = useState(subjects);
 
+  // The functions are called whenever the search term is changed
   useEffect(() => {
+    // Sets the array of subjects to be rendered to the array of subjects that match the search term
     setRenderSubjects(s.filterFunction(searchTerm));
+
+    // Sets the subject id to the matching subject name if there is one
     setSubjectId(s.getSubjectsIdFromName(searchTerm));
+
+    // Sets the subject name to the search term
     setSubjectName(searchTerm);
   }, [searchTerm]);
 
 
-
-  useEffect(() => {
-    console.table(
-      {
-        searchTerm,
-      }
-    );
-  }, [searchTerm]);
-
+  // Renders the select box that allows the user to select a subject
   return (
     <StyledSubjectContainer>
       <input

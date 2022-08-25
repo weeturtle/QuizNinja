@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import Colours from '../../styles/colours';
 
+// Styled component for the subject options
+// Stored as one component since it makes for a cleaner codebase
+// Allows simpler pseudo selectors to be used
 export const StyledSubjectContainer = styled.div`
   position: relative;
 

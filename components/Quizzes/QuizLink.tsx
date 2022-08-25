@@ -31,7 +31,6 @@ const QuizLink: FC<QuizLinkProps> = ({ name, id, hasRights }) => {
   // Next uses a Link component to generate a link
   // The a tag is generated with the name of the quiz and the URL from this
   // This allows the link to be styled with CSS
-
   const handleShare = () => {
     // Generates a URL to share the quiz
     const SHARE_URL = 'localhost:3000/quiz/' + id;

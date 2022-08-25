@@ -47,6 +47,8 @@ const Account: FC<AccountProps> = ({ user }) => {
     email,
     password 
   }: AccountType) => {
+    
+    // Sends the user's information to the server to be updated
     fetch('/api/user', {
       method: 'PUT',
       headers: {

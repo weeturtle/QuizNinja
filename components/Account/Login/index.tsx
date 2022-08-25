@@ -65,6 +65,7 @@ const Login: FC = () => {
     }
   };
 
+  // Renders the login form and contained components
   return (
     <StyledContainer>
       <StyledTitle>Login</StyledTitle>
