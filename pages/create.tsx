@@ -6,13 +6,13 @@ import CreateComponent from '../components/Create';
 import { SubjectsPartial } from '../prisma/zod';
 import { getAllSubjects } from '../prisma/subjects';
 
+// Types the props that are parsed to the page from getServerSideProps
 type propsType = InferGetServerSidePropsType<typeof getServerSideProps>
 
 // Next page for creating a new quiz
 // Renders a quiz form with and empty quiz
 const Create: NextPage<propsType> = ({ user, subjects }: propsType) => {
-  console.log(user);
-  
+  // Renders the create page component 
   return (
     <>
       <PageTitle>Create</PageTitle>
@@ -41,4 +41,5 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
       ...props,
       subjects,
     },
-  };};
+  };
+};

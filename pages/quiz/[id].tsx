@@ -6,6 +6,7 @@ import LoadWrapper from '../../components/General/LoadWrapper';
 import useQuiz from '../../lib/frontend/fetchQuiz';
 import getUser from '../../lib/frontend/getUser';
 
+// This is the page that is used to play a quiz
 const Quiz: NextPage = () => {
   
   // Creates an instance of the quiz hook

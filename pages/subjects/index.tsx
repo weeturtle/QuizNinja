@@ -7,7 +7,10 @@ import Searchbox from '../../components/General/Searchbox';
 import SubjectsPageContainer from '../../components/Subjects/SubjectsPageContainer';
 import getUser from '../../lib/frontend/getUser';
 
+// This is the page that is used to access the subjects
 const SubjectPage: NextPage = () => {
+  // Creates an instance of the subject hook
+  // Deconstructs the hook into the subjects, updateSubjects, and loadingState
   const [subjects, updateSubjects, loadingState] = useSubjects();
 
   // Uses a state hook to store the search term
