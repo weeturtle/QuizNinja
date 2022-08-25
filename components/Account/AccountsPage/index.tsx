@@ -47,7 +47,19 @@ const Account: FC<AccountProps> = ({ user }) => {
     email,
     password 
   }: AccountType) => {
-    console.log(firstname, lastname, email, password);
+    fetch('/api/user', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: user.id,
+        firstname,
+        lastname,
+        email,
+        password
+      })
+    });
   };
 
   // Renders the account page and form

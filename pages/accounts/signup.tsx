@@ -3,13 +3,13 @@ import Signup from '../../components/Account/Signup';
 import getUser from '../../lib/frontend/getUser';
 // The signup page is used to create a new user
 // It is only accessible to users who are not logged in
-const SigninPage: NextPage = () => {
+const SignupPage: NextPage = () => {
   return (
     <Signup />
   );
 };
 
-export default SigninPage;
+export default SignupPage;
 
 // Get the user from the server
 // If the user is logged in, redirect them to the account page

@@ -13,10 +13,10 @@ export const createSubject = async (subjectName: string) => {
   const name = SubjectModel.shape.name.parse(subjectName);
   
   // Creates a new subject in the database
-  const subject = await prisma.subject.create({
-    data: {
-      name,
-    },
+  const subject = await prisma.subject.upsert({
+    where: { name },
+    update: {},
+    create: { name },
   });
 
   // Returns the new subject

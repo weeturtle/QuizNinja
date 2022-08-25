@@ -1,5 +1,5 @@
 import { User } from '@prisma/client';
-import { NewUserModel } from './zod';
+import { NewUserModel, PartialUserModel } from './zod';
 import prisma from './prisma';
 
 // Function that runs when /api/users POST method is called
@@ -72,4 +72,41 @@ export const deleteUser = async (id: string): Promise<User | null> => {
 
   // Return the user or null
   return user;
+};
+
+// Function that runs when /api/users PUT method is called
+// Takes a NewUserModel as a parameter
+// Updates the user in mongoDB
+export const updateUser = async (user: PartialUserModel): Promise<User> => {
+  // Update the user by id from mongoDB
+  const response = await prisma.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
+    }
+  });
+
+  // Return the user
+  return response;
+};
+
+// Function that runs when /api/users PUT method is called with a password query string
+// Updates the user's password in mongoDB
+export const updateUserPassword = async (id: string, password: string): Promise<User> => {
+  // Update the user by id from mongoDB
+  const response = await prisma.user.update({
+    where: {
+      id,
+    },
+    data: {
+      password,
+    }
+  });
+
+  // Return the user
+  return response;
 };

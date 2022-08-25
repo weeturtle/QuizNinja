@@ -9,6 +9,21 @@ export const SubjectModel = z.object({
   updatedAt: z.date(),
 });
 
+// Removes the dates from the subject model
+// Allows for the subject model to be used in the frontend
+export const SubjectPartial = SubjectModel.omit({
+  createdAt: true,
+  updatedAt: true,
+});
+
+export type SubjectPartial = z.infer<typeof SubjectPartial>;
+
+// Defines the type of a subject returned from the database
+// This stops the serialising error
+export const SubjectsPartial = z.array(SubjectPartial);
+
+export type SubjectsPartial = z.infer<typeof SubjectsPartial>;
+
 // Defines the advanced type fetched using a connected query
 export interface CompleteSubject extends z.infer<typeof SubjectModel> {
   quizzes: CompleteQuiz[]

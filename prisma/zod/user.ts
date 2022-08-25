@@ -30,6 +30,7 @@ export const PartialUserModel = UserModel.omit({
 // Exports the types of the user models
 export type PartialUserModel = z.infer<typeof PartialUserModel>;
 export type NewUserModel = z.infer<typeof NewUserModel>;
+export type UserModel = z.infer<typeof UserModel>;
 
 // Defines the advanced type fetched using a connected query
 export interface CompleteUser extends z.infer<typeof UserModel> {

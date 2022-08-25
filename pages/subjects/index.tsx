@@ -22,7 +22,7 @@ const SubjectPage: NextPage = () => {
     <SubjectsPageContainer>
       <Searchbox value={searchTerm} onChange={setSearchTerm} placeholder='Search...' />
       <LoadWrapper loadingState={loadingState}>
-        <SubjectList subjects={subjects} />
+        <SubjectList subjects={subjects} searchTerm={searchTerm} />
       </LoadWrapper>
     </SubjectsPageContainer>
   );
