@@ -21,7 +21,6 @@ export const useSubjects = (): [Subject[], () => void, LoadingState] => {
 
     // Fetches the subject list from the server
     const response = await fetch('api/subjects');
-
   
     if (response.status !== 200) {
       // If the server returns an error, set the loading state to failed

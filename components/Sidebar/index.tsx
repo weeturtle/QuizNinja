@@ -1,8 +1,11 @@
+import Link from 'next/link';
 import { FC } from 'react';
 import SidebarContainer from './SidebarContainer';
 import SidebarHeader from './SidebarHeader';
 import SidebarLink from './SidebarLink';
 import SidebarLinkContainer from './SidebarLinkContainer';
+import SidebarOptionLink from './SidebarOptionLink';
+import SidebarOptions from './SidebarOptions';
 
 // Renders the sidebar which will always be visible
 // The sidebar will contain links to the different pages
@@ -18,6 +21,18 @@ const Sidebar: FC = () => {
         <SidebarLink text='Create' to='/create' />
         <SidebarLink text='Subjects' to='/subjects' />
       </SidebarLinkContainer>
+      <SidebarOptions>
+        <Link href='/settings'>
+          <SidebarOptionLink>
+            <span>Settings</span>
+          </SidebarOptionLink>
+        </Link>
+        <Link href='/accounts/account'>
+          <SidebarOptionLink>
+            <span>Account</span>
+          </SidebarOptionLink>
+        </Link>
+      </SidebarOptions>
     </SidebarContainer>
   );
 };

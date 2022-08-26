@@ -6,7 +6,7 @@ import styled from 'styled-components';
 // The links are shifted over to the right by 1.5rem
 export default styled.div`
   width: 100%;
-  height: 65vh;
+  height: 68vh;
 
   margin-top: 5vh;
   padding-left: 1.5rem;

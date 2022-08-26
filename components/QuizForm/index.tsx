@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
-import { Quiz, QuizId, QuizType, QuizIdType } from '../../types/Quiz';
+import { NewQuizModel, QuizModel } from '../../prisma/zod';
+
 import QuizFormContainer from './QuizFormContainer';
 import QuizInformationContainer from './QuizInformationContainer';
 import QuizInformationInput from './QuizInformationInput';
@@ -11,9 +12,9 @@ import SubmitQuizButton from './SubmitQuizButton';
 // updateQuiz: (quiz: QuizId) => void - The function to update the quiz data on the server
 // createQuiz: (quiz: Quiz) => void - The function to create a new quiz on the server
 interface QuizFormProps {
-  quiz: QuizIdType | QuizType;
-  createQuiz?: (quiz: QuizType) => void;
-  updateQuiz?: (quiz: QuizIdType) => void;
+  quiz: NewQuizModel | QuizModel;
+  createQuiz?: (quiz: NewQuizModel) => void;
+  updateQuiz?: (quiz: QuizModel) => void;
 
 }
 
@@ -23,28 +24,36 @@ const QuizForm: FC<QuizFormProps> = ({ quiz, createQuiz, updateQuiz }) => {
   // Each of the quiz's attributes are set to a state
   // This is used to update the quiz data when the user submits the quiz
   const [name, setName] = useState(quiz.name);
+
+  const [isPrivate, setIsPrivate] = useState(quiz.private);
   
-  const [subject, setSubject] = useState(quiz.subject);
+  const [subjectId, setSubjectId] = useState(quiz.subjectId);
   
   const [questions, setQuestions] = useState(quiz.questions);
 
 
   // Function to update the quiz data on the server
-  const handleSubmitQuiz = () => {
+  const handleSubmitQuiz = () => {   
     // If the quiz is being updated, update the quiz on the server
     'id' in quiz ? 
-      updateQuiz && updateQuiz(QuizId.parse({
+      updateQuiz && updateQuiz(QuizModel.parse({
         id: quiz.id,
         name,
-        subject,
-        questions
+        subjectId,
+        questions,
+        private: isPrivate,
+        creatorId: quiz.creatorId,
+        createdAt: new Date(quiz.createdAt),
+        updatedAt: new Date(quiz.updatedAt)
       }))
       :
     // If the quiz is being created, create the quiz on the server
-      createQuiz && createQuiz(Quiz.parse({
+      createQuiz && createQuiz(NewQuizModel.parse({
         name,
-        subject,
-        questions
+        subjectId,
+        questions,
+        private: isPrivate,
+        creatorId: quiz.creatorId
       }));
   };
 
@@ -60,9 +69,14 @@ const QuizForm: FC<QuizFormProps> = ({ quiz, createQuiz, updateQuiz }) => {
           placeholder='Name'
         />
         <QuizInformationInput
-          value={subject}
-          onChange={(e) => setSubject(e.target.value)}
+          value={subjectId || ''}
+          onChange={(e) => setSubjectId(e.target.value)}
           placeholder='Subject'
+        />
+        <input
+          type='checkbox'
+          checked={isPrivate}
+          onChange={() => setIsPrivate(isPrivate => !isPrivate)}
         />
       </QuizInformationContainer>
       <QuizQuestionsContainer questions={questions} setQuestions={setQuestions} />

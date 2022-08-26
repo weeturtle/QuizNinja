@@ -1,8 +1,10 @@
-import { QuizType } from '../../types/Quiz';
+import { NewQuizModel } from '../../prisma/zod';
 import validateQuiz from './validateQuiz';
 
 // Function that takes a quiz as parameter and sends it to the server
-const createQuiz = async (quiz: QuizType) => {
+const createQuiz = async (quiz: NewQuizModel) => {
+  console.table(quiz);
+  
   // Checks if the quiz is valid
   validateQuiz(quiz);
 
@@ -20,7 +22,7 @@ const createQuiz = async (quiz: QuizType) => {
     throw new Error('Failed to create quiz');
   }
 
-
+  // Returns the quiz object
   return await response.json();
 };
 
