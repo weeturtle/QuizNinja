@@ -1,4 +1,4 @@
-import { NewQuizModel, QuizPartial } from './zod';
+import { NewQuizModel, QuizPartial, QuizzesPartial } from './zod';
 import prisma from './prisma';
 import userCanEdit from '../lib/server/Auth/userCanEdit';
 
@@ -37,7 +37,7 @@ export const getAllQuizzes = async (userId: string) => {
   // Private quizzes are always at the top of the array
   // Removes duplicates
   const quizzes = [...publicQuizzes, ...privateQuizzes];
-  return quizzes;
+  return QuizzesPartial.parse(quizzes);
 };
 
 // Function that runs when /api/quizzes is called with a query string

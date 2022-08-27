@@ -47,10 +47,13 @@ export const QuizPartial = QuizModel.omit({
   updatedAt: true,
 });
 
+export const QuizzesPartial = z.array(QuizPartial);
+
 // Exports the types of the models
 export type QuizModel = z.infer<typeof QuizModel>;
 export type NewQuizModel = z.infer<typeof NewQuizModel>;
 export type QuizPartial = z.infer<typeof QuizPartial>;
+export type QuizzesPartial = z.infer<typeof QuizzesPartial>;
 
 // When a quiz is fetched from the database, it is converted to this type 
 export interface CompleteQuiz extends z.infer<typeof QuizModel> {
