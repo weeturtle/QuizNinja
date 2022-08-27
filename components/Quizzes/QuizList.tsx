@@ -23,7 +23,7 @@ const QuizList: FC<QuizListProps> = ({ quizzes, searchTerm, userId }) => {
           // If the search term is not provided, display all quizzes
           searchTerm ?
             // Filter the quizzes by the search term
-            quizzes.filter(quiz => quiz.name.toLowerCase().includes(searchTerm.toLowerCase()))
+            quizzes.filter(quiz => quiz.name.toLowerCase().includes(searchTerm.toLowerCase()) || quiz.id === searchTerm)
             :
             quizzes
         )

@@ -8,6 +8,7 @@ import getUser from '../../lib/frontend/getUser';
 import { PartialUserModel, SubjectsPartial } from '../../prisma/zod';
 import generatePropType from '../../lib/frontend/generatePropType';
 import useLoadingState from '../../lib/frontend/loadingState';
+import { getAllSubjects } from '../../prisma/subjects';
 
 type propType = InferGetServerSidePropsType<typeof getServerSideProps>;
 
@@ -41,7 +42,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext): ge
   if (!user) return {redirect: {destination: '/login', permanent: false}};
 
   // Fetches the subjects from the database
-  const subjects = await prisma.subject.findMany();
+  const subjects = await getAllSubjects();
 
   return {
     props: {
