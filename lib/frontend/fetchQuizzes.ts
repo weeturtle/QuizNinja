@@ -1,15 +1,15 @@
-import { Quiz } from '@prisma/client';
 import { useState } from 'react';
+import { QuizPartial } from '../../prisma/zod';
 import LoadingState from '../../types/loadingState';
 
 // Custom reusable React hook
 // Loads and allows a the page to refetch the quiz list
 // Returns a tuple of the quiz list and a function to refetch the list
-export const useQuizzes = (): [Quiz[], () => void, (subjectId: string) => void, LoadingState] => {
+export const useQuizzes = (): [QuizPartial[], () => void, (subjectId: string) => void, LoadingState] => {
   // The useState hook is used to store the quiz list since it is a dynamic list
   // The quiz list is initially empty and is populated by the fetchQuizzes function
   // useState renders the quiz list as it is updated
-  const [quizzes, setQuizzes] = useState<Quiz[]>([]);
+  const [quizzes, setQuizzes] = useState<QuizPartial[]>([]);
 
   const [loadingState, setLoadingState] = useState<LoadingState>(LoadingState.PENDING);
 

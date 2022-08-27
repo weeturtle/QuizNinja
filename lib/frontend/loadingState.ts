@@ -25,7 +25,7 @@ const loadingState = () => {
     };
   });
 
-  return {loadingState, error};
+  return {loadingState, error, setLoadingState};
 };
 
 export default loadingState;
