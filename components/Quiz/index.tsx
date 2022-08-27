@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+import { PartialUserModel } from '../../prisma/zod';
 import GameState from '../../types/gameState';
 import QuestionState from '../../types/questionState';
 import { AnswerType, QuizType } from '../../types/Quiz';
@@ -13,6 +14,7 @@ import QuizContainer from './QuizContainer';
 // Takes a quiz as a parameter
 interface QuizProps {
   quiz: QuizType;
+  user: PartialUserModel;
 }
 
 const QuizType: FC<QuizProps> = ({ quiz }) => {

@@ -41,9 +41,16 @@ export const NewQuizModel = z.object({
   questions: z.array(CompleteQuestion),
 });
 
+// Defines the parsable type of a quiz
+export const QuizPartial = QuizModel.omit({
+  createdAt: true,
+  updatedAt: true,
+});
+
 // Exports the types of the models
 export type QuizModel = z.infer<typeof QuizModel>;
 export type NewQuizModel = z.infer<typeof NewQuizModel>;
+export type QuizPartial = z.infer<typeof QuizPartial>;
 
 // When a quiz is fetched from the database, it is converted to this type 
 export interface CompleteQuiz extends z.infer<typeof QuizModel> {
