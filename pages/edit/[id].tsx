@@ -9,6 +9,7 @@ import { getAllSubjects } from '../../prisma/subjects';
 import { PartialUserModel, QuizPartial, SubjectsPartial } from '../../prisma/zod';
 import validateQuiz from '../../lib/frontend/validateQuiz';
 import LoadingState from '../../types/loadingState';
+import generatePropType from '../../lib/frontend/generatePropType';
 
 // Types the props that are parsed to the page from getServerSideProps
 type propType = InferGetServerSidePropsType<typeof getServerSideProps>
@@ -73,7 +74,7 @@ export default EditQuiz;
 
 // Get the user from the server
 // If the user is not logged in, redirect them to the login page
-export const getServerSideProps = async (context: GetServerSidePropsContext): Promise<{props: {user: PartialUserModel, subjects: SubjectsPartial, quiz: QuizPartial}} | {redirect: {destination: string, permanent: boolean}}> => {
+export const getServerSideProps = async (context: GetServerSidePropsContext): generatePropType<{user: PartialUserModel, subjects: SubjectsPartial, quiz: QuizPartial}> => {
   // Get the current user if they are logged in
   const {
     props: {user}

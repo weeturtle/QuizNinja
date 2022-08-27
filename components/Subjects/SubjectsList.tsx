@@ -1,5 +1,5 @@
-import { Subject } from '@prisma/client';
 import { FC } from 'react';
+import { SubjectsPartial } from '../../prisma/zod';
 import SubjectLink from './SubjectLink';
 import { SubjectLinkContainer } from './SubjectLinkContainer';
 
@@ -8,7 +8,7 @@ import { SubjectLinkContainer } from './SubjectLinkContainer';
 
 // The searchTerm is the search term used to filter the subjects
 interface SubjectListProps {
-  subjects: Subject[],
+  subjects: SubjectsPartial,
   searchTerm?: string,
 }
 
