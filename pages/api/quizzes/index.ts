@@ -1,9 +1,8 @@
-import { Quiz } from '@prisma/client';
 import { NextApiHandler } from 'next';
 import decodeToken from '../../../lib/frontend/decodeToken';
 import getToken from '../../../lib/frontend/getToken';
 import { addQuiz, getAllQuizzes, getQuizzesBySubjectId } from '../../../prisma/quizzes';
-import { NewQuizModel, SubjectModel } from '../../../prisma/zod';
+import { NewQuizModel, QuizzesPartial, SubjectModel } from '../../../prisma/zod';
 
 // Function that runs when /api/quizzes is called
 // Takes a request and a response parameter
@@ -14,7 +13,7 @@ const Quizzes: NextApiHandler = async (req, res) => {
   switch (req.method) {
   case 'GET': {
     // Creates an empty array to store the quizzes
-    let quizzes: Quiz[];
+    let quizzes: QuizzesPartial;
 
     // Gets the user's id from the token
     const { userId } = decodeToken(getToken(req) as string);

@@ -32,13 +32,10 @@ const QuizLink: FC<QuizLinkProps> = ({ name, id, hasRights }) => {
   // The a tag is generated with the name of the quiz and the URL from this
   // This allows the link to be styled with CSS
   const handleShare = () => {
-    // Generates a URL to share the quiz
-    const SHARE_URL = 'localhost:3000/quiz/' + id;
-
-    // Coppies the URL to the clipboard
-    navigator.clipboard.writeText(SHARE_URL);
+    // Coppies the ID to the clipboard
+    navigator.clipboard.writeText(id);
     // Displays a message to the user
-    alert('URL copied to clipboard');
+    alert('Quiz ID copied to clipboard');
   };
 
   return (
