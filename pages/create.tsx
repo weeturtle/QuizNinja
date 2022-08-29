@@ -1,9 +1,8 @@
 import { GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next';
 import PageTitle from '../components/General/PageTitle';
 import getUser from '../lib/frontend/getUser';
-import createQuiz from '../lib/frontend/newQuiz';
 import CreateComponent from '../components/Create';
-import { SubjectsPartial } from '../prisma/zod';
+import { NewQuizModel, SubjectsPartial } from '../prisma/zod';
 import { getAllSubjects } from '../prisma/subjects';
 
 // Types the props that are parsed to the page from getServerSideProps
@@ -12,6 +11,24 @@ type propsType = InferGetServerSidePropsType<typeof getServerSideProps>
 // Next page for creating a new quiz
 // Renders a quiz form with and empty quiz
 const Create: NextPage<propsType> = ({ user, subjects }: propsType) => {
+  // Function to create a new quiz
+  const createQuiz = async (rawQuiz: NewQuizModel) => {
+    // Validate the quiz
+    const quiz = NewQuizModel.parse(rawQuiz);
+
+    // Create the quiz
+    const response = await fetch('/api/quiz', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(quiz),
+    });
+
+    // Return the response
+    return response.json();
+  };
+
   // Renders the create page component 
   return (
     <>
