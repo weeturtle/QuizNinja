@@ -1,5 +1,5 @@
-import { Quiz } from '@prisma/client';
 import { FC } from 'react';
+import { QuizPartial } from '../../prisma/zod';
 import QuizLink from './QuizLink';
 import QuizLinkContainer from './QuizLinksContainer';
 
@@ -8,7 +8,7 @@ import QuizLinkContainer from './QuizLinksContainer';
 // The props are the array quizzes with ids to be displayed
 // The searchTerm is the search term used to filter the quizzes
 interface QuizListProps {
-  quizzes: Quiz[],
+  quizzes: QuizPartial[],
   searchTerm?: string,
   userId: string,
 }
@@ -23,7 +23,7 @@ const QuizList: FC<QuizListProps> = ({ quizzes, searchTerm, userId }) => {
           // If the search term is not provided, display all quizzes
           searchTerm ?
             // Filter the quizzes by the search term
-            quizzes.filter(quiz => quiz.name.toLowerCase().includes(searchTerm.toLowerCase()))
+            quizzes.filter(quiz => quiz.name.toLowerCase().includes(searchTerm.toLowerCase()) || quiz.id === searchTerm)
             :
             quizzes
         )

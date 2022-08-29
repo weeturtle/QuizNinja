@@ -1,7 +1,6 @@
-import { Quiz } from '@prisma/client';
 import { FC, useState } from 'react';
 import handleSubject from '../../lib/frontend/handleSubject';
-import { SubjectsPartial } from '../../prisma/zod';
+import { QuizPartial, SubjectsPartial } from '../../prisma/zod';
 import QuizFormContainer from '../QuizForm/QuizFormContainer';
 import QuizInformationContainer from '../QuizForm/QuizInformationContainer';
 import QuizInformationInput from '../QuizForm/QuizInformationInput';
@@ -14,9 +13,9 @@ import SubmitQuizButton from '../QuizForm/SubmitQuizButton';
 // subjects: array of subjects - the list of subjects that the user can choose from
 // updateQuiz: function - the function that will be called when the user submits the quiz
 interface EditProps {
-  quiz: Quiz;
+  quiz: QuizPartial;
   subjects: SubjectsPartial;
-  updateQuiz: (quiz: Quiz) => void;
+  updateQuiz: (quiz: QuizPartial) => void;
 }
 
 // The edit component is used to edit a quiz
@@ -46,8 +45,6 @@ const Edit: FC<EditProps> = ({ quiz, subjects, updateQuiz }) => {
       questions,
       private: isPrivate,
       creatorId: quiz.creatorId,
-      createdAt: new Date(quiz.createdAt),
-      updatedAt: new Date(Date.now())
     });
   };
 

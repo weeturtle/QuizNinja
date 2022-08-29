@@ -1,41 +1,23 @@
-import { GetServerSidePropsContext, NextPage } from 'next';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next';
 import QuizGame from '../../components/Quiz/index';
 import LoadWrapper from '../../components/General/LoadWrapper';
-import useQuiz from '../../lib/frontend/fetchQuiz';
 import getUser from '../../lib/frontend/getUser';
+import useLoadingState from '../../lib/frontend/loadingState';
+import { PartialUserModel, QuizModel, QuizPartial } from '../../prisma/zod';
+import { getQuizById } from '../../prisma/quizzes';
+import generatePropType from '../../lib/frontend/generatePropType'; 
+
+type propType = InferGetServerSidePropsType<typeof getServerSideProps>
 
 // This is the page that is used to play a quiz
-const Quiz: NextPage = () => {
+const Quiz: NextPage<propType> = ({ user, quiz }: propType) => {
   
-  // Creates an instance of the quiz hook
-  const [quiz, updateQuiz, loadingState] = useQuiz();
-  
-  // Creates an instance of the next router object
-  const router = useRouter();
-
-  useEffect(() => {
-    // If the router object is not ready then wait for it to load
-    if (!router.isReady) return;
-
-    // Extracts the quiz id from the url
-    const { id } = router.query;
-  
-    // If the quiz id is not provided, the user is redirected to the quizzes page.
-    if (!('id' in router.query)) router.push('/quizzes');
-    
-    
-    // Fetching and setting the quiz
-    updateQuiz(id as string);
-
-  }, [router.isReady]);
-
+  const { loadingState } = useLoadingState();
 
   return (
     <>
       <LoadWrapper loadingState={loadingState}>
-        {quiz && <QuizGame quiz={quiz}/>}
+        {quiz && <QuizGame quiz={quiz} user={user} />}
       </LoadWrapper>
     </>
   );
@@ -45,6 +27,32 @@ export default Quiz;
 
 // Get the user from the server
 // If the user is not logged in, redirect them to the login page
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  return getUser(context);
+export const getServerSideProps = async (context: GetServerSidePropsContext): generatePropType<{user: PartialUserModel, quiz: QuizPartial}> => {
+  // Get the current user if they are logged in
+  const {
+    props: {user}
+  } = await getUser(context);
+
+  // If the user is not logged in, redirect them to the login page
+  if (!user) return {redirect: {destination: '/login', permanent: false}};
+
+  // Extracts the quiz id from the url
+  const { id: rawId } = context.query;
+
+  // Validates the quiz id
+  const id = QuizModel.shape.id.parse(rawId);
+
+  // Fetches the quiz from the database
+  const quiz = await getQuizById(id);
+
+  // If the quiz does not exist, redirect the user to the quizzes page
+  if (!quiz) return { redirect: { destination: '/quizzes', permanent: false } };
+
+  // Returns the user and the quiz
+  return {
+    props: {
+      user,
+      quiz: QuizPartial.parse(quiz)
+    }
+  };
 };
