@@ -2,10 +2,9 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from
 import PageTitle from '../components/General/PageTitle';
 import getUser from '../lib/frontend/getUser';
 import CreateComponent from '../components/Create';
-import { NewQuizModel, SubjectsPartial } from '../prisma/zod';
+import { NewQuizModel, QuizPartial, SubjectsPartial } from '../prisma/zod';
 import { getAllSubjects } from '../prisma/subjects';
 import { useRouter } from 'next/router';
-import { addQuiz } from '../prisma/quizzes';
 
 // Types the props that are parsed to the page from getServerSideProps
 type propsType = InferGetServerSidePropsType<typeof getServerSideProps>
@@ -23,7 +22,15 @@ const Create: NextPage<propsType> = ({ user, subjects }: propsType) => {
     const quiz = NewQuizModel.parse(rawQuiz);
 
     // Add the quiz to the database
-    const newQuiz = await addQuiz(quiz);
+    const response = await fetch('/api/quizzes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(quiz),
+    });
+
+    const newQuiz = QuizPartial.parse(await response.json());
 
     // If the quiz was added successfully, redirect to the quiz's page
     if (newQuiz) {  
@@ -54,7 +61,11 @@ export default Create;
 // Get the user from the server
 // If the user is not logged in, redirect them to the login page
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const { props, redirect } = await getUser(context);
+  const { props: { user }, redirect } = await getUser(context);
+
+  // If the user is not logged in, redirect them to the login page
+  if (!user) return { redirect: { destination: '/accounts/login', permanent: false } };
+
   const rawSubjects = await getAllSubjects();
 
   const subjects = SubjectsPartial.parse(rawSubjects);
@@ -62,7 +73,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   return {
     redirect,
     props: {
-      ...props,
+      user,
       subjects,
     },
   };

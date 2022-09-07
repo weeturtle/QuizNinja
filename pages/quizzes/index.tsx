@@ -49,7 +49,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext): ge
   const {props: { user }} = await getUser(context);
 
   // If the user is not logged in, redirect them to the login page
-  if (!user) return {redirect: {destination: '/login', permanent: false}};
+  if (!user) return {redirect: {destination: '/accounts/login', permanent: false}};
 
   // Extracts the subject id from the query string if it exists
   const { subjectId: rawSubjectId } = context.query;
