@@ -2,7 +2,7 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import Account from '../../components/Account/AccountsPage';
 import getUser from '../../lib/frontend/getUser';
-import { removeCookies } from 'cookies-next';
+import { deleteCookie } from 'cookies-next';
 
 // Next page component for the account page
 // This page is only accessible to logged in users
@@ -15,7 +15,7 @@ const AccountPage = ({ user }: InferGetServerSidePropsType<typeof getServerSideP
   const signout = () => {
     // Remove the cookies from the browser
     // This will remove the user id from the session
-    removeCookies('token');
+    deleteCookie('token');
 
     // Redirect the user to the login page
     router.push('/accounts/login');

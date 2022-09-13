@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { NewQuizModel, QuizModel } from '../../prisma/zod';
+import { NewQuizModel, QuizPartial } from '../../prisma/zod';
 
 // Validates an object to make sure it is a valid quiz
 // Throws an error if the quiz is invalid
 // Returns the quiz as a quiz type if it is valid
-const validateQuiz = (quiz: (QuizModel | NewQuizModel | any)): QuizModel | NewQuizModel => {
+const validateQuiz = (quiz: (QuizPartial | NewQuizModel | any)): QuizPartial | NewQuizModel => {
 
   // // Checks basic quiz properties
   // if (!quiz.name) {
@@ -51,7 +51,7 @@ const validateQuiz = (quiz: (QuizModel | NewQuizModel | any)): QuizModel | NewQu
   // return quiz as Quiz;
   
   if (quiz.id) {
-    return QuizModel.parse(quiz);
+    return QuizPartial.parse(quiz);
   }
   return NewQuizModel.parse(quiz);
 

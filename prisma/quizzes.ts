@@ -1,10 +1,9 @@
-import { NewQuizModel, QuizModel } from './zod';
+import { NewQuizModel, QuizPartial, QuizzesPartial } from './zod';
 import prisma from './prisma';
-import { Quiz } from '@prisma/client';
 import userCanEdit from '../lib/server/Auth/userCanEdit';
 
 // Function called to find the user's own quizzes
-export const getUsersPrivateQuizzes = async (userId: string): Promise<Quiz[]> => {
+export const getUsersPrivateQuizzes = async (userId: string): Promise<QuizPartial[]> => {
   // Finds the user's private quizzes
   const quizzes = await prisma.quiz.findMany({
     where: {
@@ -17,7 +16,7 @@ export const getUsersPrivateQuizzes = async (userId: string): Promise<Quiz[]> =>
 };
 
 // Function called to find all public quizzes
-export const getPublicQuizzes = async (userId: string): Promise<Quiz[]> => {
+export const getPublicQuizzes = async (userId: string): Promise<QuizPartial[]> => {
   // Finds all of the public quizzes
   const quizzes = await prisma.quiz.findMany({
     where: {
@@ -38,7 +37,7 @@ export const getAllQuizzes = async (userId: string) => {
   // Private quizzes are always at the top of the array
   // Removes duplicates
   const quizzes = [...publicQuizzes, ...privateQuizzes];
-  return quizzes;
+  return QuizzesPartial.parse(quizzes);
 };
 
 // Function that runs when /api/quizzes is called with a query string
@@ -104,14 +103,10 @@ export const deleteQuiz = async (id: string, userId: string) => {
 
 // Function that runs when /api/quiz/{id} is called with a PUT method
 // Takes a quiz as a parameter
-export const updateQuiz = async (rawQuiz: Quiz, userId: string) => {
+export const updateQuiz = async (rawQuiz: QuizPartial, userId: string) => {
   // Convert the quiz to a Zod model
   // Validates the quiz against the Zod model
-  const quiz = QuizModel.parse({
-    ...rawQuiz,
-    updatedAt: new Date(rawQuiz.updatedAt),
-    createdAt: new Date(rawQuiz.createdAt),
-  });
+  const quiz = QuizPartial.parse(rawQuiz);
 
   // Check if user has right to edit the quiz
   const hasRight = await userCanEdit(quiz.id, userId);
