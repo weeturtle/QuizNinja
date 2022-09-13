@@ -4,9 +4,17 @@ import prisma from './prisma';
 
 // Function that runs when /api/users POST method is called
 // Takes a NewUserModel as a parameter
-export const addUser = async (user: NewUserModel): Promise<User> => {
+export const addUser = async (user: NewUserModel): Promise<User | null> => {
   // Extract the user's name, email and password from the NewUserModel
   const { firstname, lastname, email, password } = user;
+
+  // Checks whether a user with the same email already exists
+  const existingUser = await getUserByEmail(email);
+
+  // If a user with the same email already exists, return null
+  if (existingUser) {
+    return null;
+  }
 
   // Creates a new user in mongoDB
   // Stores the user that was created

@@ -34,6 +34,11 @@ const Signup: NextApiHandler = async (req, res) => {
   // Adds the user to the database
   const user = await addUser(userParse.data);
 
+  // If the user already exists with that email, return an error
+  if (!user) {
+    return res.status(422).json({ message: 'User already exists' });
+  }
+
   // Sets the cookies for the user
   // This signs them in automatically
   setCookies(user, req, res);

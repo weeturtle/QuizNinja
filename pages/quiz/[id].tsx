@@ -7,6 +7,7 @@ import { PartialUserModel, QuizModel, QuizPartial } from '../../prisma/zod';
 import { getQuizById } from '../../prisma/quizzes';
 import generatePropType from '../../lib/frontend/generatePropType'; 
 
+// Gets the type of the props that are parsed from the getServerSideProps function
 type propType = InferGetServerSidePropsType<typeof getServerSideProps>
 
 // This is the page that is used to play a quiz

@@ -36,7 +36,6 @@ const Signin: NextApiHandler = async (req, res) => {
 
   // Returns the user object to the client
   return res.status(200).json(user);
-
 };
 
 export default Signin;
