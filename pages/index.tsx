@@ -1,8 +1,11 @@
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
+import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import PageTitle from '../components/General/PageTitle';
 import Popup from '../components/Popup';
 import getUser from '../lib/frontend/getUser';
+
+const Canvas = dynamic(() => import('../components/Canvas'), { ssr: false });
 
 // Next page for the dashboard
 // Takes the user from the server and renders the dashboard
@@ -18,6 +21,8 @@ const Home = ({ user }: InferGetServerSidePropsType<typeof getServerSideProps>) 
       <Popup isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <h1>Popup</h1>
       </Popup>
+
+      <Canvas />
 
       <p>{user?.firstname}</p>
     </>
