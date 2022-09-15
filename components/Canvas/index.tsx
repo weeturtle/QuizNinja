@@ -2,7 +2,7 @@ import p5 from 'p5';
 import { FC, useEffect, useRef } from 'react';
 import GameObjectCollection from '../../lib/p5/GameObjectCollection';
 import GameState from '../../lib/p5/GameState';
-import PlayerCursor from '../../lib/p5/PlayerCursor';
+import SetupGame from '../../lib/p5/SetUpGame';
 
 const Canvas: FC = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -10,23 +10,31 @@ const Canvas: FC = () => {
 
   const sketch = (p: p5) => {
 
-    const gameObjects = new GameObjectCollection();
+    let gameObjects = new GameObjectCollection();
     let gameState = GameState.NEW_GAME;
 
     p.setup = () => {
-      p.createCanvas(400, 400);
+      p.createCanvas(1200, 800);
     };
+
     
     p.draw = () => {
+      p.background(0);
+
       switch(gameState) {
       case GameState.NEW_GAME:
-        gameObjects.add(new PlayerCursor(p.createVector(0, 0), p.createVector(0, 0), 25, p.color(100, 20, 14)), 'player');
+        SetupGame(p, gameObjects);
         gameState = GameState.IN_GAME;
+        console.log(gameObjects.query('player'));
         break;
         
       case GameState.IN_GAME:
         gameObjects.update(p);
         gameObjects.render(p);
+        break;
+      
+      case GameState.GAME_OVER:
+        gameObjects = new GameObjectCollection();
       }
     };
   };
@@ -41,7 +49,7 @@ const Canvas: FC = () => {
     return () => {
       p5Canvas.remove();
     };
-  }, [canvasRef.current]);
+  }, []);
 
   
   return (

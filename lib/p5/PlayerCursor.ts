@@ -6,23 +6,26 @@ class PlayerCursor extends GameObject {
   colour: p5.Color;
 
   constructor(
-    position: p5.Vector,
-    velocity: p5.Vector,
     radius: number,
     colour: p5.Color
   ) {
-    super(position, velocity);
+    super();
     this.radius = radius;
     this.colour = colour;
   }
 
   update(p: p5) {
-    this.position = p.createVector(p.mouseX, p.mouseY);
+    this.position.x = p.mouseX;
+    this.position.y = p.mouseY;
   }
 
   render(p: p5) {
+    p.push();
+
     p.fill(this.colour);
-    p.ellipse(this.position.x, this.position.x, this.radius);
+    p.ellipse(this.position.x, this.position.y, this.radius);
+
+    p.pop();
   }
 }
 

@@ -41,6 +41,8 @@ class GameObjectCollection<T extends GameObject = GameObject> {
     // Creates an instance of the internal object that will be stored in the collection
     const item: GameObjectCollectionInternal<T> = { tags: new Set, object };
 
+    console.log(tag);
+
     // If the object has a tag, add it to the tag index
     if (tag) {
       // Split up the tag string into an array of tags by .
@@ -190,10 +192,8 @@ class GameObjectCollection<T extends GameObject = GameObject> {
     let currentIterationObject = GameObjectIterator.next();
     while (!currentIterationObject.done) {
       // Get the current object
-      const currentGameObject = currentIterationObject.value[1].object;
+      currentIterationObject.value[1].object.render(p, this, currentIterationObject.value[0]);
 
-      // Render the object
-      currentGameObject.render(p, this, currentIterationObject.value[0]);
 
       // Get the next object
       currentIterationObject = GameObjectIterator.next();

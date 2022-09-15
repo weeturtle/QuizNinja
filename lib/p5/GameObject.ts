@@ -1,13 +1,14 @@
 import p5 from 'p5';
 import GameObjectCollection from './GameObjectCollection';
+import Vector from './Vector';
 
 abstract class GameObject {
-  public position: p5.Vector;
-  public velocity: p5.Vector;
+  public position: Vector;
+  public velocity: Vector;
 
-  constructor(position: p5.Vector, velocity: p5.Vector) {
-    this.position = position;
-    this.velocity = velocity;
+  constructor(position?: Vector, velocity?: Vector) {
+    this.position = position || new Vector(0, 0);
+    this.velocity = velocity || new Vector(0, 0);
   }
   
   abstract render (p: p5, collection: GameObjectCollection, id: number): void;
