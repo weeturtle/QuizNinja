@@ -1,12 +1,12 @@
 import Vector from '../Vector';
 
-// The speed of the ball
+// The initial speed of the ball
 const MAGNITUTE = 3.35;
 
 // Utility function to generate an initial velocity for an arc
 const generateArc = (givenAngle?: number): Vector => {
   // Generate a random number between 15 and 75
-  const angle = givenAngle || Math.floor(Math.random() * 60) + 20;
+  const angle = givenAngle || Math.floor(Math.random() * 50) + 30;
 
   // Convert the angle to radians
   const angleInRadians = (angle * Math.PI) / 180;

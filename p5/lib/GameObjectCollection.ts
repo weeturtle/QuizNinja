@@ -1,18 +1,23 @@
 import p5 from 'p5';
 import { GameObject } from './GameObject';
 
+// Types the instance of a game object in the game object collection
 type GameObjectCollectionInternal<T extends GameObject> = {
   tags: Set<string>,
   object: T
 }
 
+// Types the return type from iterating over the game object set collection
 type GameObjectIterableResult<T extends GameObject> = {
   id: number,
   object: T
 }
 
+// Types the iterable object which is returned from the game object collection query function
 type GameObjectIterable<T extends GameObject> = IterableIterator<GameObjectIterableResult<T>>
 
+// Class which represents a collection of game objects
+// This means the collection doesn't have to be global and the instance can be passed around
 class GameObjectCollection<T extends GameObject = GameObject> {
   // Stores a hash map of all the objects in the collection
   private objects: Map<number, GameObjectCollectionInternal<T>>;
@@ -40,8 +45,6 @@ class GameObjectCollection<T extends GameObject = GameObject> {
   add(object: T, tag?: string) {
     // Creates an instance of the internal object that will be stored in the collection
     const item: GameObjectCollectionInternal<T> = { tags: new Set, object };
-
-    console.log(tag);
 
     // If the object has a tag, add it to the tag index
     if (tag) {
@@ -128,10 +131,10 @@ class GameObjectCollection<T extends GameObject = GameObject> {
         };
       };
     } else {
-      // Split the different tags up by a . but dont split any elements split by a \.
+      // Split the different tags up .
       const tags = tag.split('.');
 
-      // start I at 0
+      // Starts i at 0
       let i = 0;
 
       // Get the first tag in the list

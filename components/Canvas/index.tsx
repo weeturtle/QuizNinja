@@ -3,6 +3,8 @@ import { FC, useEffect, useRef } from 'react';
 import GameObjectCollection from '../../p5/lib/GameObjectCollection';
 import GameState from '../../p5/GameState';
 import SetupGame from '../../p5/SetUpGame';
+import Fruit, { FruitType } from '../../p5/objects/Fruit';
+import Lives from '../../p5/objects/Lives';
 
 const Canvas: FC = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -21,6 +23,8 @@ const Canvas: FC = () => {
     p.draw = () => {
       p.background(0);
 
+      let lives: Lives;
+
       switch(gameState) {
       case GameState.NEW_GAME:
         SetupGame(p, gameObjects);
@@ -30,6 +34,19 @@ const Canvas: FC = () => {
       case GameState.IN_GAME:
         gameObjects.update(p);
         gameObjects.render(p);
+
+        lives = gameObjects.query('lives').next().value.object as Lives;
+
+        if (lives.lives === 0) {
+          gameState = GameState.GAME_OVER;
+        }
+
+        if ([...gameObjects.query('fruit')].length === 0) {
+          gameObjects.add(new Fruit(
+            FruitType.MELON,
+            60
+          ), 'fruit');
+        }
         break;
       
       case GameState.GAME_OVER:
