@@ -32,6 +32,14 @@ class Vector {
       v1.y-v2.y
     );
   }
+
+  // Calculates the distance between two vectors
+  // Returns a number
+  static dist(v1: Vector, v2: Vector): number {
+    return Math.sqrt(
+      (v1.x-v2.x)^2 + (v1.y-v2.y)^2
+    );
+  }
 }
 
 export default Vector;

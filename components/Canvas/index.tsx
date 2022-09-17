@@ -1,8 +1,8 @@
 import p5 from 'p5';
 import { FC, useEffect, useRef } from 'react';
-import GameObjectCollection from '../../lib/p5/GameObjectCollection';
-import GameState from '../../lib/p5/GameState';
-import SetupGame from '../../lib/p5/SetUpGame';
+import GameObjectCollection from '../../p5/lib/GameObjectCollection';
+import GameState from '../../p5/GameState';
+import SetupGame from '../../p5/SetUpGame';
 
 const Canvas: FC = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -25,7 +25,6 @@ const Canvas: FC = () => {
       case GameState.NEW_GAME:
         SetupGame(p, gameObjects);
         gameState = GameState.IN_GAME;
-        console.log(gameObjects.query('player'));
         break;
         
       case GameState.IN_GAME:

@@ -1,7 +1,7 @@
 import p5 from 'p5';
-import GameObject from './GameObject';
+import { CollisionObject } from '../lib/GameObject';
 
-class PlayerCursor extends GameObject {
+class PlayerCursor extends CollisionObject {
   radius: number;
   colour: p5.Color;
 
