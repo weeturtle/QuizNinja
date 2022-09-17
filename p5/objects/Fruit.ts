@@ -1,6 +1,7 @@
 import p5 from 'p5';
 import { CollisionObject } from '../lib/GameObject';
 import GameObjectCollection from '../lib/GameObjectCollection';
+import generateArc from '../lib/GenerateArc';
 import Vector from '../Vector';
 
 export enum FruitType {
@@ -18,11 +19,11 @@ class Fruit extends CollisionObject {
     type: FruitType,
     radius: number
   ) {
-    super(new Vector(50, 700), new Vector(1.5, -3), {
-      x: -radius,
-      y: radius - 1,
-      width: radius * 2,
-      height: radius * 2
+    super(new Vector(50, 700), generateArc(), {
+      x: -radius / 2,
+      y: -radius / 2,
+      width: radius,
+      height: radius
     });
 
     this.type = type;
@@ -42,7 +43,7 @@ class Fruit extends CollisionObject {
 
     const { object: playerObject } = [...collection.query('player')][0];
 
-    if (this.collide(playerObject)) {
+    if (this.collide(playerObject as CollisionObject)) {
       this.wasSliced = true;
       this.velocity.x = 0;
       this.velocity.y = 0;
@@ -52,10 +53,10 @@ class Fruit extends CollisionObject {
   render(p: p5) {
     p.push();
 
-    p.fill(100, 100, 100);
+    this.wasSliced ?
+      p.fill('red') :
+      p.fill('green');
     p.ellipse(this.position.x, this.position.y, this.radius);
-
-    this.debugRender(p);
 
     p.pop();
   }

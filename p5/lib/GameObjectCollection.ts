@@ -1,5 +1,5 @@
 import p5 from 'p5';
-import GameObject from './GameObject';
+import { GameObject } from './GameObject';
 
 type GameObjectCollectionInternal<T extends GameObject> = {
   tags: Set<string>,
