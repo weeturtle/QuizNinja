@@ -16,7 +16,7 @@ const Canvas: FC = () => {
     const gameState = new GameState();
 
     p.setup = () => {
-      p.createCanvas(1650, 950);
+      p.createCanvas((window.innerWidth * 0.8), (window.innerHeight * 0.9));
     };
     
     p.draw = () => {

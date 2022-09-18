@@ -9,7 +9,7 @@ class Floor extends CollisionObject {
     // Call the super constructor
     // Positions the floor at the bottom of the screen
     // Has a bounding box around it
-    super(new Vector(0, 830), new Vector(0, 0), {
+    super(new Vector(0, (window.innerHeight * 0.9 - 120)), new Vector(0, 0), {
       x: 0,
       y: 0,
       width: 1650,

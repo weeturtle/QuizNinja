@@ -1,7 +1,7 @@
 import Vector from '../Vector';
 
 // The initial speed of the ball
-const MAGNITUTE = 4;
+const MAGNITUTE = window.innerHeight * 0.00445;
 
 // Utility function to generate an initial velocity for an arc
 const generateArc = (givenAngle?: number): Vector => {
