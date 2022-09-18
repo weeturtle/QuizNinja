@@ -1,9 +1,11 @@
 import p5 from 'p5';
+import { AnswerType } from '../../prisma/zod';
 import { CollisionObject } from '../lib/GameObject';
 import GameObjectCollection from '../lib/GameObjectCollection';
 import generateArc from '../lib/GenerateArc';
 import Vector from '../Vector';
 import Lives from './Lives';
+import Score from './Score';
 
 // Possible fruit types
 export enum Fruits {
@@ -22,11 +24,11 @@ type FruitType = {
 export const fruits: FruitType = {
   [Fruits.MELON]: {
     colour: [15, 110, 0],
-    radius: 75,
+    radius: 100,
   },
   [Fruits.WATERMELON]: {
     colour: [189, 0, 0],
-    radius: 100,
+    radius: 110,
   },
   [Fruits.PINEAPPLE]: {
     colour: [252, 223, 3],
@@ -45,10 +47,13 @@ class Fruit extends CollisionObject {
   wasSliced: boolean;
   // Colour of the fruit
   colour: number[];
+  // Answer of the fruit
+  answer: AnswerType;
 
 
   constructor(
     type: Fruits,
+    answer: AnswerType
   ) {
     const { radius, colour } = fruits[type];
     // Call the super constructor
@@ -66,6 +71,7 @@ class Fruit extends CollisionObject {
     this.colour = colour;
     this.radius = radius;
     this.wasSliced = false;
+    this.answer = answer;
   }
 
   // Function that is called on every frame
@@ -75,16 +81,24 @@ class Fruit extends CollisionObject {
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
 
+    const { object: lives } = collection.query('lives').next().value as { object: Lives };
+    const { object: score } = collection.query('score').next().value as { object: Score };
+    
     // Accelerates the fruit downwards
     this.velocity.y += 0.015;
     
     // Determines whether the fruit has hit the floor
     const { object: floorObject } = [...collection.query('floor')][0];
+
+    // If the fruit has hit the floor
     if (this.collide(floorObject as CollisionObject)) {
-      if (!this.wasSliced) {
-        const { object: lives } = [...collection.query('lives')][0];
-        (lives as Lives).decreaseLives();
+      // If the fruit was not sliced and the answer was correct
+      if (!this.wasSliced && this.answer.isCorrect) {
+        // Decrease the number of lives by 1
+        lives.decreaseLives();
       }
+
+      // Removes the fruit from the game object collection
       collection.remove(id);
     }
 
@@ -96,9 +110,20 @@ class Fruit extends CollisionObject {
       // If the fruit was not sliced yet
       // Slices the fruit
       this.wasSliced = true;
+
       // Fruit stops path and falls to the floor
       this.velocity.x = 0;
       this.velocity.y = 0;
+
+      // If the answer is correct and the fruit was not sliced yet
+      if (this.answer.isCorrect) {
+        // Increase the score by 1
+        score.increaseScore();
+      } else {
+        // If the answer is incorrect and the fruit was not sliced yet
+        // Decrease the lives by 1
+        lives.decreaseLives();
+      }
     }
   }
 
@@ -113,6 +138,11 @@ class Fruit extends CollisionObject {
     // Draws the fruit as a circle
     p.ellipse(this.position.x, this.position.y, this.radius);
 
+    // Draws the answer within the fruit
+    p.fill('black');
+    p.text(
+      this.answer.answer,
+      this.position.x-(this.radius/2), this.position.y);
     p.pop();
   }
 }

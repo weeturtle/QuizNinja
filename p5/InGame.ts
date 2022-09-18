@@ -27,6 +27,10 @@ const inGame = (p: p5, gameObjects: GameObjectCollection, gameState: GameState) 
     gameObjects.add(new Fruit(
       // Randomly generate the type of the fruit
       randomEnum(Fruits),
+      {
+        answer: 'The answer',
+        isCorrect: false
+      }
     ), 'fruit');
   }
 };
