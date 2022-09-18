@@ -1,56 +1,39 @@
 import p5 from 'p5';
-import { FC, useEffect, useRef } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import GameObjectCollection from '../../p5/lib/GameObjectCollection';
-import GameState from '../../p5/GameState';
+import GameState, { GameStates } from '../../p5/GameState';
 import SetupGame from '../../p5/SetUpGame';
-import Fruit, { FruitType } from '../../p5/objects/Fruit';
-import Lives from '../../p5/objects/Lives';
+import inGame from '../../p5/InGame';
 
 const Canvas: FC = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
 
+  const [displayGame, setDisplayGame] = useState(true);
 
   const sketch = (p: p5) => {
 
-    let gameObjects = new GameObjectCollection();
-    let gameState = GameState.NEW_GAME;
+    const gameObjects = new GameObjectCollection();
+    const gameState = new GameState();
 
     p.setup = () => {
-      p.createCanvas(1200, 800);
+      p.createCanvas(1650, 950);
     };
-
     
     p.draw = () => {
-      p.background(0);
+      p.background(89, 36, 12);
 
-      let lives: Lives;
-
-      switch(gameState) {
-      case GameState.NEW_GAME:
-        SetupGame(p, gameObjects);
-        gameState = GameState.IN_GAME;
+      switch(gameState.state) {
+      case GameStates.NEW_GAME:
+        SetupGame(gameObjects);
+        gameState.state = GameStates.IN_GAME;
         break;
         
-      case GameState.IN_GAME:
-        gameObjects.update(p);
-        gameObjects.render(p);
-
-        lives = gameObjects.query('lives').next().value.object as Lives;
-
-        if (lives.lives === 0) {
-          gameState = GameState.GAME_OVER;
-        }
-
-        if ([...gameObjects.query('fruit')].length === 0) {
-          gameObjects.add(new Fruit(
-            FruitType.MELON,
-            60
-          ), 'fruit');
-        }
+      case GameStates.IN_GAME:
+        inGame(p, gameObjects, gameState);
         break;
       
-      case GameState.GAME_OVER:
-        gameObjects = new GameObjectCollection();
+      case GameStates.GAME_OVER:
+        setDisplayGame(false);
       }
     };
   };
@@ -68,9 +51,9 @@ const Canvas: FC = () => {
   }, []);
 
   
-  return (
+  return displayGame ? (
     <div ref={canvasRef} />
-  );
+  ) : null;
 
 };
 

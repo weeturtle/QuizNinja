@@ -6,30 +6,55 @@ import Vector from '../Vector';
 import Lives from './Lives';
 
 // Possible fruit types
-export enum FruitType {
+export enum Fruits {
   MELON = 'melon',
   WATERMELON = 'watermelon',
   PINEAPPLE = 'pineapple'
 }
 
+type FruitType = {
+  [key in Fruits]: {
+    colour: number[],
+    radius: number
+  }
+}
+
+export const fruits: FruitType = {
+  [Fruits.MELON]: {
+    colour: [15, 110, 0],
+    radius: 75,
+  },
+  [Fruits.WATERMELON]: {
+    colour: [189, 0, 0],
+    radius: 100,
+  },
+  [Fruits.PINEAPPLE]: {
+    colour: [252, 223, 3],
+    radius: 125,
+  }
+};
+
 // Class which represents a fruit object
 // Inherits from the CollisionObject class
 class Fruit extends CollisionObject {
   // The type of the fruit
-  type: FruitType;
+  type: Fruits;
   // Takes the size of the fruit
   radius: number;
   // Determines whether the fruit was sliced or not
   wasSliced: boolean;
+  // Colour of the fruit
+  colour: number[];
+
 
   constructor(
-    type: FruitType,
-    radius: number
+    type: Fruits,
   ) {
+    const { radius, colour } = fruits[type];
     // Call the super constructor
     // With the starting position and a random velocity
     // Adds a square bounding box around the object
-    super(new Vector(50, 650), generateArc(), {
+    super(new Vector(50, 600), generateArc(), {
       x: -radius / 2,
       y: -radius / 2,
       width: radius,
@@ -38,6 +63,7 @@ class Fruit extends CollisionObject {
 
     // Sets the parameters to class attributes
     this.type = type;
+    this.colour = colour;
     this.radius = radius;
     this.wasSliced = false;
   }
@@ -50,7 +76,7 @@ class Fruit extends CollisionObject {
     this.position.y += this.velocity.y;
 
     // Accelerates the fruit downwards
-    this.velocity.y += 0.01;
+    this.velocity.y += 0.015;
     
     // Determines whether the fruit has hit the floor
     const { object: floorObject } = [...collection.query('floor')][0];
@@ -82,9 +108,7 @@ class Fruit extends CollisionObject {
 
     // Draws the fruit
     // Depending on the type of the fruit and whether it was sliced or not
-    this.wasSliced ?
-      p.fill('red') :
-      p.fill('green');
+    p.fill(this.colour);
 
     // Draws the fruit as a circle
     p.ellipse(this.position.x, this.position.y, this.radius);

@@ -30,7 +30,7 @@ class Lives extends GameObject {
     // Sets the text size to 20
     p.textSize(20);
     // Draws the text
-    p.text(`Lives: ${this.lives}`, 10, 20);
+    p.text(`Lives: ${this.lives}`, 1565, 20);
 
     p.pop();
   }

@@ -5,17 +5,11 @@ import { CollisionObject } from '../lib/GameObject';
 class PlayerCursor extends CollisionObject {
   // Stores the radius of the cursor
   radius: number;
-  // Stores the colour of the cursor
-  colour: p5.Color;
 
-  constructor(
-    radius: number,
-    colour: p5.Color
-  ) {
+  constructor() {
     super();
     // Sets the parameters to class attributes
-    this.radius = radius;
-    this.colour = colour;
+    this.radius = 25;
   }
 
   // Function which updates the cursor's position
@@ -28,9 +22,8 @@ class PlayerCursor extends CollisionObject {
   // Function which renders the cursor
   render(p: p5) {
     p.push();
-
     // Sets the fill colour to the cursor colour
-    p.fill(this.colour);
+    p.fill('grey');
     // Draws a circle at the cursor position
     p.ellipse(this.position.x, this.position.y, this.radius);
 

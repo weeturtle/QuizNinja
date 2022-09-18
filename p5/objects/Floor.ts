@@ -5,14 +5,14 @@ import Vector from '../Vector';
 // Class which represents a floor object
 // Inherits from the CollisionObject class
 class Floor extends CollisionObject {
-  constructor (position: Vector) {
+  constructor () {
     // Call the super constructor
     // Positions the floor at the bottom of the screen
     // Has a bounding box around it
-    super(position, new Vector(0, 0), {
+    super(new Vector(0, 830), new Vector(0, 0), {
       x: 0,
       y: 0,
-      width: 1200,
+      width: 1650,
       height: 120
     });
   }
@@ -25,10 +25,10 @@ class Floor extends CollisionObject {
     p.push();
 
     // Sets the fill colour to orange
-    p.fill('orange');
+    p.fill(46, 18, 6);
     // Draws a rectangle at the floor's position
     // Covers the whole width of the screen
-    p.rect(this.position.x, this.position.y, 1200, 120);
+    p.rect(this.position.x, this.position.y, 1650, 120);
     
     p.pop();
   }
