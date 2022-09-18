@@ -59,7 +59,7 @@ class Fruit extends CollisionObject {
     // Call the super constructor
     // With the starting position and a random velocity
     // Adds a square bounding box around the object
-    super(new Vector(50, (window.innerHeight * 0.9 - 120 - radius)), generateArc(), {
+    super(new Vector(50, (window.innerHeight * 0.9 - 120 - radius)), generateArc(30), {
       x: -radius / 2,
       y: -radius / 2,
       width: radius,

@@ -1,7 +1,11 @@
 import Vector from '../Vector';
 
 // The initial speed of the ball
-const MAGNITUTE = window.innerHeight * 0.00445;
+// Depends on the size of the canvas
+const MAGNITUTE = Math.min(
+  (window.innerHeight * 0.00445),
+  (window.innerWidth * 0.003)
+);
 
 // Utility function to generate an initial velocity for an arc
 const generateArc = (givenAngle?: number): Vector => {
