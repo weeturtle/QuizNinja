@@ -3,13 +3,12 @@ import PlayerCursor from './objects/PlayerCursor';
 import Floor from './objects/Floor';
 import Lives from './objects/Lives';
 import Score from './objects/Score';
-import Questions from './Questions';
 import Question from './objects/Question';
 
 // Function which creates the basic game objects
 // and adds them to the game object collection
 // This function is called once at the start of the game
-const SetupGame = (collection: GameObjectCollection, questions: Questions) => {
+const SetupGame = (collection: GameObjectCollection) => {
   // Create a new player cursor object
   // Adds it to the game object collection with the tag 'player'
   collection.add(new PlayerCursor(), 'player');
@@ -30,7 +29,7 @@ const SetupGame = (collection: GameObjectCollection, questions: Questions) => {
 
   // Creates a new question object
   // Adds it to the game object collection with the tag 'question'
-  collection.add(new Question(questions.getCurrentQuestion().question), 'question');
+  collection.add(new Question(), 'question');
 
 };
 

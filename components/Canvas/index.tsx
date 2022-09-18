@@ -29,7 +29,7 @@ const Canvas: FC = () => {
 
       switch(gameState.state) {
       case GameStates.NEW_GAME:
-        SetupGame(gameObjects, questions);
+        SetupGame(gameObjects);
         gameState.state = GameStates.IN_GAME;
         break;
         

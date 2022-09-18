@@ -4,9 +4,9 @@ import { GameObject } from '../lib/GameObject';
 class Question extends GameObject {
   question: string;
 
-  constructor(question: string) {
+  constructor() {
     super();
-    this.question = question;
+    this.question = '';
   }
 
   newQuestion (question: string) {

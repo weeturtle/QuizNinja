@@ -29,6 +29,11 @@ const inGame = (p: p5, gameObjects: GameObjectCollection, gameState: GameState, 
 
   // If no fruit is being displayed
   if (!currentFruit) {
+    // Fetch question object from the game collection
+    const question = gameObjects.query('question').next().value.object as Question;
+    // Set the question text to the current question
+    question.newQuestion(questions.getCurrentQuestion().question);
+    
     // If there are no more answers to the current question
     if (questions.isAnswersFinished()) {
       // Go to the next question
@@ -42,10 +47,6 @@ const inGame = (p: p5, gameObjects: GameObjectCollection, gameState: GameState, 
         return;
       }
     
-      // Fetch question object from the game collection
-      const question = gameObjects.query('question').next().value.object as Question;
-      // Set the question text to the current question
-      question.newQuestion(questions.getCurrentQuestion().question);
     }
 
     // Creates a new fruit
