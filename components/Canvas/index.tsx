@@ -1,24 +1,26 @@
 import p5 from 'p5';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import GameObjectCollection from '../../p5/lib/GameObjectCollection';
 import GameState, { GameStates } from '../../p5/GameState';
 import SetupGame from '../../p5/SetUpGame';
 import inGame from '../../p5/InGame';
 import Questions from '../../p5/Questions';
-import { sampleQuestions } from '../../sampleData';
+import { QuestionType } from '../../prisma/zod';
 
-const Canvas: FC = () => {
+interface GameCanvasProps {
+  questions: QuestionType[];
+  setInGame: (inGame: boolean) => void;
+  setScore: (score: number) => void;
+}
+
+const GameCanvas: FC<GameCanvasProps> = ({ questions: quizQuestions, setInGame, setScore }) => {
   const canvasRef = useRef<HTMLDivElement>(null);
-
-  const [displayGame, setDisplayGame] = useState(true);
 
   const sketch = (p: p5) => {
 
     const gameObjects = new GameObjectCollection();
+    const questions = new Questions(quizQuestions);
     const gameState = new GameState();
-    const questions = new Questions(
-      sampleQuestions
-    );
 
     p.setup = () => {
       p.createCanvas((window.innerWidth * 0.8), (window.innerHeight * 0.9));
@@ -38,7 +40,8 @@ const Canvas: FC = () => {
         break;
       
       case GameStates.GAME_OVER:
-        setDisplayGame(false);
+        setScore(gameObjects.query('score').next().value?.score);
+        setInGame(false);
       }
     };
   };
@@ -56,10 +59,8 @@ const Canvas: FC = () => {
   }, []);
 
   
-  return displayGame ? (
-    <div ref={canvasRef} />
-  ) : null;
+  return <div ref={canvasRef} />;
 
 };
 
-export default Canvas;
+export default GameCanvas;
