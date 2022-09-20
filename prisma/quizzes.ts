@@ -63,7 +63,10 @@ export const addQuiz = async (rawQuiz: NewQuizModel) => {
   // Add the quiz to mongoDB
   // Stores the quiz that was added
   const newQuiz = await prisma.quiz.create({
-    data: quiz
+    data: {
+      ...quiz,
+      subjectId: quiz.subjectId || null,
+    }
   });
 
   // Return the quiz that was added

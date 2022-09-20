@@ -17,22 +17,23 @@ interface QuizProps {
 }
 
 const QuizType: FC<QuizProps> = ({ quiz }) => {
-  // Creates a state variable for the current game state
+  // Creates a state variable for whether the game is in progress
   const [inGame, setInGame] = useState(true);
 
-  // Creates a state variable for the current score
+  // Creates a state variable for the final score 
+  // Current score is stored within a component in the game object collection
   const [score, setScore] = useState(0);
 
   return (
     <>
-      { // If the game state is ingame
+      { // If the game is in progress, render the canvas
         inGame && (
           <GameCanvas questions={quiz.questions} setInGame={setInGame} setScore={setScore} />
         )
       }
       { // Displays a game over screen after all of the questions
         !inGame && (
-          <Gameover score={score} totalQuestions={quiz.questions.length} />
+          <Gameover score={score} questions={quiz.questions} />
         )
       }
     </>
