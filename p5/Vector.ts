@@ -1,4 +1,6 @@
+// Class to store 2 dimensional vectors
 class Vector {
+  // Takes an x and y value and returns a new vector
   x: number;
   y: number;
 

@@ -1,39 +1,47 @@
 import p5 from 'p5';
 import { FC, useEffect, useRef } from 'react';
 import GameObjectCollection from '../../p5/lib/GameObjectCollection';
-import GameState from '../../p5/GameState';
+import GameState, { GameStates } from '../../p5/GameState';
 import SetupGame from '../../p5/SetUpGame';
+import inGame from '../../p5/InGame';
+import Questions from '../../p5/Questions';
+import { QuestionType } from '../../prisma/zod';
 
-const Canvas: FC = () => {
+interface GameCanvasProps {
+  questions: QuestionType[];
+  setInGame: (inGame: boolean) => void;
+  setScore: (score: number) => void;
+}
+
+const GameCanvas: FC<GameCanvasProps> = ({ questions: quizQuestions, setInGame, setScore }) => {
   const canvasRef = useRef<HTMLDivElement>(null);
-
 
   const sketch = (p: p5) => {
 
-    let gameObjects = new GameObjectCollection();
-    let gameState = GameState.NEW_GAME;
+    const gameObjects = new GameObjectCollection();
+    const questions = new Questions(quizQuestions);
+    const gameState = new GameState();
 
     p.setup = () => {
-      p.createCanvas(1200, 800);
+      p.createCanvas((window.innerWidth * 0.8), (window.innerHeight * 0.9));
     };
-
     
     p.draw = () => {
-      p.background(0);
+      p.background(89, 36, 12);
 
-      switch(gameState) {
-      case GameState.NEW_GAME:
-        SetupGame(p, gameObjects);
-        gameState = GameState.IN_GAME;
+      switch(gameState.state) {
+      case GameStates.NEW_GAME:
+        SetupGame(gameObjects);
+        gameState.state = GameStates.IN_GAME;
         break;
         
-      case GameState.IN_GAME:
-        gameObjects.update(p);
-        gameObjects.render(p);
+      case GameStates.IN_GAME:
+        inGame(p, gameObjects, gameState, questions);
         break;
       
-      case GameState.GAME_OVER:
-        gameObjects = new GameObjectCollection();
+      case GameStates.GAME_OVER:
+        setScore(gameObjects.query('score').next().value?.score);
+        setInGame(false);
       }
     };
   };
@@ -46,15 +54,13 @@ const Canvas: FC = () => {
     }
 
     return () => {
-      p5Canvas.remove();
+      p5Canvas && p5Canvas.remove();
     };
   }, []);
 
   
-  return (
-    <div ref={canvasRef} />
-  );
+  return <div ref={canvasRef} />;
 
 };
 
-export default Canvas;
+export default GameCanvas;
