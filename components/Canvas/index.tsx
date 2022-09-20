@@ -40,7 +40,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ questions: quizQuestions, setInGame, 
         break;
       
       case GameStates.GAME_OVER:
-        setScore(gameObjects.query('score').next().value?.score);
+        setScore(gameObjects.query('score').next().value?.object.score);
         setInGame(false);
       }
     };
