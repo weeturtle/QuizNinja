@@ -128,7 +128,7 @@ export const updateQuiz = async (rawQuiz: QuizPartial, userId: string) => {
     },
     data: {
       name,
-      subjectId,
+      subjectId: subjectId || null,
       questions,
     }
   });

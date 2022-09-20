@@ -27,12 +27,13 @@ const inGame = (p: p5, gameObjects: GameObjectCollection, gameState: GameState, 
   // Gets the current fruit from the game object collection
   const currentFruit = gameObjects.query('fruit').next().value?.object;
 
+  // Fetch question object from the game collection
+  const question = gameObjects.query('question').next().value.object as Question;
+  // Set the question text to the current question
+  question.newQuestion(questions.getCurrentQuestion().question);
+  
   // If no fruit is being displayed
   if (!currentFruit) {
-    // Fetch question object from the game collection
-    const question = gameObjects.query('question').next().value.object as Question;
-    // Set the question text to the current question
-    question.newQuestion(questions.getCurrentQuestion().question);
     
     // If there are no more answers to the current question
     if (questions.isAnswersFinished()) {

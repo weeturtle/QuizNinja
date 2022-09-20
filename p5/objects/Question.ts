@@ -25,7 +25,7 @@ class Question extends GameObject {
     // Sets the text size to 20
     p.textSize(20);
     // Draws the text
-    p.text(this.question, 10, (window.innerHeight * 0.9 - 100));
+    p.text(this.question, 40, (window.innerHeight * 0.9 - 55));
 
     p.pop();
   }
