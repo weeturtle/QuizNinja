@@ -74,3 +74,32 @@ export const sampleQuiz = {
     }
   ] 
 };
+
+export const sampleQuestions = [
+  {
+    question: 'What is 2 + 2?',
+    answers: [
+      {
+        answer: '4',
+        isCorrect: true,
+      },
+      {
+        answer: '3',
+        isCorrect: false,
+      }
+    ]
+  },
+  {
+    question: 'Who created F=ma',
+    answers: [
+      {
+        answer: 'Isaac Newton',
+        isCorrect: true,
+      },
+      {
+        answer: 'Albert Einstein',
+        isCorrect: false,
+      }
+    ]
+  },
+];

@@ -1,25 +1,25 @@
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
+import { GetServerSidePropsContext } from 'next';
+import dynamic from 'next/dynamic';
 import { useState } from 'react';
-import PageTitle from '../components/General/PageTitle';
-import Popup from '../components/Popup';
 import getUser from '../lib/frontend/getUser';
+import { sampleQuestions } from '../sampleData';
 
+// Import and render the canvas component
+// This is done dynamically to prevent the canvas from being rendered on the server
+// This is because the canvas uses the window object which is not available on the server
+const Canvas = dynamic(() => import('../components/Canvas'), { ssr: false });
 // Next page for the dashboard
-// Takes the user from the server and renders the dashboard
-const Home = ({ user }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  // State hook to store the the state of the popup
-  const [isOpen, setIsOpen] = useState(false);
+const Home = () => {
+  const [inGame, setInGame] = useState(true);
+  const [score, setScore] = useState(0);
 
   return (
     <>
-      <PageTitle>Dashboard</PageTitle>
-      <button onClick={() => setIsOpen(true)}>Open popup</button>
-
-      <Popup isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <h1>Popup</h1>
-      </Popup>
-
-      <p>{user?.firstname}</p>
+      {inGame ?
+        <Canvas questions={sampleQuestions} setInGame={setInGame} setScore={setScore} />
+        :
+        <p>{score}</p>
+      }
     </>
   );
 };
