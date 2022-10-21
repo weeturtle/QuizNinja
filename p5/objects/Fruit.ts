@@ -24,15 +24,15 @@ type FruitType = {
 export const fruits: FruitType = {
   [Fruits.MELON]: {
     colour: [15, 110, 0],
-    radius: 100,
+    radius: 115,
   },
   [Fruits.WATERMELON]: {
     colour: [189, 0, 0],
-    radius: 110,
+    radius: 125,
   },
   [Fruits.PINEAPPLE]: {
     colour: [252, 223, 3],
-    radius: 125,
+    radius: 135,
   }
 };
 
@@ -140,9 +140,17 @@ class Fruit extends CollisionObject {
 
     // Draws the answer within the fruit
     p.fill('black');
+    p.textAlign('center', 'center');
+    
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    p.textWrap('WORD');
+    p.textSize(15);
     p.text(
       this.answer.answer,
-      this.position.x-(this.radius/2), this.position.y);
+      this.position.x - this.radius/2, this.position.y - this.radius/2,
+      this.radius, this.radius
+    );
     p.pop();
   }
 }
