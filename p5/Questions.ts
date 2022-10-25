@@ -11,7 +11,7 @@ class Questions {
     this.currentAnswer = 0;
   }
 
-  getCurrentQuestion(): QuestionType {
+  get CurrentQuestion(): QuestionType {
     return this.questions[this.currentQuestion];
   }
 
@@ -20,11 +20,11 @@ class Questions {
     this.currentAnswer = 0;
   }
 
-  isQuestionsFinished(): boolean {
+  get isQuestionsFinished(): boolean {
     return this.currentQuestion >= this.questions.length ;
   }
 
-  getCurrentAnswer(): AnswerType {
+  get CurrentAnswer(): AnswerType {
     return this.questions[this.currentQuestion].answers[this.currentAnswer];
   }
 
@@ -32,7 +32,7 @@ class Questions {
     this.currentAnswer++;
   }
 
-  isAnswersFinished(): boolean {
+  get isAnswersFinished(): boolean {
     return this.currentAnswer >= this.questions[this.currentQuestion].answers.length;
   }
 
