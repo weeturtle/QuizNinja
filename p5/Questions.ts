@@ -21,7 +21,7 @@ class Questions {
   }
 
   // Returns the current question
-  getCurrentQuestion(): QuestionType {
+  get CurrentQuestion(): QuestionType {
     return this.questions[this.currentQuestion];
   }
 
@@ -33,14 +33,14 @@ class Questions {
   }
 
   // Determines if there are questions remaining
-  isQuestionsFinished(): boolean {
+  get isQuestionsFinished(): boolean {
     // Returns true if the current question is greater than or equal to the length of the questions array
     // Otherwise returns false
     return this.currentQuestion >= this.questions.length ;
   }
 
   // Returns the current answer
-  getCurrentAnswer(): AnswerType {
+  get CurrentAnswer(): AnswerType {
     // Returns the current answer at the current answer index of the current question
     return this.questions[this.currentQuestion].answers[this.currentAnswer];
   }
@@ -51,7 +51,7 @@ class Questions {
   }
 
   // Determines if there are answers remaining
-  isAnswersFinished(): boolean {
+  get isAnswersFinished(): boolean {
     return this.currentAnswer >= this.questions[this.currentQuestion].answers.length;
   }
 
