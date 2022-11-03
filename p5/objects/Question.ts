@@ -1,15 +1,19 @@
 import p5 from 'p5';
 import { GameObject } from '../lib/GameObject';
 
+// Class which displays the current question
 class Question extends GameObject {
+  // Stores the current question
   question: string;
 
   constructor() {
     super();
+    // Sets the question to an empty string
     this.question = '';
   }
 
   newQuestion (question: string) {
+    // Sets the question to the new question
     this.question = question;
   }
 
